@@ -1,4 +1,5 @@
 # Todo list
+- this README should be the todo list for next week and also a place to leave some short, important notes.
 
 ## Liby
 |Tasks|Due Date|
