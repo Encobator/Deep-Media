@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>深度传媒</title>
+
+    <!-- Vendors -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- Promin -->
+    <link rel="stylesheet" type="text/css" href="css/promin.css" />
+    <script type="text/javascript" src="js/jquery.promin.js"></script>
+
+    <!-- navbar -->
+    <link rel="stylesheet" href="css/slicknav.css" />
+    <script src="js/jquery.slicknav.min.js"></script>
+
+    <script src="js/jquery.barrating.min.js"></script>
+    <link rel="stylesheet" href="css/css-stars.css">
+
+    <!-- Custom -->
+    <style>
+
+    @font-face {
+      font-family:Georgia, "Times New Roman",
+             "Microsoft YaHei", "微软雅黑",
+             STXihei, "华文细黑",
+             serif;
+      font-size: 20px;
+    }
+    body {
+        margin:-5px;
+        padding:0;
+    }
+    #navbar {
+      display: none;
+    }
+    .slicknav_menu {
+    	display:block;
+    }
+    body {
+    }
+
+    .container {
+        background-color: #fafafa;
+        margin: 0 auto;
+        padding: 50px;
+				height: 87vh;
+    }
+
+    .row {
+        border-bottom: 1px solid #ccc;
+        padding: 40px 0;
+    }
+
+    .row.noborder {
+        border: 0;
+    }
+
+    .example {
+        background-color: #fafafa;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .table { margin-bottom: 40px; }
+    .table td { padding: 10px; }
+
+    .table thead {
+        background-color: #40a6ff;
+        color: white;
+    }
+
+    .table thead td { border: 0; }
+
+
+    .progress-bar {
+        background-color: #eee;
+        height: 0.25em;
+    }
+
+    .progress-bar .bar {
+        background-color: rgb(185,32,52);
+        display: block;
+        height: 0.25em;
+        width: 0%;
+				-webkit-transition: width 1s;
+				-moz-transition: width 1s;
+				-o-transition: width 1s;
+				transition: width 1s;
+    }
+		#navigation {
+		    background-color:rgba(185,32,52,0.8);
+				color: white;
+		    font-size:16px;
+				width: 120px;
+				height: 40px;
+		    /* ... other rules ... */
+		    cursor:pointer;
+				-webkit-appearance: none;
+		}
+    .br-widget {
+        margin-bottom: 30px;
+    }
+    </style>
+</head>
+
+<body>
+  <ul id="navbar">
+     <li><a href="films.html">广告与微电影 Ad/Short movies</a></li>
+     <li><a href="branding.html">品牌形象包装 Branding</a></li>
+     <li><a href="signup.html">演员报名 About us</a></li>
+     <li><a href="verify.html">项目进度查询 Project progress</a></li>
+     <li><a href="info.html">联系方式 Contact us</a></li>
+     <li><a href="comment.html">项目评价 Rate your project</a></li>
+  </ul>
+
+  <div class="container">
+      <div class="row noborder">
+          <div class="span12">
+              <h1>项目评价</h1>
+
+              <div id="demo">
+                  <form action="comment_success.html" id="form" enctype="application/x-www-form-urlencoded" method="post">
+                      <div class="pm-step">
+                          <p>您对深度视界本次的服务打几分？</p>
+                          <select id="rating" name="rating" form="form">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                          </select>
+                      </div>
+                      <div class="pm-step">
+                          <p>您觉得深度视界的服务有什么优点或缺点？</p>
+                          <textarea name="comments" autocomplete="off"></textarea>
+  										</div>
+                      <div class="pm-step">
+                          <p>您对深度视界还有什么意见和建议？</p>
+                          <textarea name="advice" autocomplete="off"></textarea>
+  										</div>
+
+
+                      <p class="muted"><input type="button" id="navigation" value="下一步" /></p>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <script type="text/javascript">
+  		$('body').css('display', 'none');
+  		$('body').fadeIn(300);
+
+      $('#navbar').slicknav({
+          label: '',
+          duration: 300
+          //prependTo:'#demo2'
+      });
+      $('#rating').barrating({
+        theme: 'css-stars'
+      });
+      // Cache the form
+      var $form = $('#form');
+
+      // Stuff for the progress bar
+      var $bar = $('.progress-bar .bar');
+      var steps = $('.pm-step').length;
+
+      // Initialize Promin
+      $form.promin({
+          // Want to update the bar on every change
+          events: {
+  						next: function(i) {
+
+                var temp =$('textarea').eq(i-1).val();
+                /*
+                var temp =$('input').eq(i-1).val().replace(/\s/g, '');
+                alert(i+temp);
+  							//var temp =$('input').eq(i-1).val().replace(/\s/g, '');
+  							var temp;
+  							if (i==3)
+  								temp =$('.pm-step').eq(i-1).find('input[name="gender"]:checked').val();
+  							else if (i==6)
+  								temp =$('.pm-step').eq(i-1).find('input[name="exp"]:checked').val();
+  							else
+  								temp =$('.pm-step').eq(i-1).find('input').val().replace(/\s/g, '');
+  							var email_check =
+  									/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+  							if ((i==7||i==2||i==3||i==4||i==5||i==6)
+  									&&temp==""){
+  										alert("当前内容不能为空！请确认您已回答当前问题");
+  										return false;
+  							}
+  							if (i==9&&temp!=""&&!email_check.test(temp)){
+  								alert("邮箱格式不正确，请重新输入邮箱");
+  								return false;
+  							}*/
+  						},
+              change: function(i) {
+                  $bar.css('width', (i / steps * 100) + '%');
+              }
+          }
+      });
+
+      // Tell the button to go to the next step
+      $('#navigation').on('click', function() {
+          $form.promin('next');
+      });
+  </script>
+
+</body>
+</html>

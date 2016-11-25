@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>深度传媒</title>
+
+    <!-- Vendors -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- Timeline -->
+    <script src="js/vertical-timeline.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/vertical-timeline.css">
+
+    <!-- navbar -->
+    <link rel="stylesheet" href="css/slicknav.css" />
+    <script src="js/jquery.slicknav.min.js"></script>
+
+    <script src="js/jquery.barrating.min.js"></script>
+    <link rel="stylesheet" href="css/bars-movie.css">
+
+    <!-- Custom -->
+    <style>
+
+    @font-face {
+      font-family:Georgia, "Times New Roman",
+             "Microsoft YaHei", "微软雅黑",
+             STXihei, "华文细黑", "Helvetica Neue",
+             serif;
+      font-size: 20px;
+    }
+    body {
+        margin:0;
+        padding:0;
+    }
+    #navbar {
+        display: none;
+    }
+    .slicknav_menu {
+        display:block;
+    }
+    .header {
+        width: 12em;
+        margin: 0 auto;
+    }
+    .rating_container {
+      width: 310px;
+      margin: 0 auto;
+      margin-bottom: 35px;
+    }
+
+    </style>
+</head>
+
+<body>
+  <ul id="navbar">
+     <li><a href="films.html">广告与微电影 Ad/Short movies</a></li>
+     <li><a href="branding.html">品牌形象包装 Branding</a></li>
+     <li><a href="signup.html">演员报名 About us</a></li>
+     <li><a href="verify.html">项目进度查询 Project progress</a></li>
+     <li><a href="info.html">联系方式 Contact us</a></li>
+     <li><a href="comment.html">项目评价 Rate your project</a></li>
+  </ul>
+
+  <div class="header">
+      <h1>项目进度状况</h1>
+  </div>
+
+  <div class="rating_container">
+    <select id="rating">
+      <option value="1">给我更努力一些！</option>
+      <option value="2">这进度，勉勉强强</option>
+      <option value="3">嗯，再接再厉</option>
+      <option value="4">干得不错！</option>
+      <option value="5">这效率简直出乎意料！</option>
+    </select>
+  </div>
+
+  <div id="progress">
+      <div data-vtdate="1 April 2016">
+            进入拍片阶段
+      </div>
+      <div data-vtdate="3 March 2016">
+            剧本设计完成
+      </div>
+      <div data-vtdate="2 February 2016">
+            初步探讨剧本
+      </div>
+      <div data-vtdate="1 February 2016">
+            开始项目
+      </div>
+  </div>
+  <div style="margin-bottom: 30px;"></div>
+
+  <script type="text/javascript">
+      $('body').css('display', 'none');
+      $('body').fadeIn(300);
+
+      $('#rating').barrating({
+        theme: 'bars-movie'
+      });
+
+      $('#navbar').slicknav({
+          label: '',
+          duration: 300
+          //prependTo:'#demo2'
+      });
+      $('.br-widget a').click(function(){
+          alert("感谢您的评价！");
+      });
+
+      $('#progress').verticalTimeline({
+          startSide: 'right',
+          alternate: false
+      });
+
+  </script>
+
+</body>
+</html>
