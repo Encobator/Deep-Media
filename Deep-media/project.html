@@ -50,11 +50,13 @@
       <h1>项目进度状况</h1>
   </div>
 
+  <p style="text-align:center">双击评分，让我们看到您的想法！</p>
+
   <div class="rating_container">
     <select id="rating">
       <option value="1">给我更努力一些！</option>
       <option value="2">这进度，勉勉强强</option>
-      <option value="3">嗯，再接再厉</option>
+      <option value="3" selected>嗯，再接再厉</option>
       <option value="4">干得不错！</option>
       <option value="5">这效率简直出乎意料！</option>
     </select>
@@ -77,6 +79,7 @@
   <div style="margin-bottom: 30px;"></div>
 
   <script type="text/javascript">
+
       $('body').css('display', 'none');
       $('body').fadeIn(300);
 
@@ -89,7 +92,37 @@
           duration: 300
           //prependTo:'#demo2'
       });
-      $('.br-widget a').click(function(){
+
+      $.event.special.doubletap = {
+         bindType: 'touchend',
+         delegateType: 'touchend',
+
+         handle: function(event) {
+           var handleObj   = event.handleObj,
+               targetData  = jQuery.data(event.target),
+               now         = new Date().getTime(),
+               delta       = targetData.lastTouch ? now - targetData.lastTouch : 0,
+               delay       = delay == null ? 300 : delay;
+
+           if (delta < delay && delta > 30) {
+             targetData.lastTouch = null;
+             event.type = handleObj.origType;
+             ['clientX', 'clientY', 'pageX', 'pageY'].forEach(function(property) {
+               event[property] = event.originalEvent.changedTouches[0][property];
+             })
+
+             // let jQuery handle the triggering of "doubletap" event handlers
+             handleObj.handler.apply(this, arguments);
+           } else {
+             targetData.lastTouch = now;
+           }
+         }
+       };
+
+      $('.br-widget a').dblclick(function(){
+          alert("感谢您的评价！");
+      });
+      $('.br-widget a').on("doubletap", function(){
           alert("感谢您的评价！");
       });
 

@@ -21,10 +21,9 @@
     <link rel="stylesheet" href="css/reset.css">
     <style>
     .container {
-        background-color: #fafafa;
         margin: 0 auto;
         padding: 25px;
-				height: 87vh;
+        height: 100%;
     }
 
     .row {
@@ -94,13 +93,15 @@
   <div class="container">
       <div class="row noborder">
           <div class="span12">
-              <h1>请输入项目验证码：</h1>
+              <h1>项目查询入口</h1>
+              <p>此链接仅供深度视界客户查询项目进度。如果您是深度视界客户，请填写由我司发送给您的项目验证码。
+              如果您是客户但尚未获得验证码，请联系相关工作人员。</p>
 
               <div id="demo">
                   <form action="project.html" id="form" enctype="application/x-www-form-urlencoded" method="post">
 
                       <div class="pm-step">
-                          <input type="text" name="auth" autocomplete="off" />
+                          <input type="text" name="auth" autocomplete="off" placeholder="例：a1234567"/>
                       </div>
 
                       <p class="progress-bar">
@@ -146,8 +147,6 @@
       $('#navigation').on('click', function() {
           $form.promin('next');
       });
-
-  		$(":radio").labelauty();
   </script>
 
 </body>
