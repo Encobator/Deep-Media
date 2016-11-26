@@ -57,6 +57,7 @@
   .slicknav_nav ul {
     display: block; }
   .slicknav_nav li {
+    margin: 0 10px;
     border-bottom: 3px solid #efefef;
     display: block; }
   .slicknav_nav li:last-child {

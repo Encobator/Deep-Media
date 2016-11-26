@@ -21,27 +21,8 @@
     <link rel="stylesheet" href="css/css-stars.css">
 
     <!-- Custom -->
+    <link rel="stylesheet" href="css/reset.css">
     <style>
-
-    @font-face {
-      font-family:Georgia, "Times New Roman",
-             "Microsoft YaHei", "微软雅黑",
-             STXihei, "华文细黑",
-             serif;
-      font-size: 20px;
-    }
-    body {
-        margin:-5px;
-        padding:0;
-    }
-    #navbar {
-      display: none;
-    }
-    .slicknav_menu {
-    	display:block;
-    }
-    body {
-    }
 
     .container {
         background-color: #fafafa;
@@ -177,28 +158,6 @@
   						next: function(i) {
 
                 var temp =$('textarea').eq(i-1).val();
-                /*
-                var temp =$('input').eq(i-1).val().replace(/\s/g, '');
-                alert(i+temp);
-  							//var temp =$('input').eq(i-1).val().replace(/\s/g, '');
-  							var temp;
-  							if (i==3)
-  								temp =$('.pm-step').eq(i-1).find('input[name="gender"]:checked').val();
-  							else if (i==6)
-  								temp =$('.pm-step').eq(i-1).find('input[name="exp"]:checked').val();
-  							else
-  								temp =$('.pm-step').eq(i-1).find('input').val().replace(/\s/g, '');
-  							var email_check =
-  									/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
-  							if ((i==7||i==2||i==3||i==4||i==5||i==6)
-  									&&temp==""){
-  										alert("当前内容不能为空！请确认您已回答当前问题");
-  										return false;
-  							}
-  							if (i==9&&temp!=""&&!email_check.test(temp)){
-  								alert("邮箱格式不正确，请重新输入邮箱");
-  								return false;
-  							}*/
   						},
               change: function(i) {
                   $bar.css('width', (i / steps * 100) + '%');
