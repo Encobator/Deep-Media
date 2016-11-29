@@ -27,3 +27,7 @@ p {
       font-size: 25px;
     }
 }
+
+input {
+  width: 100%;
+}
