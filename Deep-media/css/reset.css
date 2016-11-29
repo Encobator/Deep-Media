@@ -31,3 +31,6 @@ p {
 input {
   width: 100%;
 }
+textarea {
+  width: 100%;
+}
