@@ -16,19 +16,16 @@
     <link rel="stylesheet" href="css/slicknav.css" />
     <script src="js/jquery.slicknav.min.js"></script>
 
-    <!-- overlay -->
-    <link rel="stylesheet" href="css/label.css" />
-
     <!-- Custom -->
     <link rel="stylesheet" href="css/reset.css">
     <style>
 
     .container{
-      padding: 2% 4% 0;
+      padding: 3% 0 0;
       text-align: justify;
       font-size: 0;
-      background: white;
-      margin-bottom: 2%;
+      background: inherited;
+      margin-bottom: 0;
     }
 
     .container:after{
@@ -40,15 +37,43 @@
     .container .item,
     .container .gap{
       display: inline-block;
-      width: 95vw;
-      height: 50vw;
+      width: 100vw;
+    }
+
+    .container .gap {
+      height: 0;
     }
 
     .container .item{
+      position: relative;
+      background-position: center;
+      background-size: cover;
+      margin-bottom: 3%;
       text-align: left;
-      background: white;
-      margin-bottom: 2%;
       display: none;
+      overflow: hidden;
+    }
+
+    .item .overlay_left {
+      padding-left: 5px;
+      position: absolute;
+      width: 100%;
+      background: rgba(185,32,52,1);
+      font-size: 12px;
+      left: 0;
+      bottom: 17px;
+      color: #ddd;
+      text-align: left;
+    }
+    .item .overlay_right {
+      position: absolute;
+      width: 100%;
+      background: rgba(185,32,52,1);
+      font-size: 13px;
+      left: 0;
+      bottom: 0;
+      color: white;
+      text-align: right;
     }
 
     .container .item:before{
@@ -58,7 +83,7 @@
     }
     .item img {
       width: 100%;
-      height: 200px;
+      height: 160px;
     }
 
 		.btn {
@@ -93,10 +118,7 @@
       .container .item,
       .container .gap{
         width: 30vw;
-        height: 20vw;
-      }
-      .label[data-label].bottom:after {
-          font-size: 8px;
+        height: 16vw;
       }
     }
 
@@ -122,39 +144,28 @@
     </div>
 
     <div class="container">
-      <div class="item category-1 label inside bottom" data-label="爱玛电动车" onClick="location.href='signup.html'" data-my-order="1">
-        <img src="http://www.deep-media.com/uploadfile/2016/0930/20160930055825935.jpg"></div>
-      <div class="item category-1 label inside bottom" data-label="七匹狼男装" data-my-order="2">
-        <img src="http://www.deep-media.com/uploadfile/2016/0530/20160530033432155.jpg"></div>
-      <div class="item category-2 label inside bottom" data-label="中国好声音" data-my-order="3">
-        <img src="http://www.deep-media.com/uploadfile/2016/0219/20160219031522182.jpg"></div>
-      <div class="item category-2 label inside bottom" data-label="腾讯科技" data-my-order="4">
-        <img src="http://www.deep-media.com/uploadfile/2016/0219/20160219031522182.jpg"></div>
-      <div class="item category-1 label inside bottom" data-label="爱玛电动车" onClick="location.href='signup.html'" data-my-order="1">
-        <img src="http://www.deep-media.com/uploadfile/2016/0930/20160930055825935.jpg"></div>
-      <div class="item category-1 label inside bottom" data-label="七匹狼男装" data-my-order="2">
-        <img src="http://www.deep-media.com/uploadfile/2016/0530/20160530033432155.jpg"></div>
-      <div class="item category-2 label inside bottom" data-label="中国好声音" data-my-order="3">
-        <img src="http://www.deep-media.com/uploadfile/2016/0219/20160219031522182.jpg"></div>
-      <div class="item category-2 label inside bottom" data-label="腾讯科技" data-my-order="4">
-        <img src="http://www.deep-media.com/uploadfile/2016/0219/20160219031522182.jpg"></div>
-      <div class="item category-1 label inside bottom" data-label="爱玛电动车" onClick="location.href='signup.html'" data-my-order="1">
-        <img src="http://www.deep-media.com/uploadfile/2016/0930/20160930055825935.jpg"></div>
-      <div class="item category-1 label inside bottom" data-label="七匹狼男装" data-my-order="2">
-        <img src="http://www.deep-media.com/uploadfile/2016/0530/20160530033432155.jpg"></div>
-      <div class="item category-2 label inside bottom" data-label="中国好声音" data-my-order="3">
-        <img src="http://www.deep-media.com/uploadfile/2016/0219/20160219031522182.jpg"></div>
-      <div class="item category-2 label inside bottom" data-label="腾讯科技" data-my-order="4">
-        <img src="http://www.deep-media.com/uploadfile/2016/0219/20160219031522182.jpg"></div>
-      <div class="item category-1 label inside bottom" data-label="爱玛电动车" onClick="location.href='signup.html'" data-my-order="1">
-        <img src="http://www.deep-media.com/uploadfile/2016/0930/20160930055825935.jpg"></div>
-      <div class="item category-1 label inside bottom" data-label="七匹狼男装" data-my-order="2">
-        <img src="http://www.deep-media.com/uploadfile/2016/0530/20160530033432155.jpg"></div>
-      <div class="item category-2 label inside bottom" data-label="中国好声音" data-my-order="3">
-        <img src="http://www.deep-media.com/uploadfile/2016/0219/20160219031522182.jpg"></div>
-      <div class="item category-2 label inside bottom" data-label="腾讯科技" data-my-order="4">
-        <img src="http://www.deep-media.com/uploadfile/2016/0219/20160219031522182.jpg"></div>
-
+      <div class="item category-1" style="background-image:url(http://www.deep-media.com/uploadfile/2016/0930/20160930055825935.jpg)"
+      onClick="location.href='signup.html'" data-my-order="1">
+          <div class="overlay_left">剧情短片和微电影</div>
+          <div class="overlay_right">《十点钟的后座》滴滴出行走心短片&nbsp&nbsp</div>
+          <!-- 记得在overlay_right结尾处加上两个&nbsp，因为item内overflow已是hidden，
+            padding left 无法使用 --!>
+      </div>
+      <div class="item category-2" style="background-image:url(http://www.deep-media.com/uploadfile/2016/0530/20160530033432155.jpg)"
+      onClick="location.href='signup.html'" data-my-order="1">
+          <div class="overlay_left">剧情短片和微电影</div>
+          <div class="overlay_right">创意短片《因为我怕》-深大师院国际高中&nbsp&nbsp</div>
+      </div>
+      <div class="item category-3" style="background-image:url(http://www.deep-media.com/uploadfile/2016/0219/20160219031522182.jpg)"
+      onClick="location.href='signup.html'" data-my-order="1">
+          <div class="overlay_left">产品宣传片</div>
+          <div class="overlay_right">纳帕溪谷-地产宣传片【V1】&nbsp&nbsp</div>
+      </div>
+      <div class="item category-4" style="background-image:url(http://www.deep-media.com/uploadfile/2016/0219/20160219031522182.jpg)"
+      onClick="location.href='signup.html'" data-my-order="1">
+          <div class="overlay_left">影视广告与宣传片</div>
+          <div class="overlay_right">3W咖啡-广告片&nbsp&nbsp</div>
+      </div>
       <div class="gap"></div>
       <div class="gap"></div>
     </div>
