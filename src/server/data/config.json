@@ -1,7 +1,7 @@
 {
     "name": "Deep Media",
     "port": 9013,
-    "default_page": "index.html",
+    "default_page": "branding.html",
     "404_page": "404.html",
     "404_message": "404 Page Not Found",
     "500_message": "500 Server Internal Error",
