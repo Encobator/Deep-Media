@@ -28,6 +28,10 @@
     width: 50%;
 }
 
+#navbar-left a.active, #navbar-right a.active {
+    color: rgba(185, 32, 52, 1);
+}
+
 #navbar-middle {
     width: 45px;
 }
