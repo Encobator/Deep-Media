@@ -1,0 +1,55 @@
+.br-theme-bars-movie .br-widget {
+  height: 10px;
+  white-space: nowrap;
+
+}
+.br-theme-bars-movie .br-widget a {
+  display: block;
+  width: 60px;
+  height: 15px;
+  float: left;
+  background-color: rgba(185,32,52,0.3);
+  margin: 1px;
+}
+.br-theme-bars-movie .br-widget a.br-active,
+.br-theme-bars-movie .br-widget a.br-selected {
+  background-color: rgba(185,32,52,1);
+}
+.br-theme-bars-movie .br-widget .br-current-rating {
+  clear: both;
+  width: 240px;
+  text-align: center;
+  font-weight: 600;
+  display: block;
+  padding: .5em 0;
+  color: rgba(185,32,52,1);
+  font-weight: 400;
+  margin: 0 auto;
+}
+.br-theme-bars-movie .br-readonly a {
+  cursor: default;
+}
+.br-theme-bars-movie .br-readonly a.br-active,
+.br-theme-bars-movie .br-readonly a.br-selected {
+  background-color: rgba(185,32,52,0.3);
+}
+.br-theme-bars-movie .br-readonly .br-current-rating {
+  color: rgba(185,32,52,0.3);
+}
+@media print {
+  .br-theme-bars-movie .br-widget a {
+    border: 1px solid #b3b3b3;
+    background: white;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .br-theme-bars-movie .br-widget a.br-active,
+  .br-theme-bars-movie .br-widget a.br-selected {
+    border: 1px solid black;
+    background: white;
+  }
+  .br-theme-bars-movie .br-widget .br-current-rating {
+    color: black;
+  }
+}

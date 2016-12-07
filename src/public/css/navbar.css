@@ -1,0 +1,42 @@
+#navbar {
+    position: fixed;
+    height: 45px;
+    width: 100%;
+    top: 0;
+    background-color: rgba(255, 255, 255, 1);
+    line-height: 45px;
+    border-bottom: 1px solid rgba(230, 230, 230, 1);
+    font-size: 12px;
+    z-index: 1024;
+}
+
+#navbar-left,
+#navbar-middle,
+#navbar-right {
+    float: left;
+}
+
+#navbar-left, #navbar-right {
+    width: calc(50% - 22.5px);
+}
+
+#navbar-left a, #navbar-right a {
+    float: left;
+    text-align: center;
+    line-height: 45px;
+    height: 45px;
+    width: 50%;
+}
+
+#navbar-left a.active, #navbar-right a.active {
+    color: rgba(185, 32, 52, 1);
+}
+
+#navbar-middle {
+    width: 45px;
+}
+
+#navbar-middle img {
+    width: 45px;
+    height: 45px;
+}

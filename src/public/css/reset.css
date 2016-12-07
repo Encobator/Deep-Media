@@ -1,0 +1,43 @@
+@font-face {
+  font-family:Georgia, "Times New Roman",
+         "Microsoft YaHei", "微软雅黑",
+         STXihei, "华文细黑", "Helvetica Neue",
+         serif;
+  font-size: 12px;
+}
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 320px;
+    background-color: #fafafa;
+    font-size: 12px;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: rgba(44, 44, 44, 1);
+}
+
+p {
+    color: #888;
+}
+
+main {
+    padding-top: 45px;
+}
+
+.slicknav_menu {
+    display:block;
+}
+@media all and (max-width: 319px){
+    h1 {
+      font-size: 25px;
+    }
+}
+
+input {
+  width: 100%;
+}
+textarea {
+  width: 100%;
+}

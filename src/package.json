@@ -1,0 +1,30 @@
+{
+  "name": "deep-media",
+  "version": "2.1.1",
+  "main": "deepmedia.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "deepmedia"
+  ],
+  "author": "Liby Lee, Yuhao He",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bufferhelper": "^0.2.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.1",
+    "express": "^4.14.0",
+    "iconv-lite": "^0.4.13",
+    "jsdom": "^9.4.2",
+    "mysql": "^2.11.1",
+    "node-schedule": "^1.1.1",
+    "request": "^2.74.0",
+    "crypto": "^0.0.3",
+    "express-fileupload": "^0.0.5",
+    "jquery": "^3.1.0"
+  },
+  "devDependencies": {},
+  "description": ""
+}
