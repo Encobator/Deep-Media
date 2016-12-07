@@ -1,10 +1,8 @@
-@font-face {
-  font-family:Georgia, "Times New Roman",
-         "Microsoft YaHei", "微软雅黑",
-         STXihei, "华文细黑", "Helvetica Neue",
-         serif;
-  font-size: 12px;
+* {
+    font-family: Georgia, "Times New Roman", "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", "Helvetica Neue", serif;
+    font-size: 12px;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -36,8 +34,8 @@ main {
 }
 
 input {
-  width: 100%;
+    width: 100%;
 }
 textarea {
-  width: 100%;
+    width: 100%;
 }
