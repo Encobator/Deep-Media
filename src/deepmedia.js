@@ -7,7 +7,6 @@ function setDateTime() {
 
 function setCookie(server) {
     server.use(require("cookie-parser")());
-    server.use(require("./server/api/cookie.js"));
 }
 
 function setRenderEngine(server) {
