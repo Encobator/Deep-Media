@@ -24,6 +24,13 @@ module.exports = {
         return this.accessToken;
     },
     verify: function (signature, timestamp, nonce) {
+        
+        //Check if all exist
+        if (!signature || !timestamp || !nonce) {
+            return false;
+        }
+        
+        //Check signature
         var genSignature = util.signature(config["wechat_token"], timestamp, nonce);
         if (signature == genSignature) {
             return true;
