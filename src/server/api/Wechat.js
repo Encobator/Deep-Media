@@ -1,3 +1,5 @@
+
+var request = require("request");
 var config = require("../data/config.json");
 
 module.exports = {

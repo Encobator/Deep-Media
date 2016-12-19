@@ -1,8 +1,3 @@
-var xml2js = require("xml2js");
-var XML = {};
-XML.parse = new xml2js.Parser().parseString();
-XML.build = new xml2js.Builder().buildObject();
-var request = require("request");
 var Wechat = require("./Wechat.js");
 
 module.exports = [
