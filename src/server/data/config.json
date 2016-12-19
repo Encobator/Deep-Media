@@ -15,5 +15,9 @@
     "mysql_host": "127.0.0.1",
     "mysql_database": "",
     "mysql_username": "",
-    "mysql_password": ""
+    "mysql_password": "",
+    "wechat_appid": "wx091a163b4380587b",
+    "wechat_appsecret": "6cfc45dcba906aca5dac7f67a08cf485",
+    "wechat_token": "pkhufz1396667094",
+    "wechat_aeskey": "1111111111111111111111111111111111111111111"
 }

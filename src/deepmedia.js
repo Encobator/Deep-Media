@@ -41,6 +41,10 @@ function setAjax(server) {
     require("./server/module/ajax.js").set(server);
 }
 
+function setSchedule() {
+    require("./server/api/schedule.js").set();
+}
+
 (function () {
     var server = express();
     
@@ -49,6 +53,7 @@ function setAjax(server) {
     setRenderEngine(server);
     setRoute(server);
     setAjax(server);
+    setSchedule();
     
     server.use(function (err, req, res, next) {
         console.log("Server Error: " + err);
