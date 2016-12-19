@@ -1,5 +1,5 @@
 var xml2js = require("xml2js");
-var XML = parse();
+var XML = {};
 XML.parse = new xml2js.Parser().parseString();
 XML.build = new xml2js.Builder().buildObject();
 var request = require("request");
