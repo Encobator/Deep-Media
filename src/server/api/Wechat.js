@@ -1,5 +1,6 @@
 
 var request = require("request");
+var util = require("./util.js");
 var config = require("../data/config.json");
 
 module.exports = {
@@ -21,6 +22,15 @@ module.exports = {
     },
     getAccessToken: function () {
         return this.accessToken;
+    },
+    verify: function (signature, timestamp, nonce) {
+        var genSignature = util.signature(config["wechat_token"], timestamp, nonce);
+        if (signature == genSignature) {
+            return true;
+        }
+        else {
+            return false;
+        }
     },
     request: function (type, callback) {
         var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=" + type + "&appid=" + config["wechat_appid"] + "&secret=" + config["wechat_appsecret"];
