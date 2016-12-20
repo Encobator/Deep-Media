@@ -5,6 +5,7 @@
 var bodyParser = require("body-parser");
 var response = require("./response.js");
 var verification = require("./verification.js");
+var wechatHandler = require("../handler/wechat.js");
 
 /**
  * The settlement of ajax processing for the given server
@@ -18,12 +19,12 @@ exports.set = function (server) {
     //Using Response Middleware
     server.use(response);
     
-    server.get("/ajax/wechat", bodyParser.raw(), require("../handler/wechat.js").process);
-    server.post("/ajax/wechat", bodyParser.raw(), require("../handler/wechat.js").process);
-    
     //Pass all the requests to process function
     server.get("/ajax/*", process);
     server.post("/ajax/*", process);
+    
+    server.get("/ajax/wechat", bodyParser.raw(), wechatHandler.process);
+    server.post("/ajax/wechat", bodyParser.raw(), wechatHandler.process);
 }
 
 /**
