@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Liby.me - Admin Upload Artwork</title>
+        <title>Deep Vision - Admin Dashboard</title>
         <link rel="stylesheet" href="../css/lib/font-awesome.css" />
         <link rel="stylesheet" href="../css/lib/bootstrap.css" />
         <link rel="stylesheet" href="../css/lib/summernote_liby.css" />
@@ -84,7 +84,7 @@
         $(function () {
             ArtworkEdit.initiate();
         });
-        
+
         var ArtworkEdit = {
             artwork: undefined,
             imageOption: {
@@ -111,7 +111,7 @@
             initiateSubmit: function () {
                 var self = this;
                 $("#artwork-edit-form").submit(function () {
-                    
+
                     $.ajax({
                         url: "/ajax/admin?action=submit_artwork",
                         type: "post",
