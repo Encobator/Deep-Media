@@ -184,22 +184,22 @@ module.exports = {
     },
     loggedIn: function (req, callback) {
         var self = this;
-        
+
         if (req.cookies.session) {
-            
+
             mysql.query("SELECT * FROM `user` WHERE ?", {
                 "session": req.cookies.session
             }, function (err, result) {
                 if (!err) {
                     if (result.length > 0) {
-                        
+
                         //Calculate the expire time
                         var curr = (new Date()).getTime();
                         var start = Date.parse(result[0]["session_start"]);
                         var ts = new TimeSpan(curr - start);
-                        
+
                         if (ts.getHour() <= 1) {
-                            
+
                             //Update the session start time
                             self.updateSession(result[0]["username"], function (updated) {
                                 if (updated) {
@@ -229,7 +229,7 @@ module.exports = {
         }
     },
     login: function (username, password, callback) {
-        
+
         var self = this;
         var session = util.UUID();
         mysql.query("UPDATE `user` SET `login` = `login` + 1, `session_start` = NOW(), ?", {
@@ -323,9 +323,9 @@ module.exports = {
         })
     },
     sendProjectUpdate: function (PUID, callback) {
-        
+
     },
     sendApplicationUpdate: function (UUID, RUID, callback) {
-        
+
     }
 }

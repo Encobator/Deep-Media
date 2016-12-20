@@ -9,11 +9,11 @@ module.exports = {
     logTime: undefined,
     expiresIn: undefined,
     initiate: function () {
-        self.refreshAccessToken();
+        this.refreshAccessToken();
     },
     refreshAccessToken: function () {
         var self = this;
-        this.request("client_credential", function (data) {
+        this.requestToken("client_credential", function (data) {
             self.logTime = new Date();
             self.hasAccessToken = true;
             self.accessToken = data["access_token"];
@@ -27,12 +27,12 @@ module.exports = {
         return this.accessToken;
     },
     verify: function (signature, timestamp, nonce) {
-        
+
         //Check if all exist
         if (!signature || !timestamp || !nonce) {
             return false;
         }
-        
+
         //Check signature
         var genSignature = util.signature(config["wechat_token"], timestamp, nonce);
         if (signature == genSignature) {

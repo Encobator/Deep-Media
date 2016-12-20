@@ -1,7 +1,7 @@
-var User = require("../../api/user.js");
 
 module.exports = function (req, res, callback) {
-  User.verify(req, function () {
+  var User = require("../../api/user.js");
+  User.verify(req, res, function () {
     callback({});
   });
 }
