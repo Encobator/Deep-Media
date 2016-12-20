@@ -18,6 +18,9 @@ module.exports = {
                     res.end();
                 }
                 else {
+                    
+                    console.log(result);
+                    
                     switch (result.MsgType) {
                     case "text":
                         var content = result.Content;
