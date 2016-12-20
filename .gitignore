@@ -1,4 +1,3 @@
 .DS_Store
 src/node_modules
 origin/
-src/server/data/config.json
