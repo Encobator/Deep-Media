@@ -47,13 +47,14 @@ module.exports = {
             }
         });
     },
-    updateProject: function (PUID, UUID, title, subtitle, description, startDateTime, callback) {
-        mysql.query("UPDATE `project` SET `title` = ?, `subtitle` = ?, `description` = ?, `start_date_time` = ? WHERE ``", {
-            "title": title,
-            "subtitle": subtitle,
-            "description": description,
-            "start_date_time": startDateTime
-        }, function (err, result) {
+    updateProject: function (PUID, title, description, startDateTime, callback) {
+        mysql.query("UPDATE `project` SET `title` = ?, `description` = ?, `start_date_time` = ? WHERE `PUID` = ?", [
+            title,
+            subtitle,
+            description,
+            startDateTime,
+            PUID
+        ], function (err, result) {
             if (err) {
                 callback(false);
             }
@@ -67,6 +68,23 @@ module.exports = {
     },
     hideProject: function (PUID, callback) {
         
+    },
+    hasClient: function (PUID, callback) {
+        this.clientAmount(PUID, function (amount) {
+            return amount > 0;
+        });
+    },
+    clientAmount: function (PUID, callback) {
+        mysql.query("SELECT COUNT(`id`) AS `amount` FROM `client` WHERE `PUID` = ?", [
+            PUID
+        ], function (err, result) {
+            if (err) {
+                callback(-1);
+            }
+            else {
+                callback(result[0]["amount"]);
+            }
+        })
     },
     hasRecruit: function (PUID, callback) {
         
