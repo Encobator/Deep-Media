@@ -1,5 +1,9 @@
 module.exports = function (req, res, next) {
     
+    if (req.method != "POST") {
+        next();
+    }
+    
     var rawbody = "";
     
     req.on("data", function (data) {
