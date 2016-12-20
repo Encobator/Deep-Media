@@ -58,5 +58,4 @@ module.exports = {
             res.error(1, "The Password Does Not Satisfy the Requirement");
         }
     }
-    
 }
