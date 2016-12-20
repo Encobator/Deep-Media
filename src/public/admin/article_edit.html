@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Liby.me - Admin Edit Article</title>
+        <title>Deep Vision - Admin Dashboard</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../css/lib/font-awesome.css" />
         <link rel="stylesheet" href="../css/lib/bootstrap.css" />
@@ -39,11 +39,11 @@
                     </select>
                     <label>Cover Image: (Preferrably 1280 x 720)</label>
                     <div id="article-cover">
-                        
+
                     </div>
                     <label>Content:</label>
                     <div id="article-content">
-                        
+
                     </div>
                     <button type="submit">Submit</button>
                 </form>
@@ -55,7 +55,7 @@
         $(document).ready(function () {
             ArticleEdit.initiate();
         })
-        
+
         var ArticleEdit = {
             article: undefined,
             coverOption: {
@@ -82,7 +82,7 @@
             initiateSubmit: function () {
                 var self = this;
                 $("#article-edit-form").submit(function () {
-                    
+
                     var title = $("#article-title").val();
                     var subtitle = $("#article-subtitle").val();
                     var tags = $("#article-tags").val();
@@ -90,7 +90,7 @@
                     var dateTime = $("#article-date-time").val();
                     var cover = $($("#article-cover").summernote("code")).children("img").attr("src");
                     var content = $("#article-content").summernote("code");
-                    
+
                     if (title == "") {
                         alert("Please Insert the Article Title");
                         return false;
@@ -115,7 +115,7 @@
                         alert("Please Insert Content");
                         return false;
                     }
-                    
+
                     $.ajax({
                         url: "/ajax/admin?action=submit_article",
                         type: "post",

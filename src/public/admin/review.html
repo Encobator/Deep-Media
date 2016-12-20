@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Liby.me - Admin Dashboard</title>
+        <title>Deep Vision - Admin Dashboard</title>
         <link rel="stylesheet" href="../css/lib/font-awesome.css" />
         <link rel="stylesheet" href="../css/admin/basic.css" />
         <script src="../js/lib/jquery.js"></script>
-        <script>const PAGE = "user"</script>
+        <script>const PAGE = "review"</script>
     </head>
     <body>
         <nav>
@@ -14,13 +14,16 @@
         <main>
             <div id="main-title">Dashboard</div>
             <div id="main-frame">
-                <ul>
-                    <% for(var i=0; i<data.length; ++i){ %>
-                        <li id="<%= review.id %>">
-
-                        </li>
+                <table>
+                    <% for(var i=0; i<reviews.length; ++i){ %>
+                        <tr id="<%= i %>">
+                            <th><img src="<%= reviews[i].avatar %>"></th>
+                            <th><%= reviews[i].nickname %></th>
+                            <th><%= reviews[i].review %></th>
+                            <th><%= reviews[i].comment %></th>
+                        </tr>
                     <% } %>
-                </ul>
+                </table>
             </div>
         </main>
     </body>
