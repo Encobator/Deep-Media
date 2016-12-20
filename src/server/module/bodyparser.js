@@ -12,8 +12,14 @@ module.exports = function (req, res, next) {
     
     req.on("end", function () {
         
-        req.body = JSON.parse(rawbody);
-        req.rawbody = rawbody;
+        try {
+            req.body = JSON.parse(rawbody);
+        }
+        catch (ex) {
+            
+            console.log("CANNOT SOLVE JSON");
+            req.rawbody = rawbody;
+        }
         
         next();
     });
