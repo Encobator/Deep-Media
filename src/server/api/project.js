@@ -12,9 +12,19 @@ module.exports = {
             }
         })
     },
-    getProjects: function (start, callback) {
-        mysql.query("SELECT * FROM `project` WHERE `status` = 1 LIMIT " + start + this.PAGE_PROJECT_AMOUNT, function (err, result) {
-
+    getProjects: function (callback) {
+        mysql.query("SELECT * FROM `project` ", function (err, result) {
+            if (err) {
+                callback(undefined);
+            }
+            else {
+                if (result.length > 0) {
+                    callback(result);
+                }
+                else {
+                    callback(null);
+                }
+            }
         });
     },
     projectExists: function (project, callback) {

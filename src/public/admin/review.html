@@ -15,12 +15,18 @@
             <div id="main-title">Dashboard</div>
             <div id="main-frame">
                 <table>
+                    <tr>
+                        <th>头像</th>
+                        <th>用户名</th>
+                        <th>评价</th>
+                        <th>时间</th>
+                    </tr>
                     <% for(var i=0; i<reviews.length; ++i){ %>
                         <tr id="<%= i %>">
-                            <th><img src="<%= reviews[i].avatar %>"></th>
-                            <th><%= reviews[i].nickname %></th>
-                            <th><%= reviews[i].comment %></th>
-                            <th><%= reviews[i].date_time %></th>
+                            <td><img src="<%= reviews[i].avatar %>"></th>
+                            <td><%= reviews[i].nickname %></th>
+                            <td><%= reviews[i].comment %></th>
+                            <td><%= reviews[i].date_time %></th>
                         </tr>
                     <% } %>
                 </table>

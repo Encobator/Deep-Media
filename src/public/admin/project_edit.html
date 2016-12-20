@@ -80,7 +80,6 @@
                     var dateTime = $("#article-date-time").val();
                     var content = $("#article-content").val();
 
-                    alert(dateTime);
                     if (title == "") {
                         alert("请输入项目名称");
                         return false;
@@ -93,7 +92,6 @@
                         alert("请选择项目状态");
                         return false;
                     }
-
                     $.ajax({
                         url: "/ajax/admin?action=submit_project",
                         type: "post",

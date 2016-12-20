@@ -6,50 +6,46 @@
         <link rel="stylesheet" href="../css/lib/font-awesome.css" />
         <link rel="stylesheet" href="../css/admin/basic.css" />
         <script src="../js/lib/jquery.js"></script>
-        <script>const PAGE = "manage-article"</script>
+        <script>const PAGE = "manage-project"</script>
     </head>
     <body>
         <nav>
             <% include view/sidebar.html %>
         </nav>
         <main>
-            <div id="main-title">Manage Article</div>
+            <div id="main-title">管理项目</div>
             <div id="main-frame">
-                <% if (articles == undefined) { %>
+                <% if (projects == undefined) { %>
                     <div class="empty">数据库错误</div>
-                <% } else if (articles.length == 0) {%>
+                <% } else if (projects.length == 0) {%>
                     <div class="empty">空</div>
                 <% } else { %>
                     <table id="article-table">
                         <tr>
                             <th>ID</th>
-                            <th>Title</th>
-                            <th>Subtitle</th>
-                            <th>Date</th>
-                            <th>Update</th>
-                            <th>View</th>
-                            <th>Comment</th>
-                            <th>Status</th>
-                            <th>Edit</th>
+                            <th>项目名称</th>
+                            <th>发布时间</th>
+                            <th>关于此项目</th>
+                            <th>状态</th>
+                            <th>编辑</th>
                         </tr>
-                        <% articles.forEach(function (article) { %>
-                            <tr class="article" id="<%= article["AUID"] %>">
-                                <td><%= article["id"] %></td>
-                                <td><%= article["title"] %></td>
-                                <td><%= article["subtitle"] %></td>
-                                <td><%= article["date_time"] %></td>
-                                <td><%= article["update_date_time"] %></td>
-                                <td><%= article["view"] %></td>
-                                <td><%= article["comment"] %></td>
+                        <% projects.forEach(function (project) { %>
+                            <tr class="article" id="<%= project["PUID"] %>">
+                                <td><%= project["id"] %></td>
+                                <td><%= project["title"] %></td>
+                                <td><%= project["start_date_time"] %></td>
+                                <td><%= project["description"] %></td>
                                 <td>
-                                    <select class="article-status" value="<%= article["status"] %>">
-                                        <option value="0" <%= (article["status"] == 0 ? "selected" : "") %>>Draft</option>
-                                        <option value="1" <%= (article["status"] == 1 ? "selected" : "") %>>Public</option>
-                                        <option value="2" <%= (article["status"] == 2 ? "selected" : "") %>>Archived</option>
-                                    </select>
+                                    <% if(project["status"]==0){ %>
+                                        未开始
+                                    <% } else if (project["status"]==1) { %>
+                                        进行中
+                                    <% } else { %>
+                                        已结束
+                                    <% } %>
                                 </td>
                                 <td>
-                                    <button class="article-edit small">Edit</button>
+                                    <button class="article-edit small">编辑</button>
                                 </td>
                             </tr>
                         <% }) %>
@@ -69,14 +65,15 @@
                 this.initiateStatus();
                 this.initiateEdit();
             },
+            /*
             initiateStatus: function () {
                 $(".article-status").change(function () {
-                    var AUID = $(this).parent().parent().attr("id");
+                    var PUID = $(this).parent().parent().attr("id");
                     var status = parseInt($(this).val());
                     $.ajax({
                         url: "/ajax/admin?action=change_article_status",
                         type: "post",
-                        data: { "article": AUID, "status": status },
+                        data: { "article": PUID, "status": status },
                         success: function (result) {
                             var data = JSON.parse(result);
                             if (data["error_code"] != 0) {
@@ -87,10 +84,11 @@
                     })
                 });
             },
+            */
             initiateEdit: function () {
-                $(".article-edit").click(function () {
+                $(".project-edit").click(function () {
                     var AUID = $(this).parent().parent().attr("id");
-                    window.location.href = "article_edit.html?a=" + AUID;
+                    window.location.href = "project_edit.html?a=" + PUID;
                 })
             }
         }
