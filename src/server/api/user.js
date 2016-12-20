@@ -1,6 +1,7 @@
 var Wechat = require("./wechat.js");
 var crypto = require("../module/crypto.js");
 var util = require("../module/util.js");
+var mysql = require("../module/mysql.js");
 
 module.exports = {
     DEFAULT_PASSWORD: "12345678",
@@ -283,7 +284,7 @@ module.exports = {
             }
         });
     },
-    matches: function (username, password, callback) {
+    match: function (username, password, callback) {
         mysql.query("SELECT `password` FROM `user` WHERE `username` = ?", [
             username
         ], function (err, result) {
