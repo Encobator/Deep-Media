@@ -10,7 +10,7 @@ module.exports = function (req, res, next) {
         try {
             req.body = JSON.parse(rawbody);
         }
-        catch {
+        catch (ex) {
             req.body = rawbody;
         }
         
