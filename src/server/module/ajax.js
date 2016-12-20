@@ -76,6 +76,6 @@ exports.set = function (server) {
     server.post("/ajax/wechat", bodyParser.raw(), wechatHandler.process);
     
     //Pass all the requests to process function
-    server.get("/ajax/*", bodyParser.json(), process);
-    server.post("/ajax/*", bodyParser.json(), process);
+    // server.get("/ajax/*", bodyParser.json(), process);
+    // server.post("/ajax/*", bodyParser.json(), process);
 }
