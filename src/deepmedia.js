@@ -47,19 +47,19 @@ function setSchedule() {
 
 (function () {
     var server = express();
-    
+
     setDateTime();
     setCookie(server);
     setRenderEngine(server);
     setRoute(server);
     setAjax(server);
-    setSchedule();
-    
+    //setSchedule();
+
     server.use(function (err, req, res, next) {
         console.log("Server Error: " + err);
         next(err);
     });
-    
+
     server.listen(config['port'], function (err) {
         if (err) {
             console.log(err);
