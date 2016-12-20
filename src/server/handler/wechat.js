@@ -6,10 +6,10 @@ var toXml = new xml2js.Builder().buildObject;
 
 module.exports = {
     process: function (req, res) {
-        
-        
-        
         if (req.method == "GET") {
+            
+            console.log("Verifying");
+            
             if (Wechat.verify(req.query["signature"], req.query["timestamp"], req.query["nonce"])) {
                 res.write(req.query["echostr"]);
             }
