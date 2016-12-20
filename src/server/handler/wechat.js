@@ -6,6 +6,9 @@ var toXml = new xml2js.Builder().buildObject;
 
 module.exports = {
     process: function (req, res) {
+        
+        
+        
         if (req.method == "GET") {
             if (Wechat.verify(req.query["signature"], req.query["timestamp"], req.query["nonce"])) {
                 res.write(req.query["echostr"]);
@@ -15,6 +18,7 @@ module.exports = {
         else if (req.method == "POST") {
             
             console.log("RECEIVED MESSAGE!!!");
+            console.log(req.body);
             
             parseXml(req.body, function (err, result) {
                 if (err) {
