@@ -8,26 +8,6 @@ var verification = require("./verification.js");
 var wechatHandler = require("../handler/wechat.js");
 
 /**
- * The settlement of ajax processing for the given server
- */
-exports.set = function (server) {
-    
-    //Using Body Parser
-    server.use(bodyParser.urlencoded({ extended: false }));
-    server.use(bodyParser.json());
-    
-    //Using Response Middleware
-    server.use(response);
-    
-    //Pass all the requests to process function
-    server.get("/ajax/*", process);
-    server.post("/ajax/*", process);
-    
-    server.get("/ajax/wechat", bodyParser.raw(), wechatHandler.process);
-    server.post("/ajax/wechat", bodyParser.raw(), wechatHandler.process);
-}
-
-/**
  * Process the requirement
  */
 function process(req, res) {
@@ -78,4 +58,24 @@ function process(req, res) {
             res.error(500, "Internal Server Error");
         }
     }
+}
+
+/**
+ * The settlement of ajax processing for the given server
+ */
+exports.set = function (server) {
+    
+    //Using Body Parser
+    // server.use(bodyParser.urlencoded({ extended: false }));
+    // server.use(bodyParser.json());
+    
+    //Using Response Middleware
+    server.use(response);
+    
+    server.get("/ajax/wechat", bodyParser.raw(), wechatHandler.process);
+    server.post("/ajax/wechat", bodyParser.raw(), wechatHandler.process);
+    
+    //Pass all the requests to process function
+    server.get("/ajax/*", bodyParser.json(), process);
+    server.post("/ajax/*", bodyParser.json(), process);
 }
