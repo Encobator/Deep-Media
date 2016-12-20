@@ -4,9 +4,6 @@ var xml2js = require("xml2js");
 module.exports = {
     process: function (req, res) {
         if (req.method == "GET") {
-            
-            // console.log(req.query);
-            
             if (wechat.verify(req.query["signature"], req.query["timestamp"], req.query["nonce"])) {
                 res.write(req.query["echostr"]);
             }
@@ -19,7 +16,7 @@ module.exports = {
                 case "subscribe": break;
                 case "button":
                     switch (data.key) {
-                        case 
+                        case
                     }
             }
         }

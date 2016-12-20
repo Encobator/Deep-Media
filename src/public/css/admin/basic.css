@@ -10,12 +10,12 @@ body {
 }
 
 a, a:visited {
-    color: rgba(255, 149, 166, 1);
+    color: rgba(185, 32, 52, 1);
     text-decoration: none !important;
 }
 
 ::selection {
-    background-color: rgba(255, 149, 166, 0.3);
+    background-color: rgba(185, 32, 52, 0.3);
 }
 
 nav ul {
@@ -90,25 +90,25 @@ nav {
 .sidebar-section-content li a {
     display: block;
     transition: all 0.1s;
-    border-left: 0px solid rgba(255, 149, 166, 0);
+    border-left: 0px solid rgba(185, 32, 52, 0);
     padding: 0 20px;
     color: inherit;
 }
 
 .sidebar-section-content li:hover a {
-    border-left: 3px solid rgba(255, 149, 166, 0.4);
+    border-left: 3px solid rgba(185, 32, 52, 0.4);
     background-color: rgba(235, 235, 235, 1);
 }
 
 .sidebar-section-content li:active a {
-    border-left: 3px solid rgba(255, 149, 166, 0.6);
+    border-left: 3px solid rgba(185, 32, 52, 0.6);
     background-color: rgba(225, 225, 225, 1);
 }
 
 .sidebar-section-content li.active a {
     color: rgba(80, 80, 80, 1);
     background-color: rgba(255, 255, 255, 1);
-    border-left: 3px solid rgba(255, 149, 166, 1);
+    border-left: 3px solid rgba(185, 32, 52, 1);
 }
 
 .sidebar-section-content li a i {
@@ -149,18 +149,18 @@ input {
 }
 
 input:hover {
-    border: 1px solid rgba(255, 149, 166, 0.8);
+    border: 1px solid rgba(185, 32, 52, 0.8);
 }
 
 input:focus {
-    border: 1px solid rgba(255, 149, 166, 1);
+    border: 1px solid rgba(185, 32, 52, 1);
 }
 
 button {
     line-height: 30px;
     border-radius: 15px;
     border: 0;
-    background-color: rgba(255, 149, 166, 1);
+    background-color: rgba(185, 32, 52, 1);
     color: rgba(255, 255, 255, 1);
     padding: 0 20px;
     margin-right: 5px;
