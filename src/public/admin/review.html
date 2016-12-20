@@ -15,11 +15,11 @@
             <div id="main-title">Dashboard</div>
             <div id="main-frame">
                 <ul>
-                    <% reviews.forEach(function (review) { %>
+                    <% for(var i=0; i<data.length; ++i){ %>
                         <li id="<%= review.id %>">
 
                         </li>
-                    <% }) %>
+                    <% } %>
                 </ul>
             </div>
         </main>

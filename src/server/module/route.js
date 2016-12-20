@@ -30,9 +30,9 @@ function process(req, res) {
                 //Check if there's error when rendering
                 if (err) {
 
-                    console.log("Renderer Error: ");
+                    console.log("Renderer Error (505): ");
                     console.log(err);
-                    res.redirect("/error.html?err=500");
+                    res.redirect("/404.html");
                 }
                 else {
 
