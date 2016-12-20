@@ -13,8 +13,14 @@ module.exports = {
             res.end();
         }
         else if (req.method == "POST") {
+            
+            console.log("RECEIVED MESSAGE!!!");
+            
             parseXml(req.body, function (err, result) {
                 if (err) {
+                    
+                    console.log(err);
+                    
                     res.end();
                 }
                 else {
