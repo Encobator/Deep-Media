@@ -72,8 +72,10 @@ exports.set = function (server) {
     //Using Response Middleware
     server.use(response);
     
-    server.get("/ajax/wechat", bodyParser.raw(), wechatHandler.process);
-    server.post("/ajax/wechat", bodyParser.raw(), wechatHandler.process);
+    
+    server.use(bodyParser.raw());
+    server.get("/ajax/wechat", wechatHandler.process);
+    server.post("/ajax/wechat", wechatHandler.process);
     
     //Pass all the requests to process function
     // server.get("/ajax/*", bodyParser.json(), process);
