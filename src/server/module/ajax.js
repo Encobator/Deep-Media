@@ -3,6 +3,7 @@
  */
 
 var bodyparser = require("./bodyparser.js");
+var parser = require("body-parser");
 var response = require("./response.js");
 var verification = require("./verification.js");
 var wechatHandler = require("../handler/wechat.js");
@@ -68,6 +69,7 @@ exports.set = function (server) {
     //Using Response Middleware
     server.use(response);
     server.use(bodyparser);
+    server.use(parser.json());
     
     server.get("/ajax/wechat", wechatHandler.process);
     server.post("/ajax/wechat", wechatHandler.process);
