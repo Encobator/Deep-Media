@@ -2,6 +2,7 @@ var Wechat = require("./wechat.js");
 var crypto = require("../module/crypto.js");
 var util = require("../module/util.js");
 var mysql = require("../module/mysql.js");
+var TimeSpan = require("../module/timespan.js");
 
 module.exports = {
     DEFAULT_PASSWORD: "12345678",
@@ -229,11 +230,11 @@ module.exports = {
             callback(false);
         }
     },
-    login: function (username, password, callback) {
+    login: function (username, res, callback) {
 
         var self = this;
         var session = util.UUID();
-        mysql.query("UPDATE `user` SET `login` = `login` + 1, `session_start` = NOW(), ?", {
+        mysql.query("UPDATE `user` SET `session_start` = NOW(), ?", {
             "session": session
         }, function (err, result) {
             if (err) {
@@ -247,6 +248,23 @@ module.exports = {
     },
     logout: function (username, callback) {
         this.clearSession(res);
+    },
+    setSession: function (res, session) {
+        res.cookie("session", session, {
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24)
+        });
+    },
+    updateSession: function (username, callback) {
+        mysql.query("UPDATE `user` SET `session_start` = NOW() WHERE ?", {
+            "username": username
+        }, function (err, result) {
+            if (err) {
+                callback(false);
+            }
+            else {
+                callback(true);
+            }
+        });
     },
     checkPasswordWithSession: function (session, password, callback) {
         mysql.query("SELECT `password` FROM `user` WHERE ?", {
@@ -284,24 +302,27 @@ module.exports = {
             }
         });
     },
+    isPassword: function (password) {
+        return password.match(this.passwordRegex);
+    },
     match: function (username, password, callback) {
         mysql.query("SELECT `password` FROM `user` WHERE `username` = ?", [
             username
         ], function (err, result) {
             if (err) {
-                callback(false);
+                callback(3);
             }
             else {
                 if (result.length > 0) {
-                    if (crypto.matches(password, result[0]["password"])) {
-                        callback(true);
+                    if (crypto.match(password, result[0]["password"])) {
+                        callback(0);
                     }
                     else {
-                        callback(false);
+                        callback(2);
                     }
                 }
                 else {
-                    callback(false);
+                    callback(1);
                 }
             }
         })

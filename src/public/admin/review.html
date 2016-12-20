@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Liby.me - Admin Dashboard</title>
+        <link rel="stylesheet" href="../css/lib/font-awesome.css" />
+        <link rel="stylesheet" href="../css/admin/basic.css" />
+        <script src="../js/lib/jquery.js"></script>
+        <script>const PAGE = "user"</script>
+    </head>
+    <body>
+        <nav>
+            <% include view/sidebar.html %>
+        </nav>
+        <main>
+            <div id="main-title">Dashboard</div>
+            <div id="main-frame">
+                <ul>
+                    <% reviews.forEach(function (review) { %>
+                        <li id="<%= review.id %>">
+
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </main>
+    </body>
+    <script src="../js/admin/basic.js"></script>
+</html>
