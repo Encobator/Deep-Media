@@ -1,6 +1,7 @@
 var User = require("../api/user.js");
 var Project = require("../api/project.js");
 var mysql = require("../module/mysql.js");
+var Recruit = require("../api/recruit.js");
 
 module.exports = {
     login: function (req, res) {
@@ -72,6 +73,72 @@ module.exports = {
             }
         });
     },
+    submit_recruit: function (req, res) {
+        User.loggedIn(req, function (logged) {
+            console.log(req.body["RUID"]);
+            if (logged) {
+                if (req.body["RUID"] == "") {
+                    Recruit.newRecruit(req.body["title"], req.body["status"], req.body["cover"], req.body["content"], req.body["date_time"], function (success) {
+                        if (success) {
+                            res.success({});
+                        }
+                        else {
+                            res.error(1, "Database Error");
+                        }
+                    });
+                }
+                else {
+                    Recruit.recruitExists(req.body["RUID"], function (exists) {
+                        if (exists != undefined) {
+                            if (exists) {
+                                Project.updateRecruit(req.body["RUID"], req.body["title"], req.body["status"], req.body["date_time"], req.body["cover"], req.body["content"], function (success) {
+                                    if (success) {
+                                        res.success({});
+                                    }
+                                    else {
+                                        res.error(1, "Database Error");
+                                    }
+                                });
+                            }
+                            else {
+                                res.error(2, "This Recruit Does not Exist");
+                            }
+                        }
+                        else {
+                            res.error(1, "Database Error");
+                        }
+                    });
+                }
+            }
+            else {
+                res.error(1000, "please Login First");
+            }
+        });
+    },
+    /*
+    get_project: function (req, res) {
+        User.loggedIn(req, function (logged) {
+            if (logged) {
+                if (req.body["content"] && req.body["content"] != "") {
+                    Article.getAdminArticle(req.body["article"], function (result) {
+                        if (result) {
+                            res.success(result);
+                        }
+                        else {
+                            res.error(2, "Database Error");
+                        }
+                    });
+                }
+                else {
+                    res.error(1, "Project Id Required");
+                }
+            }
+            else {
+                res.error(1000, "Please Login First");
+            }
+        });
+    },
+    */
     change_password: function (req, res) {
         if (User.isPassword(req.body["new"])) {
             User.loggedIn(req, function (logged) {

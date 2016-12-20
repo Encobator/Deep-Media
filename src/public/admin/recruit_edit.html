@@ -13,7 +13,7 @@
         <script src="../js/lib/datetimepicker.js"></script>
         <script src="../js/lib/summernote.js"></script>
         <script src="../js/util.js"></script>
-        <script>const PAGE = "edit-project"</script>
+        <script>const PAGE = "edit-recruit"</script>
     </head>
     <body>
         <nav>
@@ -23,18 +23,20 @@
             <div id="main-title">Edit Article</div>
             <div id="main-frame">
                 <form id="article-edit-form">
-                    <label>项目名称:</label>
+                    <label>视频名称:</label>
                     <input type="text" id="article-title" placeholder="请输入项目名称" />
-                    <label>发布时间: </label>
+                    <label>招募发布时间: </label>
                     <input type="text" id="article-date-time" placeholder="选择项目发布时间" />
                     <label>Status:</label>
                     <select id="article-status" value="0">
                         <option value="0">未开始</option>
-                        <option value="1">进行中</option>
-                        <option value="2">已完成</option>
+                        <option value="1">招募中</option>
+                        <option value="2">招募已完成</option>
                     </select>
+                    <label>影片海报: (不超过 1280 x 720)</label>
+                    <div id="article-cover"></div>
 
-                    <label>关于此项目:</label>
+                    <label>关于此次招募:</label>
                     <div id="article-content">
                     </div>
                     <button type="submit">提交</button>
@@ -65,7 +67,7 @@
                 }
             },
             contentOption: {
-                height: 300
+                height: 500
             },
             initiate: function () {
                 this.initiateSubmit();
@@ -78,35 +80,38 @@
                     var title = $("#article-title").val();
                     var status = parseInt($("#article-status").val());
                     var dateTime = $("#article-date-time").val();
-                    var content = $("#article-content").val();
+                    var cover = $($("#article-cover").summernote("code")).children("img").attr("src");
+                    var content = $("#article-content").summernote("code");
 
                     if (title == "") {
-                        alert("请输入项目名称");
-                        return false;
-                    }
-                    if (dateTime == "") {
-                        alert("请输入项目开始时间");
+                        alert("Please Insert the Article Title");
                         return false;
                     }
                     if (status < 0 && status > 2) {
-                        alert("请选择项目状态");
+                        alert("Please Insert a Valid Status");
                         return false;
                     }
+                    if (content == "") {
+                        alert("Please Insert Content");
+                        return false;
+                    }
+
                     $.ajax({
-                        url: "/ajax/admin?action=submit_project",
+                        url: "/ajax/admin?action=submit_recruit",
                         type: "post",
                         data: {
-                            "PUID": ((self.article != undefined) ? self.article : ""),
+                            "RUID": ((self.article != undefined) ? self.article : ""),
                             "title": title,
-                            "content": content,
                             "status": status,
-                            "date_time": dateTime
+                            "date_time": dateTime,
+                            "cover": cover,
+                            "content": content
                         },
                         success: function (result) {
                             var data = JSON.parse(result);
                             if (data["error_code"] == 0) {
                                 alert("Upload Success!");
-                                window.location.href = "project_manage.html";
+                                window.location.href = "recruit_manage.html";
                             }
                             else {
                                 alert(data["error_log"]);
@@ -124,19 +129,19 @@
                 var params = Utility.getQueryParams();
                 if (params["a"] && params["a"] != "") {
                     this.article = params["a"];
-                    this.getProjectData(params["a"], function (project) {
-                        self.renderProject(project);
+                    this.getArticleData(params["a"], function (article) {
+                        self.renderArticle(article);
                     });
                 }
                 else {
-                    this.newProject();
+                    this.newArticle();
                 }
             },
-            getProjectData: function (project, callback) {
+            getArticleData: function (article, callback) {
                 $.ajax({
-                    url: "/ajax/admin?action=get_project",
+                    url: "/ajax/admin?action=get_article",
                     type: "post",
-                    data: { "project": project },
+                    data: { "article": article },
                     success: function (result) {
                         var data = JSON.parse(result);
                         if (data["error_code"] == 0) {
@@ -144,27 +149,32 @@
                         }
                         else {
                             alert(data["error_log"]);
-                            window.location.href = "project_manage.html";
+                            window.location.href = "article_manage.html";
                         }
                     },
                     error: function () {
                         alert("Server Connection Error");
-                        window.location.href = "project_manage.html";
+                        window.location.href = "article_manage.html";
                     }
                 });
             },
-            renderProject: function (project) {
-                $("#article-title").val(project["title"]);
-                $("#article-status").val(project["status"]);
+            renderArticle: function (article) {
+                $("#article-title").val(article["title"]);
+                $("#article-subtitle").val(article["subtitle"]);
+                $("#article-tags").val(article["tags"]);
+                $("#article-status").val(article["status"]);
                 $("#article-date-time").datetimepicker({
-                    "value": project["date_time"]
+                    "value": article["date_time"]
                 });
-                $("#article-content").summernote('code', project["content"]);
+                $("#article-cover").summernote('code', "<p><img src=\"../img/article/" + article["AUID"] + ".jpg\" /></p>");
+                $("#article-content").summernote('code', article["content"]);
             },
             newArticle: function () {
                 $("#article-date-time").datetimepicker();
+                $('#article-cover').summernote(this.coverOption);
                 $("#article-content").summernote(this.contentOption);
             }
         }
+
     </script>
 </html>

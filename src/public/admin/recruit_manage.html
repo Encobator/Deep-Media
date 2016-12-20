@@ -6,42 +6,42 @@
         <link rel="stylesheet" href="../css/lib/font-awesome.css" />
         <link rel="stylesheet" href="../css/admin/basic.css" />
         <script src="../js/lib/jquery.js"></script>
-        <script>const PAGE = "manage-project"</script>
+        <script>const PAGE = "manage-recruit"</script>
     </head>
     <body>
         <nav>
             <% include view/sidebar.html %>
         </nav>
         <main>
-            <div id="main-title">管理项目</div>
+            <div id="main-title">管理招募项目</div>
             <div id="main-frame">
-                <% if (projects == undefined) { %>
-                    <div class="empty">数据库错误</div>
-                <% } else if (projects.length == 0) {%>
+                <% if (recruits == undefined) { %>
+                    <div class="empty">数据库错误或为空</div>
+                <% } else if (recruits.length == 0) {%>
                     <div class="empty">空</div>
                 <% } else { %>
                     <table id="article-table">
                         <tr>
                             <th>ID</th>
-                            <th>项目名称</th>
+                            <th>视频名称</th>
                             <th>发布时间</th>
-                            <th>关于此项目</th>
-                            <th>状态</th>
+                            <th>关于此视频</th>
+                            <th>招募状态</th>
                             <th>编辑</th>
                         </tr>
-                        <% projects.forEach(function (project) { %>
-                            <tr class="article" id="<%= project["PUID"] %>">
-                                <td><%= project["id"] %></td>
-                                <td><%= project["title"] %></td>
-                                <td><%= project["date_time"] %></td>
-                                <td><%= project["description"] %></td>
+                        <% recruits.forEach(function (recruit) { %>
+                            <tr class="article" id="<%= recruit["PUID"] %>">
+                                <td><%= recruit["id"] %></td>
+                                <td><%= recruit["title"] %></td>
+                                <td><%= recruit["date_time"] %></td>
+                                <td><%= recruit["description"] %></td>
                                 <td>
-                                    <% if(project["status"]==0){ %>
+                                    <% if(recruit["status"]==0){ %>
                                         未开始
-                                    <% } else if (project["status"]==1) { %>
-                                        进行中
+                                    <% } else if (recruit["status"]==1) { %>
+                                        招募中
                                     <% } else { %>
-                                        已结束
+                                        招募结束
                                     <% } %>
                                 </td>
                                 <td>

@@ -80,7 +80,6 @@ module.exports = {
         mysql.query("UPDATE `project` SET `title` = ?, `status` = ?, `description` = ?, `start_date_time` = ? WHERE `PUID` = ?", [
             title,
             status,
-            subtitle,
             description,
             startDateTime,
             PUID
@@ -115,6 +114,21 @@ module.exports = {
                 callback(result[0]["amount"]);
             }
         })
+    },
+    getRecruits: function (callback) {
+        mysql.query("SELECT * FROM `recruit` ", function (err, result) {
+            if (err) {
+                callback(undefined);
+            }
+            else {
+                if (result.length > 0) {
+                    callback(result);
+                }
+                else {
+                    callback(null);
+                }
+            }
+        });
     },
     hasRecruit: function (PUID, callback) {
 
