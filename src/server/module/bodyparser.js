@@ -18,6 +18,7 @@ module.exports = function (req, res, next) {
         catch (ex) {
             
             console.log("CANNOT SOLVE JSON");
+            console.log(rawbody);
             req.rawbody = rawbody;
         }
         
