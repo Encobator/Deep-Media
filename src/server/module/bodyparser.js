@@ -11,6 +11,9 @@ module.exports = function (req, res, next) {
     });
     
     req.on("end", function () {
+        
+        console.log(rawbody);
+        
         try {
             req.body = JSON.parse(rawbody);
         }
