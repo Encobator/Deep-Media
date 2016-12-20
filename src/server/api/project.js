@@ -12,7 +12,7 @@ module.exports = {
     },
     getProjects: function (start, callback) {
         mysql.query("SELECT * FROM `project` WHERE `status` = 1 LIMIT " + start + this.PAGE_PROJECT_AMOUNT, function (err, result) {
-            
+
         });
     },
     getProjectInfo: function (PUID, callback) {
@@ -32,10 +32,9 @@ module.exports = {
             }
         });
     },
-    newProject: function (UUID, title, subtitle, description, startDateTime, callback) {
+    newProject: function (title, description, startDateTime, callback) {
         mysql.query("INSERT INTO `project` SET `PUID` = UUID(), ?", {
             "title": title,
-            "subtitle": subtitle,
             "description": description,
             "start_date_time": startDateTime
         }, function (err, result) {
@@ -63,16 +62,16 @@ module.exports = {
         });
     },
     showProject: function (PUID, callback) {
-        
+
     },
     hideProject: function (PUID, callback) {
-        
+
     },
     hasRecruit: function (PUID, callback) {
-        
+
     },
     addRecruit: function (PUID, title, description, address, time, salary, callback) {
-        
+
     },
     addProgress: function (project, title, description, callback) {
         mysql.query("INSERT INTO `progress` SET `PUID` = UUID(), `date_time` = NOW(), ")
@@ -102,6 +101,6 @@ module.exports = {
         })
     },
     notifyClient: function (progressUID, callback) {
-        
+
     }
 }

@@ -1,4 +1,5 @@
 var User = require("../api/user.js");
+var Project = require("../api/project.js");
 
 module.exports = {
     login: function (req, res) {
@@ -28,6 +29,47 @@ module.exports = {
     logout: function (req, res) {
         User.logout(res);
         res.success({});
+    },
+    submit_article: function (req, res) {
+        User.loggedIn(req, function (logged) {
+            if (logged) {
+                if (req.body["PUID"] == "") {
+                    Project.newProject(req.body["title"], req.body["status"], req.body["date_time"], req.body["content"], function (success) {
+                        if (success) {
+                            res.success({});
+                        }
+                        else {
+                            res.error(1, "Database Error");
+                        }
+                    });
+                }
+                else {
+                    Project.adminExists(req.body["PUID"], function (exists) {
+                        if (exists != undefined) {
+                            if (exists) {
+                                Project.updateArticle(req.body["PUID"], req.body["title"], req.body["status"], req.body["date_time"], req.body["content"], function (success) {
+                                    if (success) {
+                                        res.success({});
+                                    }
+                                    else {
+                                        res.error(1, "Database Error");
+                                    }
+                                });
+                            }
+                            else {
+                                res.error(2, "No Such Article Exists");
+                            }
+                        }
+                        else {
+                            res.error(1, "Database Error");
+                        }
+                    });
+                }
+            }
+            else {
+                res.error(1000, "please Login First");
+            }
+        });
     },
     change_password: function (req, res) {
         if (User.isPassword(req.body["new"])) {

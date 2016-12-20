@@ -23,29 +23,21 @@
             <div id="main-title">Edit Article</div>
             <div id="main-frame">
                 <form id="article-edit-form">
-                    <label>Title:</label>
-                    <input type="text" id="article-title" placeholder="Input the Article Title Here" />
-                    <label>Subtitle:</label>
-                    <input type="text" id="article-subtitle" placeholder="Input the Article Subtitle Here" />
-                    <label>Date time: </label>
-                    <input type="text" id="article-date-time" placeholder="Article date time" />
-                    <label>Tags: (Divide each tags with ',')</label>
-                    <input type="text" id="article-tags" placeholder="Input the tags here" />
+                    <label>项目名称:</label>
+                    <input type="text" id="article-title" placeholder="请输入项目名称" />
+                    <label>发布时间: </label>
+                    <input type="text" id="article-date-time" placeholder="选择项目发布时间" />
                     <label>Status:</label>
                     <select id="article-status" value="0">
-                        <option value="0">Draft</option>
-                        <option value="1">Public</option>
-                        <option value="2">Archived</option>
+                        <option value="0">未开始</option>
+                        <option value="1">进行中</option>
+                        <option value="2">已完成</option>
                     </select>
-                    <label>Cover Image: (Preferrably 1280 x 720)</label>
-                    <div id="article-cover">
 
-                    </div>
-                    <label>Content:</label>
+                    <label>关于此项目:</label>
                     <div id="article-content">
-
                     </div>
-                    <button type="submit">Submit</button>
+                    <button type="submit">提交</button>
                 </form>
             </div>
         </main>
@@ -73,7 +65,7 @@
                 }
             },
             contentOption: {
-                height: 500
+                height: 300
             },
             initiate: function () {
                 this.initiateSubmit();
@@ -84,35 +76,20 @@
                 $("#article-edit-form").submit(function () {
 
                     var title = $("#article-title").val();
-                    var subtitle = $("#article-subtitle").val();
-                    var tags = $("#article-tags").val();
                     var status = parseInt($("#article-status").val());
                     var dateTime = $("#article-date-time").val();
-                    var cover = $($("#article-cover").summernote("code")).children("img").attr("src");
-                    var content = $("#article-content").summernote("code");
+                    var content = $("#article-content").val();
 
                     if (title == "") {
-                        alert("Please Insert the Article Title");
+                        alert("请输入项目名称");
                         return false;
                     }
-                    if (subtitle == "") {
-                        alert("Please Insert the Article Subtitle");
-                        return false;
-                    }
-                    if (tags == "") {
-                        alert("Please Insert the Article Tags");
+                    if (dateTime == "") {
+                        alert("请输入项目开始时间");
                         return false;
                     }
                     if (status < 0 && status > 2) {
-                        alert("Please Insert a Valid Status");
-                        return false;
-                    }
-                    if (cover == "") {
-                        alert("Please Add a Cover Image");
-                        return false;
-                    }
-                    if (content == "") {
-                        alert("Please Insert Content");
+                        alert("请选择项目状态");
                         return false;
                     }
 
@@ -122,18 +99,15 @@
                         data: {
                             "AUID": ((self.article != undefined) ? self.article : ""),
                             "title": title,
-                            "subtitle": subtitle,
-                            "tags": tags,
+                            "content": content,
                             "status": status,
-                            "date_time": dateTime,
-                            "cover": cover,
-                            "content": content
+                            "date_time": dateTime
                         },
                         success: function (result) {
                             var data = JSON.parse(result);
                             if (data["error_code"] == 0) {
                                 alert("Upload Success!");
-                                window.location.href = "article_manage.html";
+                                window.location.href = "project_manage.html";
                             }
                             else {
                                 alert(data["error_log"]);
