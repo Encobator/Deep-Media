@@ -1,7 +1,8 @@
 var Wechat = require("../api/wechat.js");
 var User = require("../api/user.js");
 var xml2js = require("xml2js");
-var parseXml = require('xml2js').parseString;
+var parseXml = xml2js.parseString;
+var toXml = new xml2js.Builder().buildObject;
 
 module.exports = {
     process: function (req, res) {
@@ -28,6 +29,9 @@ module.exports = {
                             "MsgType": "text",
                             "Content": "你个傻逼"
                         }
+                        var xml = toXml(reply);
+                        res.write(xml);
+                        res.end();
                         break;
                     case "event":
                         switch (result.Event) {
