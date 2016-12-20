@@ -20,6 +20,14 @@ module.exports = {
                     switch (result.MsgType) {
                     case "text":
                         var content = result.Content;
+                        var openId = result.FromUserName;
+                        var reply = {
+                            "ToUserName": openId,
+                            "FromUserName": config["wechat_id"],
+                            "CreateTime": (new Date()).getTime(),
+                            "MsgType": "text",
+                            "Content": "你个傻逼"
+                        }
                         break;
                     case "event":
                         switch (result.Event) {
