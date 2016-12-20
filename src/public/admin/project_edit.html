@@ -80,6 +80,7 @@
                     var dateTime = $("#article-date-time").val();
                     var content = $("#article-content").val();
 
+                    alert(dateTime);
                     if (title == "") {
                         alert("请输入项目名称");
                         return false;
@@ -94,10 +95,10 @@
                     }
 
                     $.ajax({
-                        url: "/ajax/admin?action=submit_article",
+                        url: "/ajax/admin?action=submit_project",
                         type: "post",
                         data: {
-                            "AUID": ((self.article != undefined) ? self.article : ""),
+                            "PUID": ((self.article != undefined) ? self.article : ""),
                             "title": title,
                             "content": content,
                             "status": status,

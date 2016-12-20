@@ -1,5 +1,6 @@
 var User = require("../api/user.js");
 var Project = require("../api/project.js");
+var mysql = require("../module/mysql.js");
 
 module.exports = {
     login: function (req, res) {
@@ -30,11 +31,11 @@ module.exports = {
         User.logout(res);
         res.success({});
     },
-    submit_article: function (req, res) {
+    submit_project: function (req, res) {
         User.loggedIn(req, function (logged) {
             if (logged) {
                 if (req.body["PUID"] == "") {
-                    Project.newProject(req.body["title"], req.body["status"], req.body["date_time"], req.body["content"], function (success) {
+                    Project.newProject(req.body["title"], req.body["status"], req.body["content"], req.body["date_time"], function (success) {
                         if (success) {
                             res.success({});
                         }
@@ -44,10 +45,10 @@ module.exports = {
                     });
                 }
                 else {
-                    Project.adminExists(req.body["PUID"], function (exists) {
+                    Project.projectExists(req.body["PUID"], function (exists) {
                         if (exists != undefined) {
                             if (exists) {
-                                Project.updateArticle(req.body["PUID"], req.body["title"], req.body["status"], req.body["date_time"], req.body["content"], function (success) {
+                                Project.updateProject(req.body["PUID"], req.body["title"], req.body["status"], req.body["date_time"], req.body["content"], function (success) {
                                     if (success) {
                                         res.success({});
                                     }

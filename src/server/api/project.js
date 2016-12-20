@@ -1,3 +1,5 @@
+var mysql = require("../module/mysql.js");
+
 module.exports = {
     PAGE_PROJECT_AMOUNT: 10,
     getProjectAmount: function (callback) {
@@ -13,6 +15,23 @@ module.exports = {
     getProjects: function (start, callback) {
         mysql.query("SELECT * FROM `project` WHERE `status` = 1 LIMIT " + start + this.PAGE_PROJECT_AMOUNT, function (err, result) {
 
+        });
+    },
+    projectExists: function (project, callback) {
+        mysql.query("SELECT `id` FROM `project` WHERE ?", {
+            "PUID": project
+        }, function (err, result) {
+            if (err) {
+                callback(undefined);
+            }
+            else {
+                if (result.length > 0) {
+                    callback(true);
+                }
+                else {
+                    callback(false);
+                }
+            }
         });
     },
     getProjectInfo: function (PUID, callback) {
@@ -32,9 +51,10 @@ module.exports = {
             }
         });
     },
-    newProject: function (title, description, startDateTime, callback) {
+    newProject: function (title, status, description, startDateTime, callback) {
         mysql.query("INSERT INTO `project` SET `PUID` = UUID(), ?", {
             "title": title,
+            "status": status,
             "description": description,
             "start_date_time": startDateTime
         }, function (err, result) {
@@ -46,9 +66,10 @@ module.exports = {
             }
         });
     },
-    updateProject: function (PUID, title, description, startDateTime, callback) {
-        mysql.query("UPDATE `project` SET `title` = ?, `description` = ?, `start_date_time` = ? WHERE `PUID` = ?", [
+    updateProject: function (PUID, title, status, startDateTime, description, callback) {
+        mysql.query("UPDATE `project` SET `title` = ?, `status` = ?, `description` = ?, `start_date_time` = ? WHERE `PUID` = ?", [
             title,
+            status,
             subtitle,
             description,
             startDateTime,
