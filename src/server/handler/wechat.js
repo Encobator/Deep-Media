@@ -32,6 +32,7 @@ module.exports = {
                     
                     console.log(result);
                     
+                    result = result.xml;
                     for (var i in result) {
                         result[i] = result[i][0];
                     }
