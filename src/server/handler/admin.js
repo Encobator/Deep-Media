@@ -115,19 +115,18 @@ module.exports = {
             }
         });
     },
-    /*
     get_project: function (req, res) {
         User.loggedIn(req, function (logged) {
             if (logged) {
-                if (req.body["content"] && req.body["content"] != "") {
-                    Article.getAdminArticle(req.body["article"], function (result) {
+                if (req.body["project"] && req.body["project"] != "") {
+                    Project.getProjectData(req.body["project"], function (result) {
                         if (result) {
                             res.success(result);
                         }
                         else {
                             res.error(2, "Database Error");
                         }
-                    });
+                    })
                 }
                 else {
                     res.error(1, "Project Id Required");
@@ -138,7 +137,6 @@ module.exports = {
             }
         });
     },
-    */
     change_password: function (req, res) {
         if (User.isPassword(req.body["new"])) {
             User.loggedIn(req, function (logged) {

@@ -145,10 +145,6 @@ module.exports = {
         res.end();
     },
     post: function (req, res) {
-        
-        //Testing
-        console.log("TESTING BODY\n" + req.body + "\n");
-        
         switch (req.body.MsgType) {
             case "text": onText(req, res); break;
             case "event":
@@ -169,23 +165,6 @@ module.exports = {
             next();
         }
         
-        //Generate request rawbody and body
-        req.rawbody = "";
-        req.on("data", function (data) {
-            req.rawbody += data;
-        }).on("end", function () {
-            parseXml(req.rawbody, {trim: true}, function (err, result) {
-                if (err) {
-                    next();
-                }
-                else {
-                    result = formatMessage(result);
-                    req.body = result;
-                    next();
-                }
-            });
-        });
-        
         //Add api for reply text
         res.replyText = function (text) {
             var openId = req.body.FromUserName;
@@ -200,5 +179,18 @@ module.exports = {
             res.write(xml);
             res.end();
         }
+        
+        //Generate request rawbody and body
+        req.rawbody = "";
+        req.on("data", function (data) {
+            req.rawbody += data;
+        }).on("end", function () {
+            parseXml(req.rawbody, {trim: true}, function (err, result) {
+                if (!err) {
+                    req.body = formatMessage(result);
+                }
+                next();
+            });
+        });
     }
 }
