@@ -7,8 +7,8 @@ var parseXml = xml2js.parseString;
 var toXml = new xml2js.Builder().buildObject;
 
 var tpl = ['<xml>',
-    '<ToUserName><![CDATA[<%-ToUsername%>]]></ToUserName>',
-    '<FromUserName><![CDATA[<%-FromUsername%>]]></FromUserName>',
+    '<ToUserName><![CDATA[<%-ToUserName%>]]></ToUserName>',
+    '<FromUserName><![CDATA[<%-FromUserName%>]]></FromUserName>',
     '<CreateTime><%=CreateTime%></CreateTime>',
     '<% if (MsgType === "device_event" && (Event === "subscribe_status" || Event === "unsubscribe_status")) { %>',
       '<% if (Event === "subscribe_status" || Event === "unsubscribe_status") { %>',
