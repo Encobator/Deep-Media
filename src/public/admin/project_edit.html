@@ -159,7 +159,7 @@
                 $("#article-date-time").datetimepicker({
                     "value": project["start_date_time"]
                 });
-                $("#article-content").summernote('code', project["content"]);
+                $("#article-content").summernote('code', project["description"]);
             },
             newProject: function () {
                 $("#article-date-time").datetimepicker();

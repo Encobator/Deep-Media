@@ -75,7 +75,6 @@ module.exports = {
     },
     submit_recruit: function (req, res) {
         User.loggedIn(req, function (logged) {
-            console.log(req.body["RUID"]);
             if (logged) {
                 if (req.body["RUID"] == "") {
                     Recruit.newRecruit(req.body["title"], req.body["status"], req.body["cover"], req.body["content"], req.body["date_time"], function (success) {
@@ -91,7 +90,7 @@ module.exports = {
                     Recruit.recruitExists(req.body["RUID"], function (exists) {
                         if (exists != undefined) {
                             if (exists) {
-                                Project.updateRecruit(req.body["RUID"], req.body["title"], req.body["status"], req.body["date_time"], req.body["cover"], req.body["content"], function (success) {
+                                Recruit.updateRecruit(req.body["RUID"], req.body["title"], req.body["status"], req.body["date_time"], req.body["cover"], req.body["content"], function (success) {
                                     if (success) {
                                         res.success({});
                                     }

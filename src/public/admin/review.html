@@ -6,6 +6,12 @@
         <link rel="stylesheet" href="../css/admin/basic.css" />
         <script src="../js/lib/jquery.js"></script>
         <script>const PAGE = "review"</script>
+        <style>
+            .avatars {
+                width: 30px;
+                height: auto;
+            }
+        </style>
     </head>
     <body>
         <nav>
@@ -18,15 +24,17 @@
                     <tr>
                         <th>头像</th>
                         <th>用户名</th>
+                        <th>满意度</th>
                         <th>评价</th>
                         <th>时间</th>
                     </tr>
                     <% for(var i=0; i<reviews.length; ++i){ %>
                         <tr id="<%= i %>">
-                            <td><img src="<%= reviews[i].avatar %>"></th>
-                            <td><%= reviews[i].nickname %></th>
-                            <td><%= reviews[i].comment %></th>
-                            <td><%= reviews[i].date_time %></th>
+                            <td><img class="avatars" src="<%= reviews[i].avatar %>"></td>
+                            <td><%= reviews[i].nickname %></td>
+                            <td><%= reviews[i].points %></td>
+                            <td><%= reviews[i].comment %></td>
+                            <td><%= reviews[i].date_time %></td>
                         </tr>
                     <% } %>
                 </table>

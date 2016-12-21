@@ -65,26 +65,6 @@
                 //this.initiateStatus();
                 this.initiateEdit();
             },
-            /*
-            initiateStatus: function () {
-                $(".article-status").change(function () {
-                    var PUID = $(this).parent().parent().attr("id");
-                    var status = parseInt($(this).val());
-                    $.ajax({
-                        url: "/ajax/admin?action=change_article_status",
-                        type: "post",
-                        data: { "article": PUID, "status": status },
-                        success: function (result) {
-                            var data = JSON.parse(result);
-                            if (data["error_code"] != 0) {
-                                alert(data["error_log"]);
-                                window.location.reload();
-                            }
-                        }
-                    })
-                });
-            },
-            */
             initiateEdit: function () {
                 $(".project-edit").click(function () {
                     var PUID = $(this).parent().parent().attr("id");

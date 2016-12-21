@@ -169,7 +169,7 @@
                     $("#article-cover").summernote('code', "<p><img src=\"" + article["cover"] + "\" /></p>");
                 else
                     $("#article-cover").summernote('code', "<p></p>");
-                $("#article-content").summernote('code', article["content"]);
+                $("#article-content").summernote('code', article["description"]);
             },
             newRecruit: function () {
                 $("#article-date-time").datetimepicker();

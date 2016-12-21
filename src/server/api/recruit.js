@@ -93,5 +93,30 @@ module.exports = {
                 callback(true);
             }
         });
+    },
+    getActors: function (RUID, callback) {
+        mysql.query("SELECT * FROM `actor` WHERE `RUID` = ?", [
+            RUID
+        ], function (err, result) {
+            if (err) {
+                callback(null);
+            }
+            else {
+                callback(result);
+            }
+        })
+    },
+    updateActorStatus: function (AUID, new_status, callback) {
+        mysql.query("UPDATE `actor` SET `status` = ? WHERE `AUID` = ?", [
+            new_status,
+            AUID
+        ], function (err, result) {
+            if (err) {
+                console.log("Status change error");
+            }
+            else {
+                callback();
+            }
+        });
     }
 }
