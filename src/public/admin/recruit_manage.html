@@ -30,7 +30,7 @@
                             <th>编辑</th>
                         </tr>
                         <% recruits.forEach(function (recruit) { %>
-                            <tr class="article" id="<%= recruit["PUID"] %>">
+                            <tr class="article" id="<%= recruit["RUID"] %>">
                                 <td><%= recruit["id"] %></td>
                                 <td><%= recruit["title"] %></td>
                                 <td><%= recruit["time"] %></td>
@@ -87,8 +87,8 @@
             */
             initiateEdit: function () {
                 $(".project-edit").click(function () {
-                    var PUID = $(this).parent().parent().attr("id");
-                    window.location.href = "project_edit.html?a=" + PUID;
+                    var RUID = $(this).parent().parent().attr("id");
+                    window.location.href = "recruit_edit.html?a=" + RUID;
                 })
             }
         }

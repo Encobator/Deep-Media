@@ -13,7 +13,7 @@ module.exports = {
         })
     },
     getProjects: function (callback) {
-        mysql.query("SELECT * FROM `project` ", function (err, result) {
+        mysql.query("SELECT * FROM `project` ORDER BY `start_date_time` DESC", function (err, result) {
             if (err) {
                 callback(undefined);
             }
@@ -152,7 +152,7 @@ module.exports = {
         });
     },
     getProgress: function (PUID, callback) {
-        mysql.query("SELECT * FROM `progress` WHERE `PUID` = ?", [
+        mysql.query("SELECT * FROM `progress` WHERE `PUID` = ? ORDER BY `date_time` DESC", [
             PUID
         ], function (err, result) {
             if (err) {

@@ -20,7 +20,7 @@
             <% include view/sidebar.html %>
         </nav>
         <main>
-            <div id="main-title">Edit Article</div>
+            <div id="main-title">管理项目</div>
             <div id="main-frame">
                 <form id="article-edit-form">
                     <label>项目名称:</label>
@@ -157,11 +157,11 @@
                 $("#article-title").val(project["title"]);
                 $("#article-status").val(project["status"]);
                 $("#article-date-time").datetimepicker({
-                    "value": project["date_time"]
+                    "value": project["start_date_time"]
                 });
                 $("#article-content").summernote('code', project["content"]);
             },
-            newArticle: function () {
+            newProject: function () {
                 $("#article-date-time").datetimepicker();
                 $("#article-content").summernote(this.contentOption);
             }

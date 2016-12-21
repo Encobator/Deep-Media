@@ -20,7 +20,7 @@
             <% include view/sidebar.html %>
         </nav>
         <main>
-            <div id="main-title">Edit Article</div>
+            <div id="main-title">管理招募</div>
             <div id="main-frame">
                 <form id="article-edit-form">
                     <label>视频名称:</label>
@@ -129,47 +129,49 @@
                 var params = Utility.getQueryParams();
                 if (params["a"] && params["a"] != "") {
                     this.article = params["a"];
-                    this.getArticleData(params["a"], function (article) {
-                        self.renderArticle(article);
+                    this.getRecruitData(params["a"], function (article) {
+                        self.renderRecruit(article);
                     });
                 }
                 else {
-                    this.newArticle();
+                    this.newRecruit();
                 }
             },
-            getArticleData: function (article, callback) {
+            getRecruitData: function (recruit, callback) {
                 $.ajax({
-                    url: "/ajax/admin?action=get_article",
+                    url: "/ajax/admin?action=get_recruit",
                     type: "post",
-                    data: { "article": article },
+                    data: { "recruit": recruit },
                     success: function (result) {
                         var data = JSON.parse(result);
                         if (data["error_code"] == 0) {
+                            //console.log(data);
                             callback(data["content"]);
                         }
                         else {
                             alert(data["error_log"]);
-                            window.location.href = "article_manage.html";
+                            window.location.href = "recruit_manage.html";
                         }
                     },
                     error: function () {
                         alert("Server Connection Error");
-                        window.location.href = "article_manage.html";
+                        window.location.href = "recruit_manage.html";
                     }
                 });
             },
-            renderArticle: function (article) {
+            renderRecruit: function (article) {
                 $("#article-title").val(article["title"]);
-                $("#article-subtitle").val(article["subtitle"]);
-                $("#article-tags").val(article["tags"]);
                 $("#article-status").val(article["status"]);
                 $("#article-date-time").datetimepicker({
-                    "value": article["date_time"]
+                    "value": article["time"]
                 });
-                $("#article-cover").summernote('code', "<p><img src=\"../img/article/" + article["AUID"] + ".jpg\" /></p>");
+                if(article["cover"])
+                    $("#article-cover").summernote('code', "<p><img src=\"" + article["cover"] + "\" /></p>");
+                else
+                    $("#article-cover").summernote('code', "<p></p>");
                 $("#article-content").summernote('code', article["content"]);
             },
-            newArticle: function () {
+            newRecruit: function () {
                 $("#article-date-time").datetimepicker();
                 $('#article-cover').summernote(this.coverOption);
                 $("#article-content").summernote(this.contentOption);

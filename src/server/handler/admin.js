@@ -119,7 +119,7 @@ module.exports = {
         User.loggedIn(req, function (logged) {
             if (logged) {
                 if (req.body["project"] && req.body["project"] != "") {
-                    Project.getProjectData(req.body["project"], function (result) {
+                    Project.getProjectInfo(req.body["project"], function (result) {
                         if (result) {
                             res.success(result);
                         }
@@ -130,6 +130,28 @@ module.exports = {
                 }
                 else {
                     res.error(1, "Project Id Required");
+                }
+            }
+            else {
+                res.error(1000, "Please Login First");
+            }
+        });
+    },
+    get_recruit: function (req, res) {
+        User.loggedIn(req, function (logged) {
+            if (logged) {
+                if (req.body["recruit"] && req.body["recruit"] != "") {
+                    Recruit.getRecruitInfo(req.body["recruit"], function (result) {
+                        if (result) {
+                            res.success(result);
+                        }
+                        else {
+                            res.error(2, "Database Error");
+                        }
+                    })
+                }
+                else {
+                    res.error(1, "Recruit Id Required");
                 }
             }
             else {

@@ -13,7 +13,7 @@ module.exports = {
         })
     },
     getRecruits: function (callback) {
-        mysql.query("SELECT * FROM `recruit` ", function (err, result) {
+        mysql.query("SELECT * FROM `recruit` ORDER BY `time` DESC", function (err, result) {
             if (err) {
                 callback(undefined);
             }
