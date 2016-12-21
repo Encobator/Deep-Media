@@ -49,25 +49,25 @@ module.exports = {
             "RUID": RUID
         }, function (err, result) {
             if (err) {
-                callback(false);
+                callback(null);
             }
             else {
                 if (result.length > 0) {
                     callback(result[0]);
                 }
                 else {
-                    callback(false);
+                    callback(null);
                 }
             }
         });
     },
     newRecruit: function (title, status, cover, description, startDateTime, callback) {
-        mysql.query("INSERT INTO `project` SET `RUID` = UUID(), ?", {
+        mysql.query("INSERT INTO `recruit` SET `RUID` = UUID(), ?", {
             "title": title,
             "status": status,
             "cover": cover,
             "description": description,
-            "start_date_time": startDateTime
+            "time": startDateTime
         }, function (err, result) {
             if (err) {
                 callback(false);
@@ -78,7 +78,7 @@ module.exports = {
         });
     },
     updateRecruit: function (RUID, title, status, startDateTime, cover, description, callback) {
-        mysql.query("UPDATE `project` SET `title` = ?, `status` = ?, `cover` = ?, `description` = ?, `start_date_time` = ? WHERE `RUID` = ?", [
+        mysql.query("UPDATE `recruit` SET `title` = ?, `status` = ?, `cover` = ?, `description` = ?, `time` = ? WHERE `RUID` = ?", [
             title,
             status,
             cover,
