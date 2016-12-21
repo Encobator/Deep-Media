@@ -1,5 +1,6 @@
 var Wechat = require("../api/wechat.js");
 var User = require("../api/user.js");
+var config = require("../data/config.js");
 var xml2js = require("xml2js");
 var parseXml = xml2js.parseString;
 var toXml = new xml2js.Builder().buildObject;
@@ -52,7 +53,7 @@ module.exports = {
                         }
                         var xml = toXml(reply);
                         
-                        console.log("reply: " + reply);
+                        console.log("reply: " + xml);
                         
                         res.write(xml);
                         res.end();
