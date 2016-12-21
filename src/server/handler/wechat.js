@@ -1,6 +1,6 @@
 var Wechat = require("../api/wechat.js");
 var User = require("../api/user.js");
-var config = require("../data/config.js");
+var config = require("../data/config.json");
 var xml2js = require("xml2js");
 var parseXml = xml2js.parseString;
 var toXml = new xml2js.Builder().buildObject;
