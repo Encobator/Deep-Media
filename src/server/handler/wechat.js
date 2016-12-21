@@ -32,6 +32,12 @@ module.exports = {
                     
                     console.log(result);
                     
+                    for (var i in result) {
+                        result[i] = result[i][0];
+                    }
+                    
+                    console.log(result);
+                    
                     switch (result.MsgType) {
                     case "text":
                         var content = result.Content;
@@ -44,6 +50,9 @@ module.exports = {
                             "Content": "你个傻逼"
                         }
                         var xml = toXml(reply);
+                        
+                        console.log("reply: " + reply);
+                        
                         res.write(xml);
                         res.end();
                         break;
@@ -67,6 +76,9 @@ module.exports = {
                             }
                             break;
                         }
+                        break;
+                    default:
+                        res.end();
                         break;
                     }
                 }
