@@ -3,6 +3,7 @@
  */
 
 var bodyparser = require("./bodyparser.js");
+var parser = require("body-parser");
 var response = require("./response.js");
 var verification = require("./verification.js");
 var wechatHandler = require("../handler/wechat.js");

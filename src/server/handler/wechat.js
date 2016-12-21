@@ -1,8 +1,124 @@
+var ejs = require("ejs");
+var xml2js = require("xml2js");
 var Wechat = require("../api/wechat.js");
 var User = require("../api/user.js");
-var xml2js = require("xml2js");
+var config = require("../data/config.json");
 var parseXml = xml2js.parseString;
 var toXml = new xml2js.Builder().buildObject;
+
+var tpl = ['<xml>',
+    '<ToUserName><![CDATA[<%-ToUserName%>]]></ToUserName>',
+    '<FromUserName><![CDATA[<%-FromUserName%>]]></FromUserName>',
+    '<CreateTime><%=CreateTime%></CreateTime>',
+    '<% if (MsgType === "device_event" && (Event === "subscribe_status" || Event === "unsubscribe_status")) { %>',
+      '<% if (Event === "subscribe_status" || Event === "unsubscribe_status") { %>',
+        '<MsgType><![CDATA[device_status]]></MsgType>',
+        '<DeviceStatus><%=DeviceStatus%></DeviceStatus>',
+      '<% } else { %>',
+        '<MsgType><![CDATA[<%=MsgType%>]]></MsgType>',
+        '<Event><![CDATA[<%-Event%>]]></Event>',
+      '<% } %>',
+    '<% } else { %>',
+      '<MsgType><![CDATA[<%=MsgType%>]]></MsgType>',
+    '<% } %>',
+  '<% if (MsgType === "news") { %>',
+    '<ArticleCount><%=Content.length%></ArticleCount>',
+    '<Articles>',
+    '<% Content.forEach(function(item){ %>',
+      '<item>',
+        '<Title><![CDATA[<%-item.title%>]]></Title>',
+        '<Description><![CDATA[<%-item.description%>]]></Description>',
+        '<PicUrl><![CDATA[<%-item.picUrl || item.picurl || item.pic %>]]></PicUrl>',
+        '<Url><![CDATA[<%-item.url%>]]></Url>',
+      '</item>',
+    '<% }); %>',
+    '</Articles>',
+  '<% } else if (MsgType === "music") { %>',
+    '<Music>',
+      '<Title><![CDATA[<%-Content.title%>]]></Title>',
+      '<Description><![CDATA[<%-Content.description%>]]></Description>',
+      '<MusicUrl><![CDATA[<%-Content.musicUrl || Content.url %>]]></MusicUrl>',
+      '<HQMusicUrl><![CDATA[<%-Content.hqMusicUrl || Content.hqUrl %>]]></HQMusicUrl>',
+      '<% if (Content.thumbMediaId) { %> ',
+      '<ThumbMediaId><![CDATA[<%-Content.thumbMediaId || Content.mediaId %>]]></ThumbMediaId>',
+      '<% } %>',
+    '</Music>',
+  '<% } else if (MsgType === "voice") { %>',
+    '<Voice>',
+      '<MediaId><![CDATA[<%-Content.mediaId%>]]></MediaId>',
+    '</Voice>',
+  '<% } else if (MsgType === "image") { %>',
+    '<Image>',
+      '<MediaId><![CDATA[<%-Content.mediaId%>]]></MediaId>',
+    '</Image>',
+  '<% } else if (MsgType === "video") { %>',
+    '<Video>',
+      '<MediaId><![CDATA[<%-Content.mediaId%>]]></MediaId>',
+      '<Title><![CDATA[<%-Content.title%>]]></Title>',
+      '<Description><![CDATA[<%-Content.description%>]]></Description>',
+    '</Video>',
+  '<% } else if (MsgType === "hardware") { %>',
+    '<HardWare>',
+      '<MessageView><![CDATA[<%-HardWare.MessageView%>]]></MessageView>',
+      '<MessageAction><![CDATA[<%-HardWare.MessageAction%>]]></MessageAction>',
+    '</HardWare>',
+    '<FuncFlag>0</FuncFlag>',
+  '<% } else if (MsgType === "device_text" || MsgType === "device_event") { %>',
+    '<DeviceType><![CDATA[<%-DeviceType%>]]></DeviceType>',
+    '<DeviceID><![CDATA[<%-DeviceID%>]]></DeviceID>',
+    '<% if (MsgType === "device_text") { %>',
+      '<Content><![CDATA[<%-Content%>]]></Content>',
+    '<% } else if ((MsgType === "device_event" && Event != "subscribe_status" && Event != "unsubscribe_status")) { %>',
+      '<Content><![CDATA[<%-Content%>]]></Content>',
+      '<Event><![CDATA[<%-Event%>]]></Event>',
+    '<% } %>',
+      '<SessionID><%=SessionID%></SessionID>',
+  '<% } else if (MsgType === "transfer_customer_service") { %>',
+    '<% if (Content && Content.kfAccount) { %>',
+      '<TransInfo>',
+        '<KfAccount><![CDATA[<%-Content.kfAccount%>]]></KfAccount>',
+      '</TransInfo>',
+    '<% } %>',
+  '<% } else { %>',
+    '<Content><![CDATA[<%-Content%>]]></Content>',
+  '<% } %>',
+  '</xml>'].join('');
+
+/*!
+ * 编译过后的模版
+ */
+var compiled = ejs.compile(tpl);
+
+function formatMessage(result) {
+    result = result.xml;
+    var message = {};
+    if (typeof result === 'object') {
+        for (var key in result) {
+            if (!(result[key] instanceof Array) || result[key].length === 0) {
+                continue;
+            }
+            if (result[key].length === 1) {
+                var val = result[key][0];
+                if (typeof val === 'object') {
+                    message[key] = formatMessage(val);
+                }
+                else {
+                    message[key] = (val || '').trim();
+                }
+            }
+            else {
+                message[key] = [];
+                result[key].forEach(function (item) {
+                    message[key].push(formatMessage(item));
+                });
+            }
+        }
+        return message;
+    }
+    else {
+        return result;
+    }
+}
 
 module.exports = {
     process: function (req, res) {
@@ -19,9 +135,9 @@ module.exports = {
         else if (req.method == "POST") {
             
             console.log("RECEIVED MESSAGE!!!");
-            console.log(res.body);
+            console.log(req.rawbody);
             
-            parseXml(res.body, function (err, result) {
+            parseXml(req.rawbody, {trim: true}, function (err, result) {
                 if (err) {
                     
                     console.log(err);
@@ -29,6 +145,10 @@ module.exports = {
                     res.end();
                 }
                 else {
+                    
+                    console.log(result);
+                    
+                    result = formatMessage(result);
                     
                     console.log(result);
                     
@@ -43,7 +163,10 @@ module.exports = {
                             "MsgType": "text",
                             "Content": "你个傻逼"
                         }
-                        var xml = toXml(reply);
+                        var xml = compiled(reply);
+                        
+                        console.log("reply: " + xml);
+                        
                         res.write(xml);
                         res.end();
                         break;
@@ -67,6 +190,9 @@ module.exports = {
                             }
                             break;
                         }
+                        break;
+                    default:
+                        res.end();
                         break;
                     }
                 }
