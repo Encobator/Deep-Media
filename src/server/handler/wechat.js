@@ -196,7 +196,7 @@ module.exports = {
                 "MsgType": "text",
                 "Content": text
             }
-            var xml = compileXml(reply);
+            var xml = compileXml(json);
             res.write(xml);
             res.end();
         }
