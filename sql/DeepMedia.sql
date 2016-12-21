@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.12, for osx10.9 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
 --
--- Host: 127.0.0.1    Database: DeepMedia
+-- Host: localhost    Database: DeepMedia
 -- ------------------------------------------------------
--- Server version	5.7.10
+-- Server version	5.7.13
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -76,33 +76,6 @@ LOCK TABLES `application` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `comment`
---
-
-DROP TABLE IF EXISTS `comment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `comment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `CUID` char(36) NOT NULL,
-  `UUID` char(36) NOT NULL,
-  `comment` tinytext,
-  `date_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `comment`
---
-
-LOCK TABLES `comment` WRITE;
-/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `progress`
 --
 
@@ -142,14 +115,13 @@ CREATE TABLE `project` (
   `PUID` char(36) NOT NULL,
   `UUID` varchar(45) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
-  `subtitle` varchar(100) DEFAULT NULL,
-  `description` tinytext,
+  `description` mediumtext,
   `start_date_time` datetime DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0 hide\n1 show',
   PRIMARY KEY (`id`),
   UNIQUE KEY `PUID_UNIQUE` (`PUID`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,6 +130,7 @@ CREATE TABLE `project` (
 
 LOCK TABLES `project` WRITE;
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
+INSERT INTO `project` VALUES (1,'e695b504-c6d9-11e6-bfe9-950e846e9bbd',NULL,'asd','0','2016-11-15 01:29:00',1),(2,'2d8d6d6c-c6da-11e6-bfe9-950e846e9bbd',NULL,'asd','0','2016-11-15 01:29:00',1),(3,'ee282d40-c6db-11e6-bfe9-950e846e9bbd',NULL,'s','','2016-12-28 01:44:00',0),(4,'6b15d434-c6e0-11e6-bfe9-950e846e9bbd',NULL,'sdf','','2016-12-13 02:16:00',2),(5,'a85c602e-c6e0-11e6-bfe9-950e846e9bbd',NULL,'sd','','2016-12-21 02:18:00',1),(6,'2575fbb0-c6e1-11e6-bfe9-950e846e9bbd',NULL,'ddd','','2016-12-06 02:21:00',0),(7,'7ed659c0-c6e1-11e6-bfe9-950e846e9bbd',NULL,'dd','asdf','2016-12-15 02:24:00',0);
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,16 +142,16 @@ DROP TABLE IF EXISTS `recruit`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `recruit` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `RUID` char(36) DEFAULT NULL,
   `PUID` char(36) DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
-  `description` tinytext,
-  `address` varchar(100) DEFAULT NULL,
+  `description` mediumtext,
   `time` varchar(100) DEFAULT NULL,
-  `salary` varchar(100) DEFAULT NULL,
+  `cover` tinytext,
+  `status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +160,36 @@ CREATE TABLE `recruit` (
 
 LOCK TABLES `recruit` WRITE;
 /*!40000 ALTER TABLE `recruit` DISABLE KEYS */;
+INSERT INTO `recruit` VALUES (1,'217271bc-c739-11e6-bfe9-950e846e9bbd',NULL,'sd','sdf','2016/12/13 12:48',NULL,2),(2,'28f92ad4-c739-11e6-bfe9-950e846e9bbd',NULL,'sdfsd','fddf','2016/12/06 12:51',NULL,0),(3,'51053c70-c739-11e6-bfe9-950e846e9bbd',NULL,'sdfs','dffd','2016/12/07 12:52',NULL,2);
 /*!40000 ALTER TABLE `recruit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `review`
+--
+
+DROP TABLE IF EXISTS `review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `review` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `RUID` char(36) NOT NULL,
+  `UUID` char(36) NOT NULL,
+  `comment` tinytext,
+  `date_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `review`
+--
+
+LOCK TABLES `review` WRITE;
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES (1,'UUID()','4f8350fa-c6ab-11e6-82d7-c5120b02e780','oh yeah man',NULL),(2,'4050d5ac-c6cf-11e6-bfe9-950e846e9bbd','4f8350fa-c6ab-11e6-82d7-c5120b02e780','fuck','2016-12-21 00:13:32');
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -202,7 +204,7 @@ CREATE TABLE `user` (
   `UUID` char(36) NOT NULL,
   `openId` char(100) NOT NULL,
   `nickname` varchar(100) DEFAULT NULL,
-  `avartar` varchar(200) DEFAULT NULL,
+  `avatar` varchar(200) DEFAULT NULL,
   `username` char(20) DEFAULT NULL,
   `password` char(200) DEFAULT NULL,
   `register_time` datetime DEFAULT NULL,
@@ -223,7 +225,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'4f8350fa-c6ab-11e6-82d7-c5120b02e780','0',NULL,NULL,'admin','3iv8vz1oTfMPgwJIUDrf7lUB5rf9G+I8Ixxjn1jfojp4gPtDs=',NULL,NULL,1,NULL,NULL);
+INSERT INTO `user` VALUES (1,'4f8350fa-c6ab-11e6-82d7-c5120b02e780','0','trump','http://static.hdslb.com/images/member/noface.gif','admin','3iv8vz1oTfMPgwJIUDrf7lUB5rf9G+I8Ixxjn1jfojp4gPtDs=',NULL,NULL,1,'ceeaed85-2f77-bd78-8200-0f21fb470cd3','2016-12-21 15:02:57');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -236,4 +238,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-20 19:56:52
+-- Dump completed on 2016-12-21 15:03:51
