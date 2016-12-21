@@ -19,9 +19,9 @@ module.exports = {
         else if (req.method == "POST") {
             
             console.log("RECEIVED MESSAGE!!!");
-            console.log(res.rawbody);
+            console.log(req.rawbody);
             
-            parseXml(res.rawbody, function (err, result) {
+            parseXml(req.rawbody, function (err, result) {
                 if (err) {
                     
                     console.log(err);

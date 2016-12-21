@@ -12,6 +12,13 @@ module.exports = function (req, res, next) {
     
     req.on("end", function () {
         
+        try {
+            req.body = JSON.parse(req.rawbody);
+        }
+        catch (err) {
+            //Do Nothing
+        }
+        
         next();
     });
 }
