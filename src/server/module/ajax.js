@@ -2,8 +2,7 @@
  *
  */
 
-var bodyparser = require("./bodyparser.js");
-var parser = require("body-parser");
+var bodyParser = require("body-parser");
 var response = require("./response.js");
 var verification = require("./verification.js");
 var wechatHandler = require("../handler/wechat.js");
@@ -66,12 +65,15 @@ function process(req, res) {
  */
 exports.set = function (server) {
     
-    //Using Response Middleware
-    server.use(response);
-    server.use(bodyparser);
+    //First handle all wechat request
+    server.use("/ajax/wechat", wechatHandler.process);
+    server.get("/ajax/wechat", wechatHandler.get);
+    server.post("/ajax/wechat", wechatHandler.post);
     
-    server.get("/ajax/wechat", wechatHandler.process);
-    server.post("/ajax/wechat", wechatHandler.process);
+    //Using Response and parser Middleware
+    server.use(response);
+    server.use(bodyParser.urlencoded({ extended: false }));
+    server.use(bodyParser.json());
     
     //Pass all the requests to process function
     server.get("/ajax/*", process);

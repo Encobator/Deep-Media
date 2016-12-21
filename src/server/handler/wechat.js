@@ -6,7 +6,7 @@ var config = require("../data/config.json");
 var parseXml = xml2js.parseString;
 var toXml = new xml2js.Builder().buildObject;
 
-var tpl = ['<xml>',
+var xmlTemplate = ['<xml>',
     '<ToUserName><![CDATA[<%-ToUserName%>]]></ToUserName>',
     '<FromUserName><![CDATA[<%-FromUserName%>]]></FromUserName>',
     '<CreateTime><%=CreateTime%></CreateTime>',
@@ -83,11 +83,7 @@ var tpl = ['<xml>',
     '<Content><![CDATA[<%-Content%>]]></Content>',
   '<% } %>',
   '</xml>'].join('');
-
-/*!
- * 编译过后的模版
- */
-var compiled = ejs.compile(tpl);
+var compileXml = ejs.compile(xmlTemplate);
 
 function formatMessage(result) {
     result = result.xml;
@@ -120,85 +116,88 @@ function formatMessage(result) {
     }
 }
 
-module.exports = {
-    process: function (req, res) {
-        
-        if (req.method == "GET") {
-            
-            console.log("Verifying");
-            
-            if (Wechat.verify(req.query["signature"], req.query["timestamp"], req.query["nonce"])) {
-                res.write(req.query["echostr"]);
-            }
-            res.end();
+function onText(req, res) {
+    res.replyText("谢谢您的反馈");
+}
+
+function onSubscribe(req, res) {
+    User.newUser(req.body.FromUserName, function (info) {
+        if (info) {
+            res.replyText(info["nickname"] + "，感谢您的关注～您可以点击下方的菜单查看我们的原创作品");
         }
-        else if (req.method == "POST") {
-            
-            console.log("RECEIVED MESSAGE!!!");
-            console.log(req.rawbody);
-            
+        res.end();
+    });
+}
+
+function onUnsubscribe(req, res) {
+    
+}
+
+function onClick(req, res) {
+    
+}
+
+module.exports = {
+    get: function (req, res) {
+        if (Wechat.verify(req.query["signature"], req.query["timestamp"], req.query["nonce"])) {
+            res.write(req.query["echostr"]);
+        }
+        res.end();
+    },
+    post: function (req, res) {
+        
+        //Testing
+        console.log("TESTING BODY\n" + req.body + "\n");
+        
+        switch (req.body.MsgType) {
+            case "text": onText(req, res); break;
+            case "event":
+                switch (req.body.Event) {
+                    case "subscribe": onSubscribe(req, res); break;
+                    case "unsubscribe": onUnsubscribe(req, res); break;
+                    case "CLICK": onClick(req, res); break;
+                    default: res.end(); break;
+                }
+                break;
+            default: res.end(); break;
+        }
+    },
+    process: function (req, res, next) {
+        
+        //Check method
+        if (req.method != "POST") {
+            next();
+        }
+        
+        //Generate request rawbody and body
+        req.rawbody = "";
+        req.on("data", function (data) {
+            req.rawbody += data;
+        }).on("end", function () {
             parseXml(req.rawbody, {trim: true}, function (err, result) {
                 if (err) {
-                    
-                    console.log(err);
-                    
-                    res.end();
+                    next();
                 }
                 else {
-                    
-                    console.log(result);
-                    
                     result = formatMessage(result);
-                    
-                    console.log(result);
-                    
-                    switch (result.MsgType) {
-                    case "text":
-                        var content = result.Content;
-                        var openId = result.FromUserName;
-                        var reply = {
-                            "ToUserName": openId,
-                            "FromUserName": config["wechat_id"],
-                            "CreateTime": (new Date()).getTime(),
-                            "MsgType": "text",
-                            "Content": "你个傻逼"
-                        }
-                        var xml = compiled(reply);
-                        
-                        console.log("reply: " + xml);
-                        
-                        res.write(xml);
-                        res.end();
-                        break;
-                    case "event":
-                        switch (result.Event) {
-                        case "subscribe":
-                            var openId = result.FromUserName;
-                            User.newUser(openId, function (info) {
-                                if (info) {
-                                    res.write(info["nickname"] + "，感谢您的关注～您可以点击下方的菜单查看我们的原创作品");
-                                }
-                                res.end();
-                            });
-                            break;
-                        case "unsubscribe":
-                            res.end();
-                            break;
-                        case "CLICK":
-                            switch (result.EventKey) {
-                                case "": break;
-                            }
-                            break;
-                        }
-                        break;
-                    default:
-                        res.end();
-                        break;
-                    }
+                    req.body = result;
+                    next();
                 }
             });
-        }
-        else {
+        });
+        
+        //Add api for reply text
+        res.replyText = function (text) {
+            var openId = req.body.FromUserName;
+            var json = {
+                "ToUserName": openId,
+                "FromUserName": config["wechat_id"],
+                "CreateTime": (new Date()).getTime(),
+                "MsgType": "text",
+                "Content": text
+            }
+            var xml = compileXml(reply);
+            res.write(xml);
             res.end();
         }
     }
