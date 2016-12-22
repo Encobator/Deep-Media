@@ -310,6 +310,7 @@ module.exports = {
             username
         ], function (err, result) {
             if (err) {
+                console.log(err);
                 callback(3);
             }
             else {
