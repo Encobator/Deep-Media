@@ -20,24 +20,28 @@
         <main>
             <div id="main-title">Dashboard</div>
             <div id="main-frame">
-                <table>
-                    <tr>
-                        <th>头像</th>
-                        <th>用户名</th>
-                        <th>满意度</th>
-                        <th>评价</th>
-                        <th>时间</th>
-                    </tr>
-                    <% for(var i=0; i<reviews.length; ++i){ %>
-                        <tr id="<%= i %>">
-                            <td><img class="avatars" src="<%= reviews[i].avatar %>"></td>
-                            <td><%= reviews[i].nickname %></td>
-                            <td><%= reviews[i].points %></td>
-                            <td><%= reviews[i].comment %></td>
-                            <td><%= reviews[i].date_time %></td>
+                <% if (!reviews || reviews.length == 0) { %>
+                    <div class="empty">当前没有反馈</div>
+                <% } else { %>
+                    <table>
+                        <tr>
+                            <th>头像</th>
+                            <th>用户名</th>
+                            <th>满意度</th>
+                            <th>评价</th>
+                            <th>时间</th>
                         </tr>
-                    <% } %>
-                </table>
+                        <% for (var i=0; i<reviews.length; ++i){ %>
+                            <tr id="<%= i %>">
+                                <td><img class="avatars" src="<%= reviews[i].avatar %>"></td>
+                                <td><%= reviews[i].nickname %></td>
+                                <td><%= reviews[i].points %></td>
+                                <td><%= reviews[i].comment %></td>
+                                <td><%= reviews[i].date_time %></td>
+                            </tr>
+                        <% } %>
+                    </table>
+                <% } %>
             </div>
         </main>
     </body>
