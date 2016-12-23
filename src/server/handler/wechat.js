@@ -130,7 +130,9 @@ function onSubscribe(req, res) {
 }
 
 function onUnsubscribe(req, res) {
-    
+    // User.deleteUser(req.body.FromUserName, function () {
+    //
+    // })
 }
 
 function onClick(req, res) {

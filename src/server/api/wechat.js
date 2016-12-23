@@ -8,6 +8,12 @@ module.exports = {
     accessToken: undefined,
     logTime: undefined,
     expiresIn: undefined,
+    menu: [
+        {
+            "type": "click",
+            "name": "案例展示"
+        }
+    ],
     initiate: function () {
         this.refreshAccessToken();
     },
