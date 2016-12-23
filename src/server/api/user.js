@@ -51,7 +51,7 @@ module.exports = {
             mysql.query("INSERT INTO `user` SET `UUID` = UUID(), `register_time` = NOW(), ?", {
                 "openId": openId,
                 "nickname": info["nickname"],
-                "avartar": info["headimgurl"]
+                "avatar": info["headimgurl"]
             }, function (err, result) {
                 if (err) {
                     callback(false);
