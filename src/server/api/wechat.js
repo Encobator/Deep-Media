@@ -8,57 +8,60 @@ module.exports = {
     accessToken: undefined,
     logTime: undefined,
     expiresIn: undefined,
-    menu: [
-        {
-            "type": "click",
-            "name": "案例展示"
-        },
-        {
-            "name": "深度视界",
-            "sub_button": [
-                {
-                    "type": "click",
-                    "key": "click_news",
-                    "name": "最新动态"
-                },
-                {
-                    "type": "view",
-                    "name": "历史推文",
-                    "url": "http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MjM5NDE2NzYxOQ==&from=1#wechat_webview_type=1&wechat_redirect"
-                },
-                {
-                    "type": "click",
-                    "key": "click_about",
-                    "name": "关于我们"
-                },
-                {
-                    "type": "click",
-                    "key": "click_join",
-                    "name": "加入我们"
-                }
-            ]
-        },
-        {
-            "name": "我",
-            "sub_button": [
-                {
-                    "type": "click",
-                    "key": "click_info",
-                    "name": "我的信息"
-                },
-                {
-                    "type": "click",
-                    "key": "click_apply",
-                    "name": "演员报名"
-                },
-                {
-                    "type": "click",
-                    "key": "click_project",
-                    "name": "查看项目"
-                }
-            ]
-        }
-    ],
+    menu: {
+        "button": [
+            {
+                "type": "view",
+                "name": "案例展示",
+                "url": "http://deepmedia.cubes.studio/branding.html"
+            },
+            {
+                "name": "深度视界",
+                "sub_button": [
+                    {
+                        "type": "view",
+                        "name": "最新动态",
+                        "url": "http://deepmedia.cubes.studio/news.html"
+                    },
+                    {
+                        "type": "view",
+                        "name": "历史推文",
+                        "url": "http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MjM5NDE2NzYxOQ==&from=1#wechat_webview_type=1&wechat_redirect"
+                    },
+                    {
+                        "type": "view",
+                        "name": "关于我们",
+                        "url": "http://deepmedia.cubes.studio/about.html"
+                    },
+                    {
+                        "type": "view",
+                        "name": "加入我们",
+                        "url": "http://deepmedia.cubes.studio/join.html"
+                    }
+                ]
+            },
+            {
+                "name": "我",
+                "sub_button": [
+                    {
+                        "type": "view",
+                        "name": "我的信息",
+                        "url": "http://deepmedia.cubes.studio/me.html"
+                    },
+                    {
+                        "type": "view",
+                        "name": "演员报名",
+                        "url": "http://deepmedia.cubes.studio/apply.html"
+                    },
+                    {
+                        "type": "view",
+                        "name": "查看项目",
+                        "url": "http://deepmedia.cubes.studio/project.html"
+                    }
+                ]
+            }
+        ]
+    },
     initiate: function () {
         var self = this;
         this.refreshAccessToken(function () {
