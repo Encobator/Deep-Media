@@ -98,7 +98,7 @@ module.exports = {
         }
     },
     initiateMenu: function () {
-        request({
+        request.post({
             url: "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + this.accessToken,
             form: this.menu
         }, function (error, response, body) {
