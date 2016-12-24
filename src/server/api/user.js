@@ -51,7 +51,7 @@ module.exports = {
         Wechat.getUserInfo(openId, function (info) {
             console.log("\tGet user info: ");
             console.log("\t" + info);
-            mysql.query("INSERT INTO `user` SET `UUID` = UUID(), `register_time` = NOW(), ?", {
+            mysql.query("INSERT INTO `user` SET `UUID` = UUID(), `register_time` = NOW(), `is_admin` = 0, ?", {
                 "openId": openId,
                 "nickname": info["nickname"],
                 "avatar": info["headimgurl"]
