@@ -118,8 +118,7 @@ module.exports = {
                 }
             }
             else {
-                throw new Error("Error: " + (new Date()).toString() + " - Error when initiating menu.");
-                console.log(error);
+                throw new Error((new Date()).toString() + " - Error when initiating menu." + JSON.stringify(error));
             }
         });
         req.write(JSON.stringify(this.menu));
