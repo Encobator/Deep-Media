@@ -44,8 +44,6 @@ function process(req, res) {
     }
     catch (err) {
 
-        console.log(err);
-
         //Check if the module exists
         if (err.code === "MODULE_NOT_FOUND") {
 
