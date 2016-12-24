@@ -75,6 +75,7 @@ module.exports = {
             self.hasAccessToken = true;
             self.accessToken = data["access_token"];
             self.expiresIn = data["expires_in"];
+            console.log(data["access_token"]);
             next();
         });
     },
