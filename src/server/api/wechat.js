@@ -98,8 +98,10 @@ module.exports = {
         }
     },
     initiateMenu: function () {
-        var req = request("https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + this.accessToken, this.menu, function (error, response, body) {
-            console.log(response.statusCode);
+        request({
+            url: "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + this.accessToken,
+            form: this.menu
+        }, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 var data = JSON.parse(body);
                 if (data["errcode"] != 0) {
