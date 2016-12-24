@@ -98,16 +98,7 @@ module.exports = {
         }
     },
     initiateMenu: function () {
-        var opt = {
-            host: "api.weixin.qq.com",
-            port: 443,
-            path: "/cgi-bin/menu/create?access_token=" + this.accessToken,
-            headers: {
-                "Content-Type": 'application/json',
-                "Content-Length": this.menu.length
-            }
-        };
-        var req = request(opt, function (error, response, body) {
+        var req = request("https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + this.accessToken, this.menu, function (error, response, body) {
             console.log(response.statusCode);
             if (!error && response.statusCode == 200) {
                 var data = JSON.parse(body);
@@ -122,8 +113,6 @@ module.exports = {
                 throw new Error((new Date()).toString() + " - Error when initiating menu." + JSON.stringify(error));
             }
         });
-        req.write(JSON.stringify(this.menu));
-        req.end();
     },
     getUserInfo: function (openId, callback) {
         var url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + this.accessToken + "&openid=" + openId + "&lang=zh_CN";
