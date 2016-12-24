@@ -62,7 +62,7 @@ module.exports = {
     initiate: function () {
         var self = this;
         this.refreshAccessToken(function () {
-            this.initiateMenu();
+            self.initiateMenu();
         });
     },
     refreshAccessToken: function (next) {
