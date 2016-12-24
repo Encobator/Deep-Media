@@ -104,7 +104,7 @@ module.exports = {
         console.log(JSON.stringify(this.menu));
         request.post({
             url: "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + this.accessToken,
-            form: this.menu
+            form: JSON.stringify(this.menu)
         }, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 var data = JSON.parse(body);
