@@ -68,15 +68,14 @@ module.exports = {
             self.initiateMenu();
         });
     },
-    refreshAccessToken: function (next) {
+    refreshAccessToken: function (callback) {
         var self = this;
-        this.requestToken("client_credential", function (data) {
+        this.requestToken(function (data) {
             self.logTime = new Date();
             self.hasAccessToken = true;
             self.accessToken = data["access_token"];
             self.expiresIn = data["expires_in"];
-            console.log(data["access_token"]);
-            next();
+            callback();
         });
     },
     hasAccessToken: function () {
@@ -102,6 +101,7 @@ module.exports = {
         }
     },
     initiateMenu: function () {
+        console.log(this.menu);
         request.post({
             url: "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + this.accessToken,
             form: this.menu
@@ -133,14 +133,14 @@ module.exports = {
             }
         });
     },
-    requestToken: function (type, callback) {
-        var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=" + type + "&appid=" + config["wechat_appid"] + "&secret=" + config["wechat_appsecret"];
+    requestToken: function (callback) {
+        var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + config["wechat_appid"] + "&secret=" + config["wechat_appsecret"];
         request(url, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 callback(JSON.parse(body));
             }
             else {
-                throw new Error("Error: " + (new Date()).toString() + " - Error when requesting wechat " + type + ".");
+                throw new Error("Error: " + (new Date()).toString() + " - Error when requesting wechat access token.");
                 console.log(error);
             }
         });
