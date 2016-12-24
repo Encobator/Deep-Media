@@ -101,7 +101,7 @@ module.exports = {
         }
     },
     initiateMenu: function () {
-        console.log(this.menu);
+        console.log(JSON.parse(this.menu));
         request.post({
             url: "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + this.accessToken,
             form: this.menu
@@ -109,7 +109,9 @@ module.exports = {
             if (!error && response.statusCode == 200) {
                 var data = JSON.parse(body);
                 if (data["errcode"] != 0) {
-                    console.log(JSON.stringify(data));
+                    console.log("Error when initiating menu: ");
+                    console.log("\tError Code: " + data["errcode"]);
+                    console.log("\tError Msg: " + data["errmsg"]);
                 }
                 else {
                     console.log("Successfully initiated wechat menu");
