@@ -101,7 +101,7 @@ module.exports = {
         var opt = {
             host: "api.weixin.qq.com",
             port: 443,
-            path: "/cgi-bin/menu/create?access_token=" + access_token,
+            path: "/cgi-bin/menu/create?access_token=" + this.accessToken,
             headers: {
                 "Content-Type": 'application/json',
                 "Content-Length": this.menu.length
