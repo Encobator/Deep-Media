@@ -118,6 +118,9 @@ function formatMessage(result) {
 }
 
 function onText(req, res) {
+    
+    console.log((new Date()).toString() + ": User " + req.body.FromUserName + " says " + req.body.Content);
+    
     function replyThanks() {
         res.replyText("谢谢您的反馈");
     }
@@ -136,6 +139,9 @@ function onText(req, res) {
 
 function onSubscribe(req, res) {
     User.newUser(req.body.FromUserName, function (info) {
+        
+        console.log((new Date()).toString() + ": " + info["nickname"] + " now following you.");
+        
         if (info) {
             res.replyText(info["nickname"] + "，感谢您的关注～您可以点击下方的菜单查看我们的原创作品");
         }

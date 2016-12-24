@@ -71,6 +71,7 @@ module.exports = {
     refreshAccessToken: function (callback) {
         var self = this;
         this.requestToken(function (data) {
+            console.log("Successfully refreshed access token");
             self.logTime = new Date();
             self.hasAccessToken = true;
             self.accessToken = data["access_token"];
