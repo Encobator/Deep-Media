@@ -138,14 +138,24 @@ function onText(req, res) {
 }
 
 function onSubscribe(req, res) {
-    User.newUser(req.body.FromUserName, function (info) {
-        
-        console.log((new Date()).toString() + ": " + info["nickname"] + " now following you.");
-        
-        if (info) {
-            res.replyText(info["nickname"] + "，感谢您的关注～您可以点击下方的菜单查看我们的原创作品");
+    
+    User.existOpenId(req.body.FromUserName, function (exists) {
+        if (!exists) {
+            User.newUser(req.body.FromUserName, function (info) {
+                
+                console.log((new Date()).toString() + ": " + info["nickname"] + " now following you.");
+                
+                if (info) {
+                    res.replyText(info["nickname"] + "，感谢您的关注～您可以点击下方的菜单查看我们的原创作品");
+                }
+                res.end();
+            });
         }
-        res.end();
+        else {
+            User.getUserInfoByOpenId(req.body.FromUserName, function (info) {
+                res.replyText(info["nickname"] + "，欢迎回来～您可以点击下方的菜单查看我们的原创作品");
+            });
+        }
     });
 }
 

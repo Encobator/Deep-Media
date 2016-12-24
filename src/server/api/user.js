@@ -41,9 +41,20 @@ module.exports = {
         })
     },
     getUserInfoByOpenId: function (openId, callback) {
-        var self = this;
-        this.getUUID(openId, function (UUID) {
-            self.getUserInfoByUUID(UUID, callback);
+        mysql.query("SELECT * FROM `user` WHERE ?", {
+            "openId": openId
+        }, function (err, result) {
+            if (err) {
+                callback(null);
+            }
+            else {
+                if (result.length > 0) {
+                    callback(result[0]);
+                }
+                else {
+                    callback(null);
+                }
+            }
         });
     },
     newUser: function (openId, callback) {
