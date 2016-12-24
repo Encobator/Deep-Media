@@ -4,85 +4,86 @@ var Wechat = require("../api/wechat.js");
 var User = require("../api/user.js");
 var config = require("../data/config.json");
 var parseXml = xml2js.parseString;
-var toXml = new xml2js.Builder().buildObject;
 
 var xmlTemplate = ['<xml>',
     '<ToUserName><![CDATA[<%-ToUserName%>]]></ToUserName>',
     '<FromUserName><![CDATA[<%-FromUserName%>]]></FromUserName>',
     '<CreateTime><%=CreateTime%></CreateTime>',
     '<% if (MsgType === "device_event" && (Event === "subscribe_status" || Event === "unsubscribe_status")) { %>',
-      '<% if (Event === "subscribe_status" || Event === "unsubscribe_status") { %>',
+        '<% if (Event === "subscribe_status" || Event === "unsubscribe_status") { %>',
         '<MsgType><![CDATA[device_status]]></MsgType>',
         '<DeviceStatus><%=DeviceStatus%></DeviceStatus>',
-      '<% } else { %>',
+        '<% } else { %>',
         '<MsgType><![CDATA[<%=MsgType%>]]></MsgType>',
         '<Event><![CDATA[<%-Event%>]]></Event>',
-      '<% } %>',
+        '<% } %>',
     '<% } else { %>',
-      '<MsgType><![CDATA[<%=MsgType%>]]></MsgType>',
+        '<MsgType><![CDATA[<%=MsgType%>]]></MsgType>',
     '<% } %>',
-  '<% if (MsgType === "news") { %>',
-    '<ArticleCount><%=Content.length%></ArticleCount>',
-    '<Articles>',
-    '<% Content.forEach(function(item){ %>',
-      '<item>',
+    '<% if (MsgType === "news") { %>',
+        '<ArticleCount><%=Content.length%></ArticleCount>',
+        '<Articles>',
+        '<% Content.forEach(function(item){ %>',
+        '<item>',
         '<Title><![CDATA[<%-item.title%>]]></Title>',
         '<Description><![CDATA[<%-item.description%>]]></Description>',
         '<PicUrl><![CDATA[<%-item.picUrl || item.picurl || item.pic %>]]></PicUrl>',
         '<Url><![CDATA[<%-item.url%>]]></Url>',
-      '</item>',
-    '<% }); %>',
-    '</Articles>',
-  '<% } else if (MsgType === "music") { %>',
-    '<Music>',
-      '<Title><![CDATA[<%-Content.title%>]]></Title>',
-      '<Description><![CDATA[<%-Content.description%>]]></Description>',
-      '<MusicUrl><![CDATA[<%-Content.musicUrl || Content.url %>]]></MusicUrl>',
-      '<HQMusicUrl><![CDATA[<%-Content.hqMusicUrl || Content.hqUrl %>]]></HQMusicUrl>',
-      '<% if (Content.thumbMediaId) { %> ',
-      '<ThumbMediaId><![CDATA[<%-Content.thumbMediaId || Content.mediaId %>]]></ThumbMediaId>',
-      '<% } %>',
-    '</Music>',
-  '<% } else if (MsgType === "voice") { %>',
-    '<Voice>',
-      '<MediaId><![CDATA[<%-Content.mediaId%>]]></MediaId>',
-    '</Voice>',
-  '<% } else if (MsgType === "image") { %>',
-    '<Image>',
-      '<MediaId><![CDATA[<%-Content.mediaId%>]]></MediaId>',
-    '</Image>',
-  '<% } else if (MsgType === "video") { %>',
-    '<Video>',
-      '<MediaId><![CDATA[<%-Content.mediaId%>]]></MediaId>',
-      '<Title><![CDATA[<%-Content.title%>]]></Title>',
-      '<Description><![CDATA[<%-Content.description%>]]></Description>',
-    '</Video>',
-  '<% } else if (MsgType === "hardware") { %>',
-    '<HardWare>',
-      '<MessageView><![CDATA[<%-HardWare.MessageView%>]]></MessageView>',
-      '<MessageAction><![CDATA[<%-HardWare.MessageAction%>]]></MessageAction>',
-    '</HardWare>',
-    '<FuncFlag>0</FuncFlag>',
-  '<% } else if (MsgType === "device_text" || MsgType === "device_event") { %>',
-    '<DeviceType><![CDATA[<%-DeviceType%>]]></DeviceType>',
-    '<DeviceID><![CDATA[<%-DeviceID%>]]></DeviceID>',
-    '<% if (MsgType === "device_text") { %>',
-      '<Content><![CDATA[<%-Content%>]]></Content>',
-    '<% } else if ((MsgType === "device_event" && Event != "subscribe_status" && Event != "unsubscribe_status")) { %>',
-      '<Content><![CDATA[<%-Content%>]]></Content>',
-      '<Event><![CDATA[<%-Event%>]]></Event>',
+        '</item>',
+        '<% }); %>',
+        '</Articles>',
+    '<% } else if (MsgType === "music") { %>',
+        '<Music>',
+        '<Title><![CDATA[<%-Content.title%>]]></Title>',
+        '<Description><![CDATA[<%-Content.description%>]]></Description>',
+        '<MusicUrl><![CDATA[<%-Content.musicUrl || Content.url %>]]></MusicUrl>',
+        '<HQMusicUrl><![CDATA[<%-Content.hqMusicUrl || Content.hqUrl %>]]></HQMusicUrl>',
+        '<% if (Content.thumbMediaId) { %> ',
+        '<ThumbMediaId><![CDATA[<%-Content.thumbMediaId || Content.mediaId %>]]></ThumbMediaId>',
+        '<% } %>',
+        '</Music>',
+    '<% } else if (MsgType === "voice") { %>',
+        '<Voice>',
+        '<MediaId><![CDATA[<%-Content.mediaId%>]]></MediaId>',
+        '</Voice>',
+    '<% } else if (MsgType === "image") { %>',
+        '<Image>',
+        '<MediaId><![CDATA[<%-Content.mediaId%>]]></MediaId>',
+        '</Image>',
+    '<% } else if (MsgType === "video") { %>',
+        '<Video>',
+        '<MediaId><![CDATA[<%-Content.mediaId%>]]></MediaId>',
+        '<Title><![CDATA[<%-Content.title%>]]></Title>',
+        '<Description><![CDATA[<%-Content.description%>]]></Description>',
+        '</Video>',
+    '<% } else if (MsgType === "hardware") { %>',
+        '<HardWare>',
+        '<MessageView><![CDATA[<%-HardWare.MessageView%>]]></MessageView>',
+        '<MessageAction><![CDATA[<%-HardWare.MessageAction%>]]></MessageAction>',
+        '</HardWare>',
+        '<FuncFlag>0</FuncFlag>',
+    '<% } else if (MsgType === "device_text" || MsgType === "device_event") { %>',
+        '<DeviceType><![CDATA[<%-DeviceType%>]]></DeviceType>',
+        '<DeviceID><![CDATA[<%-DeviceID%>]]></DeviceID>',
+        '<% if (MsgType === "device_text") { %>',
+            '<Content><![CDATA[<%-Content%>]]></Content>',
+        '<% } else if ((MsgType === "device_event" && Event != "subscribe_status" && Event != "unsubscribe_status")) { %>',
+            '<Content><![CDATA[<%-Content%>]]></Content>',
+            '<Event><![CDATA[<%-Event%>]]></Event>',
+        '<% } %>',
+        '<SessionID><%=SessionID%></SessionID>',
+    '<% } else if (MsgType === "transfer_customer_service") { %>',
+        '<% if (Content && Content.kfAccount) { %>',
+            '<TransInfo>',
+            '<KfAccount><![CDATA[<%-Content.kfAccount%>]]></KfAccount>',
+            '</TransInfo>',
+        '<% } %>',
+    '<% } else { %>',
+        '<Content><![CDATA[<%-Content%>]]></Content>',
     '<% } %>',
-      '<SessionID><%=SessionID%></SessionID>',
-  '<% } else if (MsgType === "transfer_customer_service") { %>',
-    '<% if (Content && Content.kfAccount) { %>',
-      '<TransInfo>',
-        '<KfAccount><![CDATA[<%-Content.kfAccount%>]]></KfAccount>',
-      '</TransInfo>',
-    '<% } %>',
-  '<% } else { %>',
-    '<Content><![CDATA[<%-Content%>]]></Content>',
-  '<% } %>',
-  '</xml>'].join('');
+    '</xml>'
+].join('');
+
 var compileXml = ejs.compile(xmlTemplate);
 
 function formatMessage(result) {
@@ -117,7 +118,20 @@ function formatMessage(result) {
 }
 
 function onText(req, res) {
-    res.replyText("谢谢您的反馈");
+    function replyThanks() {
+        res.replyText("谢谢您的反馈");
+    }
+    
+    User.existOpenId(req.body.FromUserName, function (exists) {
+        if (!exists) {
+            User.newUser(req.body.FromUserName, function (info) {
+                replyThanks();
+            });
+        }
+        else {
+            replyThanks();
+        }
+    });
 }
 
 function onSubscribe(req, res) {
