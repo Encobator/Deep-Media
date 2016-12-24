@@ -108,6 +108,7 @@ module.exports = {
             }
         };
         var req = request(opt, function (error, response, body) {
+            console.log(response.statusCode);
             if (!error && response.statusCode == 200) {
                 var data = JSON.parse(body);
                 if (data["errcode"] != 0) {
