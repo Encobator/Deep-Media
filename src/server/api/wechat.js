@@ -12,18 +12,67 @@ module.exports = {
         {
             "type": "click",
             "name": "案例展示"
+        },
+        {
+            "name": "深度视界",
+            "sub_button": [
+                {
+                    "type": "click",
+                    "key": "click_news",
+                    "name": "最新动态"
+                },
+                {
+                    "type": "view",
+                    "name": "历史推文",
+                    "url": "http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MjM5NDE2NzYxOQ==&from=1#wechat_webview_type=1&wechat_redirect"
+                },
+                {
+                    "type": "click",
+                    "key": "click_about",
+                    "name": "关于我们"
+                },
+                {
+                    "type": "click",
+                    "key": "click_join",
+                    "name": "加入我们"
+                }
+            ]
+        },
+        {
+            "name": "我",
+            "sub_button": [
+                {
+                    "type": "click",
+                    "key": "click_info",
+                    "name": "我的信息"
+                },
+                {
+                    "type": "click",
+                    "key": "click_apply",
+                    "name": "演员报名"
+                },
+                {
+                    "type": "click",
+                    "key": "click_project",
+                    "name": "查看项目"
+                }
+            ]
         }
     ],
     initiate: function () {
-        this.refreshAccessToken();
+        var self = this;
+        this.refreshAccessToken(function () {
+            this.initiateMenu();
+        });
     },
-    refreshAccessToken: function () {
+    refreshAccessToken: function (next) {
         var self = this;
         this.requestToken("client_credential", function (data) {
             self.logTime = new Date();
             self.hasAccessToken = true;
             self.accessToken = data["access_token"];
             self.expiresIn = data["expires_in"];
+            next();
         });
     },
     hasAccessToken: function () {
@@ -47,6 +96,34 @@ module.exports = {
         else {
             return false;
         }
+    },
+    initiateMenu: function () {
+        var opt = {
+            host: "api.weixin.qq.com",
+            port: 443,
+            path: "/cgi-bin/menu/create?access_token=" + access_token,
+            headers: {
+                "Content-Type": 'application/json',
+                "Content-Length": this.menu.length
+            }
+        };
+        var req = request(opt, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var data = JSON.parse(body);
+                if (data["errcode"] != 0) {
+                    console.log(JSON.stringify(data));
+                }
+                else {
+                    console.log("Successfully initiated wechat menu");
+                }
+            }
+            else {
+                throw new Error("Error: " + (new Date()).toString() + " - Error when initiating menu.");
+                console.log(error);
+            }
+        });
+        req.write(JSON.stringify(this.menu));
+        req.end();
     },
     getUserInfo: function (openId, callback) {
         var url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + this.accessToken + "&openid=" + openId + "&lang=zh_CN";
