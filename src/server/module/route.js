@@ -30,8 +30,6 @@ function process(req, res) {
                 //Check if there's error when rendering
                 if (err) {
 
-                    console.log("Renderer Error (505): ");
-                    console.log(err);
                     res.redirect("/404.html");
                 }
                 else {
@@ -66,7 +64,7 @@ function process(req, res) {
                     //Then Log the error
                     console.log(err);
 
-                    if (file === "error") {
+                    if (file === "404") {
 
                         //To avoid 404 recursively requested, if there's an error sending 404 page then directly send the error message
                         log("Directly sent static html " + file);
