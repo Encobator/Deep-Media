@@ -1,115 +1,207 @@
 <!DOCTYPE html>
+
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>深度传媒</title>
-
-    <!-- Vendors -->
-    <script type="text/javascript" src="js/lib/jquery.js"></script>
-
-    <!-- navbar -->
-    <link rel="stylesheet" href="css/slicknav.css" />
-    <script src="js/jquery.slicknav.min.js"></script>
-
-    <!-- Custom -->
-    <link rel="stylesheet" href="css/reset.css">
-
-    <style>
-        .container {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .container h2 {
-            font-size: 20px;
-        }
-        .container h3 {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-        .container p {
-            margin-top: 0px;
-        }
-        .container .resize {
-            width: 100%;
-        }
-        @media all and (min-width: 420px){
-            .container {
-                width: 60%;
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>深度传媒</title>
+        <link rel="stylesheet" href="css/lib/font-awesome.css" />
+        <script type="text/javascript" src="js/lib/jquery.js"></script>
+        <script type="text/javascript" src="js/util.js"></script>
+        <link rel="stylesheet" href="css/navbar.css" />
+        <link rel="stylesheet" href="css/reset.css">
+        <style>
+            #image {
+                width: 100%;
+                height: 240px;
+                background-position: center;
+                background-size: cover;
+                background-attachment: fixed;
+            }
+            
+            #avatar {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                border: 2px solid rgba(185, 32, 52, 1);
                 margin: 0 auto;
+                margin-top: -31px;
+                overflow: hidden;
             }
-            .container .resize {
-                width: 60%;
+            
+            #avatar img {
+                width: 100%;
+                height: 100%;
             }
-        }
-    </style>
-</head>
-
-<body>
-  <ul id="navbar">
-     <li><a href="films.html">广告与微电影 Ad/Short movies</a></li>
-     <li><a href="branding.html">品牌形象包装 Branding</a></li>
-     <li><a href="signup.html">演员报名 About us</a></li>
-     <li><a href="verify.html">项目进度查询 Project progress</a></li>
-     <li><a href="info.html">联系方式 Contact us</a></li>
-     <li><a href="comment.html">项目评价 Rate your project</a></li>
-  </ul>
-  <div class="container">
-     <img src="http://www.deep-media.com/statics/css/images/logo-icon.jpg">
-     <h2 style="color: rgba(185,32,52,1)">有深度的视觉创意专家</h2>
-     <h2>视频创作 | 视觉设计</h2>
-     <p>深圳市深度文化传媒有限公司（深度视界）由英国剑桥的海归精英团队创立，是一家专注于企业视
-       觉形象创意的影视策划和品牌设计机构。目前由深圳运营总部（罗湖国贸），深圳制作部（福田八卦
-       岭），东莞分公司（东莞南城区华凯广场）组成。主营视觉业务分为两大分支，影视部分包括广告片
-       、微电影、创意短片、企业宣传片、智能硬件海外众筹视频、病毒传播视频等；品牌部分包括标志
-       Logo设计、VI设计、创意海报设计、网页设计等。自创立以来，凭借其国际的视野和创新的理念，
-       一直备受客户青睐。在蓬勃飞速的发展过程中，广纳人才，不断创新，规范管理，为公司的规模化经
-       营发展奠定了坚实的基础。公司以一流的实力享誉深圳、东莞地区，出品了众多优秀案例，在深圳互
-       联网、智能硬件、科技产品、金融圈拥有较高的知名度。</p>
-     <p>合作联系邮箱：2355633072@qq.com </br>
-        <span style="color: rgba(185,32,52,1)">全国免费咨询热线：400-035-3330</span>
-     </p>
-     <h3>深圳总部</h3>
-     <p>电话：0755-25855594 / 25858850 / 82255549</br>
-        传真：0755-82255825</br>
-        邮箱：marketing@deep-media.com</br>
-        QQ:2355534521 / 2355534523 / 2355534528</br>
-        深圳市罗湖区南湖路3005号国贸商业大厦8楼I/J座</p>
-     <img class="resize" src="http://www.deep-media.com/ueditor/php/upload/image/20160423/1461383868190842.jpg">
-     <h3>科技园办事处</h3>
-     <p>电话：0755-36934433 / 36934455 / 36523330</br>
-        传真：0755-82118885</br>
-        邮箱：marketing@deep-media.com</br>
-        QQ:2355534528 / 2355633072</br>
-        深圳市南山区科发路1号富利臻大厦3层A12</br>
-     </p>
-     <img class="resize" src="http://www.deep-media.com/ueditor/php/upload/image/20160423/1461384253414580.jpg">
-     <h3>东莞分公司</h3>
-     <p>电话：0769-22809788 / 22803788 / 22804288</br>
-        传真：0755-23099366</br>
-        邮箱：dgmarket@deep-media.com</br>
-        QQ:2355534512 / 2355534513 / 2355534514</br>
-        东莞市南城区元美路华凯广场B座1207</br>
-     </p>
-     <img class="resize" src="http://www.deep-media.com/statics/css/images/contact_3.jpg">
-
-     <h3>我们的自媒体平台</h3>
-     <img class="resize" src="http://www.deep-media.com/statics/css/images/zimeiti-2.jpg">
-  </div>
-
-<script type="text/javascript">
-    $('body').css('display', 'none');
-    $('body').fadeIn(300);
-
-    $('#navbar').slicknav({
-        label: '',
-        duration: 300
-        //prependTo:'#demo2'
-    });
-
-</script>
-
-</body>
+            
+            #name {
+                margin-top: 20px;
+                font-size: 18px;
+                text-align: center;
+                font-weight: bold;
+            }
+            
+            #nickname-outer {
+                margin-top: 5px;
+                font-size: 12px;
+                color: rgba(150, 150, 150, 1);
+                text-align: center;
+            }
+            
+            #info-outer {
+                
+            }
+            
+            #info-outer div {
+                
+            }
+            
+            #info-outer div span {
+                
+            }
+            
+            #info-outer div span + span {
+                
+            }
+            
+            #intro-outer {
+                
+            }
+        </style>
+    </head>
+    <body>
+        <nav id="navbar">
+            <div id="navbar-left"></div>
+            <div id="navbar-middle">
+                <img src="img/logo-sm.png" />
+            </div>
+            <div id="navbar-right"></div>
+        </nav>
+        <main>
+            <div id="image"></div>
+            <div id="avatar">
+                <img src="" />
+            </div>
+            <div id="name">李子阳</div>
+            <div id="nickname-outer">
+                @<span id="nickname">Liby99</span>
+            </div>
+            <div id="info-outer">
+                <div>
+                    <span>性别：</span>
+                    <span id="sex"></span>
+                </div>
+                <div>
+                    <span>电话：</span>
+                    <span id="phone"></span>
+                </div>
+                <div>
+                    <span>邮箱：</span>
+                    <span id="email"></span>
+                </div>
+            </div>
+            <div id="intro-outer">
+                <label>简介：</label>
+                <div id="intro"></div>
+            </div>
+        </main>
+        <script>
+            var infoPage = {
+                params: undefined,
+                accessToken: undefined,
+                openId: undefined,
+                initiate: function () {
+                    var self = this;
+                    this.initiateParams();
+                    this.initiateAccessToken(function () {
+                        self.initiateUserInfo();
+                    });
+                },
+                initiateParams: function () {
+                    this.params = Utility.getQueryParams();
+                },
+                initiateAccessToken: function () {
+                    var self = this;
+                    $.ajax({
+                        url: "/ajax/wechat_client?action=grant_credential",
+                        type: "post",
+                        data: {
+                            code: this.params["code"]
+                        },
+                        success: function (result) {
+                            var data = JSON.parse(result);
+                            if (data["error_code"] == 0) {
+                                var content = data["content"];
+                                self.accessToken = content["access_token"];
+                                self.openId = content["open_id"];
+                                callback();
+                            }
+                            else {
+                                alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                                window.location.href = "404.html";
+                            }
+                        },
+                        error: function () {
+                            alert("服务器连接错误，请稍后再试");
+                            window.location.href = "404.html";
+                        }
+                    });
+                },
+                initiateUserInfo: function () {
+                    var self = this;
+                    $.ajax({
+                        url: "/ajax/wechat_client?action=get_user_info",
+                        type: "post",
+                        data: {
+                            openId: this.openId
+                        },
+                        success: function (result) {
+                            var data = JSON.parse(result);
+                            if (data["error_code"] == 0) {
+                                self.render(data["content"]);
+                            }
+                            else if (data["error_code"] == -1) {
+                                self.redirectApply();
+                            }
+                            else {
+                                alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                                window.location.href = "404.html";
+                            }
+                        },
+                        error: function () {
+                            alert("服务器连接错误，请稍后再试");
+                            window.location.href = "404.html";
+                        }
+                    });
+                },
+                render: function (info) {
+                    $("#image").attr("style", "background-image: url(" + info["image"] + ")");
+                    $("#avatar img").src(info["avatar"]);
+                    $("#name").text(info["name"]);
+                    $("#nickname").text(info["nickname"]);
+                    $("#phone").text(info["phone"]);
+                    $("#email").text(info["email"]);
+                    $("#intro").text(info["intro"]);
+                },
+                redirectApply: function () {
+                    $.ajax({
+                        url: "/ajax/wechat_client?action=get_apply_uri",
+                        type: "get",
+                        success: function (result) {
+                            var data = JSON.parse(result);
+                            if (data["error_log"] == 0) {
+                                window.location.href = data["content"]["uri"];
+                            }
+                            else {
+                                alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                            }
+                        },
+                        error: function () {
+                            alert("服务器连接错误");
+                        }
+                    });
+                }
+            }
+        </script>
+    </body>
 </html>

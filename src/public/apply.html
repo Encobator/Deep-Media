@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>深度传媒</title>
+        <link rel="stylesheet" href="css/lib/font-awesome.css" />
+        <script type="text/javascript" src="js/lib/jquery.js"></script>
+        <script type="text/javascript" src="js/util.js"></script>
+        <link rel="stylesheet" href="css/navbar.css" />
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/form.css" />
+        <style>
+            #preview {
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav id="navbar">
+            <div id="navbar-left"></div>
+            <div id="navbar-middle">
+                <img src="img/logo-sm.png" />
+            </div>
+            <div id="navbar-right"></div>
+        </nav>
+        <main>
+            <form id="user-info-form">
+                <title>演员报名信息</title>
+                <desc>
+                    若有意参与深度视界的演员报名，请在此填写您的个人信息。成功记录个人信息之后，我们将通知您关于新拍摄项目的演艺事宜。
+                </desc>
+                <item>
+                    <label>姓名：</label>
+                    <input type="text" id="name" placeholder="您的真实姓名" />
+                </item>
+                <item>
+                    <label>性别：</label>
+                    <selection id="sex">
+                        <option value="1" class="active">男</div>
+                        <option value="0">女</div>
+                    </selection>
+                </item>
+                <item>
+                    <label>邮箱：</label>
+                    <input type="text" id="email" placeholder="您的邮箱" />
+                </item>
+                <item>
+                    <label>手机：</label>
+                    <input type="" id="number" placeholder="您的手机" />
+                </item>
+                <item>
+                    <label>个人简介：</label>
+                    <textarea id="intro" placeholder="您的简介" maxlength="300"></textarea>
+                </item>
+                <item>
+                    <label>照片：</label>
+                    <desc>
+                        请提交一张您个人的照片。仅供参考。
+                    </desc>
+                    <input id="image" type="file" accept="image/jpeg" />
+                    <div id="preview" hidden="hidden">
+                        <label>照片预览：</label>
+                        <preview id="image-preview">
+                            <img src="" alt="当前没有照片" />
+                        </preview>
+                    </div>
+                </item>
+                <button type="submit">提交</button>
+            </form>
+        </main>
+        <script src="js/form.js"></script>
+        <script type="text/javascript">
+            $('body').css('display', 'none');
+            $('body').fadeIn(300);
+            
+            var ApplyPage = {
+                params: undefined,
+                accessToken: undefined,
+                openId: undefined,
+                hasImage: false,
+                initiate: function () {
+                    var self = this;
+                    this.initiateUI();
+                    this.initiateParams();
+                    this.initiateAccessToken(function () {
+                        self.initiateUserInfo();
+                    });
+                },
+                initiateUI: function () {
+                    var self = this;
+                    
+                    $("#image").change(function () {
+                        if (!self.hasImage) {
+                            $("#preview").removeAttr("hidden");
+                            self.hasImage = true;
+                        }
+                    });
+                    
+                    $("#user-info-form").submit(function () {
+                        var id = $(this).attr("id");
+                        var info = getFormResult("#" + id);
+                        if (self.openId) {
+                            info["open_id"] = self.openId;
+                            $.ajax({
+                                url: "/ajax/wechat_client?action=update_user_info",
+                                type: "post",
+                                data: info,
+                                success: function (result) {
+                                    var data = JSON.parse(result);
+                                    if (data["error_code"] == 0) {
+                                        self.redirectInfo();
+                                    }
+                                    else {
+                                        alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                                    }
+                                }
+                            })
+                        }
+                        else {
+                            alert("No User ID");
+                        }
+                        return false;
+                    });
+                },
+                initiateParams: function () {
+                    this.params = Utility.getQueryParams();
+                },
+                initiateAccessToken: function (callback) {
+                    var self = this;
+                    $.ajax({
+                        url: "/ajax/wechat_client?action=grant_credential",
+                        type: "post",
+                        data: {
+                            code: this.params["code"]
+                        },
+                        success: function (result) {
+                            var data = JSON.parse(result);
+                            if (data["error_code"] == 0) {
+                                var content = data["content"];
+                                self.accessToken = content["access_token"];
+                                self.openId = content["open_id"];
+                                callback();
+                            }
+                            else {
+                                alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                                window.location.href = "404.html";
+                            }
+                        },
+                        error: function () {
+                            alert("服务器连接错误，请稍后再试");
+                            window.location.href = "404.html";
+                        }
+                    });
+                },
+                initiateUserInfo: function () {
+                    var self = this;
+                    $.ajax({
+                        url: "/ajax/wechat_client?action=get_user_info",
+                        type: "post",
+                        data: {
+                            openId: this.openId
+                        },
+                        success: function (result) {
+                            var data = JSON.parse(result);
+                            if (data["error_code"] == 0) {
+                                self.render(data["content"]);
+                            }
+                            else if (data["error_code"] == -1) {
+                                // No Data in Database, Do Nothing
+                            }
+                            else {
+                                alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                                window.location.href = "404.html";
+                            }
+                        },
+                        error: function () {
+                            alert("服务器连接错误，请稍后再试");
+                            window.location.href = "404.html";
+                        }
+                    });
+                },
+                render: function (info) {
+                    $("#name").val(info["name"]);
+                    setSelectionVal("#sex", info["sex"]);
+                    $("#email").val(info["email"]);
+                    $("#phone").val(info["phone"]);
+                    $("#intro").val(info["intro"]);
+                    if (info["image"]) {
+                        $("#image").src(info["image"]);
+                        this.hasImage = true;
+                    }
+                    else {
+                        this.hasImage = false;
+                    }
+                },
+                redirectInfo: function () {
+                    $.ajax({
+                        url: "/ajax/wechat_client?action=get_user_info_uri",
+                        type: "get",
+                        success: function (result) {
+                            var data = JSON.parse(result);
+                            if (data["error_log"] == 0) {
+                                window.location.href = data["content"]["uri"];
+                            }
+                            else {
+                                alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                            }
+                        },
+                        error: function () {
+                            alert("服务器连接错误");
+                        }
+                    });
+                }
+            }
+            
+            $(function () {
+                // ApplyPage.initiate();
+            });
+        </script>
+    </body>
+</html>
