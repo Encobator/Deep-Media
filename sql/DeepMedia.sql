@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for osx10.9 (x86_64)
 --
--- Host: localhost    Database: DeepMedia
+-- Host: 127.0.0.1    Database: DeepMedia
 -- ------------------------------------------------------
--- Server version	5.7.13
+-- Server version	5.7.10
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,18 +24,17 @@ DROP TABLE IF EXISTS `actor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `actor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `AUID` varchar(45) NOT NULL,
-  `RUID` varchar(36) DEFAULT NULL,
-  `name` varchar(45) NOT NULL,
-  `gender` tinyint(1) NOT NULL COMMENT '0 is female\n1 is male',
-  `email` char(50) NOT NULL,
-  `phone` bigint(11) NOT NULL,
-  `wechat` varchar(100) DEFAULT NULL,
-  `has_experience` tinyint(1) NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `UUID` char(36) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `sex` tinyint(1) DEFAULT NULL COMMENT '0 is female\n1 is male',
+  `email` char(50) DEFAULT NULL,
+  `phone` bigint(11) DEFAULT NULL,
+  `intro` mediumtext,
+  `image` mediumtext,
+  `status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `UUID_UNIQUE` (`AUID`)
+  UNIQUE KEY `UUID_UNIQUE` (`UUID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -45,7 +44,7 @@ CREATE TABLE `actor` (
 
 LOCK TABLES `actor` WRITE;
 /*!40000 ALTER TABLE `actor` DISABLE KEYS */;
-INSERT INTO `actor` VALUES (1,'sdfdd','217271bc-c739-11e6-bfe9-950e846e9bbd',' 贺禹豪',1,'415813432@qq.com',13631601283,'lezhi08',1,2);
+INSERT INTO `actor` VALUES (1,'sdfdd',' 贺禹豪',1,'415813432@qq.com',13631601283,'',NULL,2);
 /*!40000 ALTER TABLE `actor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,4 +245,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-21 18:36:15
+-- Dump completed on 2016-12-27  0:12:55
