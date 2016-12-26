@@ -54,17 +54,17 @@ module.exports = {
                     {
                         "type": "view",
                         "name": "我的信息",
-                        "url": generateWechatRedirectURI(infoUri);
+                        "url": generateWechatRedirectURI(infoUri)
                     },
                     {
                         "type": "view",
                         "name": "演员报名",
-                        "url": generateWechatRedirectURI(applyUri);
+                        "url": generateWechatRedirectURI(applyUri)
                     },
                     {
                         "type": "view",
                         "name": "查看项目",
-                        "url": generateWechatRedirectURI(projectUri);
+                        "url": generateWechatRedirectURI(projectUri)
                     }
                 ]
             }
