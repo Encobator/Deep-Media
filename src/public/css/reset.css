@@ -27,15 +27,9 @@ main {
 .slicknav_menu {
     display:block;
 }
+
 @media all and (max-width: 319px){
     h1 {
       font-size: 25px;
     }
-}
-
-input {
-    width: 100%;
-}
-textarea {
-    width: 100%;
 }

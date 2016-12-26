@@ -14,6 +14,7 @@
 #navbar-middle,
 #navbar-right {
     float: left;
+    height: 45px;
 }
 
 #navbar-left, #navbar-right {

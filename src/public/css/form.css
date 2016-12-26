@@ -1,0 +1,129 @@
+form {
+    padding: 10px;
+}
+
+form label {
+    display: block;
+}
+
+form item {
+    display: block;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 15px;
+    margin-top: 10px;
+    box-shadow: 0 0 5px rgba(230, 230, 230, 1);
+    border-radius: 2px;
+}
+
+form input {
+    transition: all 0.2s;
+    line-height: 40px;
+    border: none;
+    padding: 0 10px;
+    width: calc(100% - 20px);
+    border-bottom: 1px solid rgba(230, 230, 230, 1);
+    background-color: transparent;
+    outline: none;
+}
+
+form input:focus {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(185, 32, 52, 1);
+}
+
+form input[type=file]::before {
+    content: "选择图片";
+    display: block;
+    line-height: 30px;
+    height: 30px;
+    padding: 0 20px;
+    background-color: rgba(185, 32, 52, 1);
+    color: rgba(255, 255, 255, 1);
+    opacity: 1;
+    border-radius: 2px;
+}
+
+form input[type=file] {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    color: rgba(255, 255, 255, 1);
+    border: 0;
+}
+
+form textarea {
+    transition: all 0.2s;
+    display: block;
+    margin-top: 10px;
+    min-height: 50px;
+    border-radius: 2px;
+    border: 1px solid rgba(230, 230, 230, 1);
+    width: calc(100% - 20px);
+    padding: 9px;
+    resize: none;
+    outline: none;
+}
+
+form textarea:focus {
+    border: 1px solid rgba(185, 32, 52, 1);
+}
+
+form preview {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+form preview img {
+    width: 100%;
+}
+
+form title {
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(230, 230, 230, 1);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+form desc {
+    display: block;
+    padding: 15px 0;
+    color: rgba(150, 150, 150, 1);
+    line-height: 24px;
+    font-size: 12px;
+}
+
+form selection {
+    margin-top: 10px;
+    display: block;
+    height: 30px;
+}
+
+form selection option {
+    padding: 0;
+    margin: 0;
+    display: block;
+    float: left;
+    width: 50%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+form selection option.active {
+    background-color: rgba(185, 32, 52, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+form button {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: block;
+    background-color: rgba(185, 32, 52, 1);
+    color: rgba(255, 255, 255, 1);
+    border-radius: 2px;
+    border: 0;
+    padding: 0 20px;
+    line-height: 30px;
+}
