@@ -3,6 +3,14 @@ var request = require("request");
 var util = require("./util.js");
 var config = require("../data/config.json");
 
+var infoUri = "http://deepmedia.cubes.studio/info.html";
+var applyUri = "http://deepmedia.cubes.studio/apply.html";
+var projectUri = "http://deepmedia.cubes.studio/project.html";
+
+function generateWechatRedirectURI(uri) {
+    return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + config["wechat_appid"] + "&redirect_uri=" + uri + "&response_type=code&scope=snsapi_base#wechat_redirect";
+}
+
 module.exports = {
     hasAccessToken: false,
     accessToken: undefined,
@@ -46,17 +54,17 @@ module.exports = {
                     {
                         "type": "view",
                         "name": "我的信息",
-                        "url": "http://deepmedia.cubes.studio/me.html"
+                        "url": generateWechatRedirectURI(infoUri);
                     },
                     {
                         "type": "view",
                         "name": "演员报名",
-                        "url": "http://deepmedia.cubes.studio/apply.html"
+                        "url": generateWechatRedirectURI(applyUri);
                     },
                     {
                         "type": "view",
                         "name": "查看项目",
-                        "url": "http://deepmedia.cubes.studio/project.html"
+                        "url": generateWechatRedirectURI(projectUri);
                     }
                 ]
             }

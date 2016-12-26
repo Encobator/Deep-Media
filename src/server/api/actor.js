@@ -1,15 +1,34 @@
 var User = require("./user.js");
 
 module.exports = {
-    newActor: function (UUID, name, gender, email, phone, hasExperience, callback) {
+    getInfo: function (UUID, callback) {
+        mysql.query("SELECT * FROM `actor` WHERE ?", {
+            "UUID": UUID
+        }, function (err, result) {
+            if (err) {
+                callback(null);
+            }
+            else {
+                if (result.length > 0) {
+                    callback(result[0]);
+                }
+                else {
+                    callback(null);
+                }
+            }
+        })
+    },
+    newActor: function (UUID, name, sex, email, phone, intro, image, callback) {
         User.hasActorInfo(UUID, function (has) {
             if (!has) {
                 mysql.query("INSERT INTO `actor` SET ?", {
+                    "UUID": UUID,
                     "name": name,
-                    "gender": gender,
+                    "sex": sex,
                     "email": email,
                     "phone": phone,
-                    "has_experience": hasExperience
+                    "intro": intro,
+                    "image": image
                 }, function (err, result) {
                     if (err) {
                         callback(false);
@@ -22,17 +41,18 @@ module.exports = {
             else {
                 callback(false);
             }
-        }, false);
+        });
     },
-    updateActor: function (UUID, name, gender, email, phone, has_experience, callback) {
+    updateActor: function (UUID, name, sex, email, phone, intro, image, callback) {
         User.hasActorInfo(UUID, function (has) {
             if (has) {
-                mysql.query("UPDATE `actor` SET `name` = ?, `gender` = ?, `email` = ?, `phone` = ?, `has_experience` = ? WHERE ?", [
+                mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `intro` = ?, `image` = ? WHERE ?", [
                     name,
                     gender,
                     email,
                     phone,
-                    hasExperience,
+                    intro,
+                    image,
                     UUID
                 ], function (err, result) {
                     if (err) {
