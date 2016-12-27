@@ -9,7 +9,6 @@ var projectUri = "http://deepmedia.cubes.studio/project.html";
 
 function generateWechatRedirectURI(uri) {
     var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + config["wechat_appid"] + "&redirect_uri=" + encodeURIComponent(uri) + "&response_type=code&scope=snsapi_base#wechat_redirect";
-    console.log(url);
     return url;
 }
 
