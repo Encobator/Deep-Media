@@ -1,4 +1,5 @@
 var request = require("request");
+var config = require("../data/config.json");
 var Wechat = require("../api/wechat.js");
 var User = require("../api/user.js");
 var Actor = require("../api/actor.js");
