@@ -194,7 +194,7 @@ module.exports = {
             }
             else {
                 console.log("User have not logged in. Redirecting to login page.");
-                res.redirect("login.html");
+                res.redirect("admin/login.html");
             }
         });
     },

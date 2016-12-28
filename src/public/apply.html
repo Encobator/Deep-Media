@@ -47,7 +47,7 @@
                 </item>
                 <item>
                     <label>手机：</label>
-                    <input type="" id="number" placeholder="您的手机" />
+                    <input type="number" id="phone" placeholder="您的手机" />
                 </item>
                 <item>
                     <label>您的意向角色：</label>
@@ -203,7 +203,7 @@
                     $("#phone").val(info["phone"]);
                     $("#intro").val(info["intro"]);
                     if (info["image"]) {
-                        $("#image").src(info["image"]);
+                        $("#image-preview img").src(info["image"]);
                         this.hasImage = true;
                     }
                     else {
