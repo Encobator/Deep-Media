@@ -44,6 +44,7 @@
 
     #news li {
         float: left;
+        height: auto;
         width: calc(50% - 10px);
         margin-right: 10px;
         border-bottom: 10px;
@@ -91,11 +92,11 @@
                 <% events.forEach(function (event, index) { %>
                     <li>
                         <a href="<%= event.url %>">
-                           <% if(event.thumb.substring(0,4)!="http") { %>
-                             <span> <%= event.thumb %> </span>
-                           <div class="image-holder" style="background-image: url(http://www.deep-media.com/statics/css/images/logo-bicon.jpg)"></div>
+                            <% if(event.thumb.substring(0,4)!="http") { %>
+                                <span><%= event.thumb %></span>
+                                <div class="image-holder" style="background-image: url(http://www.deep-media.com/statics/css/images/logo-bicon.jpg)"></div>
                             <% } else { %>
-                            <div class="image-holder" style="background-image: url('<%= event.thumb %>')"></div>
+                                <div class="image-holder" style="background-image: url('<%= event.thumb %>')"></div>
                             <% }%>
                             <p class="title"><%= event.title %></p>
                             <p class="time"><%= event.time %></p>
