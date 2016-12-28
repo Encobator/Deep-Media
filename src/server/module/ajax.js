@@ -72,8 +72,8 @@ exports.set = function (server) {
     
     //Using Response and parser Middleware
     server.use(response);
-    server.use(bodyParser.urlencoded({extended: false, limit: 1024 * 1024 * 20, type: 'application/x-www-form-urlencoding'}));
-    server.use(bodyParser.json({limit: 1024 * 1024 * 20, type: 'application/json'}));
+    server.use(bodyParser.urlencoded({extended: false, limit: "5mb"}));
+    server.use(bodyParser.json({limit: "5mb"}));
     
     //Pass all the requests to process function
     server.get("/ajax/*", process);
