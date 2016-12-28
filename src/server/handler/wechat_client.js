@@ -8,7 +8,7 @@ module.exports = {
     grant_credential: function (req, res) {
         if (req.body["code"]) {
             var url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + config["wechat_appid"] + "&secret=" + config["wechat_appsecret"] + "&code=" + req.body["code"] + "&grant_type=authorization_code";
-            request(url, function (err, response, body) {
+            request(url, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var data = JSON.parse(body);
                     if (!data["errcode"]) {
