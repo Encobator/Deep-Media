@@ -194,6 +194,9 @@
 
         <div class="container">
             <% if (events.length != 0) { %>
+                <% for (int i=0; i<events.length; ++i) { %>
+                    <div> <%= i %></div>
+                <% %>
             <% } %>
         </div>
     </main>
