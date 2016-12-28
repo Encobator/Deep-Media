@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/slicknav.css" />
     <link rel="stylesheet" href="css/navbar.css" />
     <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/form.css" />
     <style>
 
     </style>
@@ -36,13 +37,88 @@
             <div class="page-title-eng">Join</div>
         </div>
         <div class="container">
-
+            <p style="text-align:center">双击评分，让我们看到您的想法！</p>
+            <div class="rating_container">
+              <select id="rating">
+                <option value="1">给我更努力一些！</option>
+                <option value="2">这进度，勉勉强强</option>
+                <option value="3" selected>嗯，再接再厉</option>
+                <option value="4">干得不错！</option>
+                <option value="5">这效率简直出乎意料！</option>
+              </select>
+            </div>
+            <div id="progress">
+                <div data-vtdate="1 April 2016">
+                      进入拍片阶段
+                </div>
+                <div data-vtdate="3 March 2016">
+                      剧本设计完成
+                </div>
+                <div data-vtdate="2 February 2016">
+                      初步探讨剧本
+                </div>
+                <div data-vtdate="1 February 2016">
+                      开始项目
+                </div>
+            </div>
+            <div style="margin-bottom: 30px;"></div>
         </div>
     </main>
 
     <script type="text/javascript">
+
         $('body').css('display', 'none');
         $('body').fadeIn(300);
+
+        $('#rating').barrating({
+          theme: 'bars-movie'
+        });
+
+        $('#navbar').slicknav({
+            label: '',
+            duration: 300
+            //prependTo:'#demo2'
+        });
+
+        $.event.special.doubletap = {
+           bindType: 'touchend',
+           delegateType: 'touchend',
+
+           handle: function(event) {
+             var handleObj   = event.handleObj,
+                 targetData  = jQuery.data(event.target),
+                 now         = new Date().getTime(),
+                 delta       = targetData.lastTouch ? now - targetData.lastTouch : 0,
+                 delay       = delay == null ? 300 : delay;
+
+             if (delta < delay && delta > 30) {
+               targetData.lastTouch = null;
+               event.type = handleObj.origType;
+               ['clientX', 'clientY', 'pageX', 'pageY'].forEach(function(property) {
+                 event[property] = event.originalEvent.changedTouches[0][property];
+               })
+
+               // let jQuery handle the triggering of "doubletap" event handlers
+               handleObj.handler.apply(this, arguments);
+             } else {
+               targetData.lastTouch = now;
+             }
+           }
+         };
+
+        $('.br-widget a').dblclick(function(){
+            alert("感谢您的评价！");
+        });
+        $('.br-widget a').on("doubletap", function(){
+            alert("感谢您的评价！");
+        });
+
+        $('#progress').verticalTimeline({
+            startSide: 'right',
+            alternate: false
+        });
+
     </script>
+
 </body>
 </html>
