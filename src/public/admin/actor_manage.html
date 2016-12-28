@@ -215,12 +215,13 @@
                   <table id="filter">
                       <thead>
                           <tr>
+                              <th>生活照</th>
                               <th>姓名</th>
                               <th>性别</th>
                               <th>手机号码</th>
-                              <th>微信号</th>
-                              <th>是否有出演经验</th>
-                              <th>申请用邮箱</th>
+                              <th>邮箱</th>
+                              <th>自我介绍</th>
+                              <th>角色</th>
                               <th>申请状态</th>
                               <th>更改申请状态</th>
                           </tr>
@@ -229,20 +230,23 @@
                       <% if (!(actors == undefined||actors.length == 0)) { %>
                           <% actors.forEach(function (actor) { %>
                               <tr id="<%= actor["AUID"] %>">
+                                  <td><img src="<%= actor["image"] %>">"</td>
                                   <td><%= actor["name"] %></td>
-                                  <% if (actor["gender"]==0) { %>
+                                  <% if (actor["sex"]==0) { %>
                                     <td>女</td>
                                   <% } else { %>
                                     <td>男</td>
                                   <% } %>
                                   <td><%= actor["phone"] %></td>
-                                  <td><%= actor["wechat"] %></td>
-                                  <% if (actor["has_experience"]==0) { %>
-                                    <td>无</td>
-                                  <% } else { %>
-                                    <td>有</td>
-                                  <% } %>
                                   <td><%= actor["email"] %></td>
+                                  <td><%= actor["intro"] %></td>
+                                  <% if (actor["role"]==0) { %>
+                                    <td>主角</td>
+                                  <% } else if (actor["role"]==1) { %>
+                                    <td>配角</td>
+                                  <% } else { %>
+                                    <td>群演</td>
+                                  <% } %>
 
                                   <!-- 0是未审核，1是招募，2是拒绝 -->
 
@@ -254,6 +258,7 @@
                                     <td>未通过</td>
                                   <% } %>
                                   <td>
+                                      <!-- 通过则进入演员数据库 -->
                                       <button class="project-edit small yes" id="<%= actor["AUID"] %>">通过</button>
                                       <button class="project-edit small no" id="<%= actor["AUID"] %>">不通过</button>
                                   </td>

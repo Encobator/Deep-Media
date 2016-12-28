@@ -13,7 +13,7 @@
         <style>
             #image {
                 width: 100%;
-                height: 240px;
+                height: 280px;
                 background-position: center;
                 background-size: cover;
                 background-attachment: fixed;
@@ -171,11 +171,19 @@
                 render: function (info) {
                     $("#avatar img").attr("src", info["avatar"]);
                     $("#name").html(info["name"]);
+                    $("#sex").html(this.toSexString(info["sex"]));
                     $("#nickname").html(info["nickname"]);
                     $("#phone").html(info["phone"]);
                     $("#email").html(info["email"]);
                     $("#intro").html(info["intro"]);
                     $("#image").attr("style", "background-image: url(" + info["image"] + ")");
+                },
+                toSexString: function (sex) {
+                    switch (sex) {
+                        case 0: return "女";
+                        case 1: return "男";
+                        default: return "未知";
+                    }
                 },
                 redirectApply: function () {
                     $.ajax({

@@ -41,7 +41,7 @@ module.exports = {
         })
     },
     getUserInfoByOpenId: function (openId, callback) {
-        mysql.query("SELECT * FROM `user` WHERE ?", {
+        mysql.query("SELECT `UUID`, `nickname`, `` FROM `user` WHERE ?", {
             "openId": openId
         }, function (err, result) {
             if (err) {
@@ -194,7 +194,7 @@ module.exports = {
             }
             else {
                 console.log("User have not logged in. Redirecting to login page.");
-                res.redirect("admin/login.html");
+                res.redirect("login.html");
             }
         });
     },
@@ -260,7 +260,7 @@ module.exports = {
             }
         });
     },
-    logout: function (username, callback) {
+    logout: function (res) {
         this.clearSession(res);
     },
     setSession: function (res, session) {
