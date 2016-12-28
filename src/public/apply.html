@@ -175,7 +175,7 @@
                         url: "/ajax/wechat_client?action=get_user_info",
                         type: "post",
                         data: {
-                            openId: this.openId
+                            "open_id": this.openId
                         },
                         success: function (result) {
                             var data = JSON.parse(result);
