@@ -86,7 +86,9 @@ module.exports = {
             self.hasAccessToken = true;
             self.accessToken = data["access_token"];
             self.expiresIn = data["expires_in"];
-            callback();
+            if (callback) {
+                callback();
+            }
         });
     },
     hasAccessToken: function () {
