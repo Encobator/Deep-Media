@@ -94,7 +94,7 @@
                            <% if(event.thumb=="") { %>
                            <div class="image-holder" style="background-image: url(http://www.deep-media.com/about/)"></div>
                             <% } else { %>
-                            <div class="image-holder" style="background-image: url(<%= event.thumb %>)"></div>
+                            <div class="image-holder" style="background-image: url('<%= event.thumb %>')"></div>
                             <% }%>
                             <p class="title"><%= event.title %></p>
                             <p class="time"><%= event.time %></p>
