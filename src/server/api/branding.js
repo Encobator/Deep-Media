@@ -9,6 +9,7 @@ module.exports = {
             }
             else {
                 if (result.length > 0) {
+                    console.log("Success!");
                     callback(result);
                 }
                 else {
