@@ -1,11 +1,13 @@
 module.exports = {
     ARTICLE_AMOUNT: 10,
-    getArticles: function (amount, callback) {
-        
+    getArticles: function (callback) {
+        mysql.query("SELECT * FROM `v9_news` LIMIT 30", {}, function (err, result) {
+            if (err) {
+                callback(null);
+            }
+            else {
+                callback(result);
+            }
+        })
     },
-    getTopArticles: function (callback) {
-        this.getArticles(this.ARTICLE_AMOUNT, function (result) {
-            
-        });
-    }
 }
