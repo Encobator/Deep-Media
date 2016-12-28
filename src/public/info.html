@@ -89,6 +89,9 @@
             <div id="intro-outer">
                 <div id="intro"></div>
             </div>
+            <code id="console">
+                
+            </code>
         </main>
         <script>
             var InfoPage = {
@@ -169,13 +172,14 @@
                     });
                 },
                 render: function (info) {
+                    $("#console").html(info);
                     $("#image").attr("style", "background-image: url(" + info["image"] + ")");
                     $("#avatar img").src(info["avatar"]);
-                    $("#name").text(info["name"]);
-                    $("#nickname").text(info["nickname"]);
-                    $("#phone").text(info["phone"]);
-                    $("#email").text(info["email"]);
-                    $("#intro").text(info["intro"]);
+                    $("#name").html(info["name"]);
+                    $("#nickname").html(info["nickname"]);
+                    $("#phone").html(info["phone"]);
+                    $("#email").html(info["email"]);
+                    $("#intro").html(info["intro"]);
                 },
                 redirectApply: function () {
                     $.ajax({
