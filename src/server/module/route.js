@@ -4,7 +4,7 @@
 
 var path = require("path");
 var config = require("../data/config.json");
-var debug = false;
+var debug = true;
 
 var options = {
     root: path.resolve(__dirname + "/../../public/"),
@@ -20,7 +20,7 @@ exports.set = function (server) {
     server.get("/MP_verify_DN1V66aTxHjWowox.txt", function (req, res) {
         res.sendFile("MP_verify_DN1V66aTxHjWowox.txt", options);
     });
-    
+
     /**
      * Regular File router
      */
