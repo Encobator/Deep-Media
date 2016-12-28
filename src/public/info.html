@@ -97,13 +97,22 @@
                 openId: undefined,
                 initiate: function () {
                     var self = this;
-                    this.initiateParams();
-                    this.initiateAccessToken(function () {
-                        self.initiateUserInfo();
+                    this.initiateParams(function () {
+                        this.initiateAccessToken(function () {
+                            self.initiateUserInfo();
+                        });
                     });
                 },
-                initiateParams: function () {
+                initiateParams: function (callback) {
                     this.params = Utility.getQueryParams();
+                    if (this.params["code"]) {
+                        alert(this.params["code"]);
+                        callback();
+                    }
+                    else {
+                        alert("Error: query param CODE not specified");
+                        window.location.href = "404.html";
+                    }
                 },
                 initiateAccessToken: function () {
                     var self = this;
