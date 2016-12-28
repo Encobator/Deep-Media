@@ -2,9 +2,7 @@ var User = require("./user.js");
 
 module.exports = {
     getInfo: function (UUID, callback) {
-        mysql.query("SELECT * FROM `actor` WHERE ?", {
-            "UUID": UUID
-        }, function (err, result) {
+        mysql.query("SELECT * FROM `actor`", function (err, result) {
             if (err) {
                 callback(null);
             }
