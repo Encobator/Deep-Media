@@ -1,3 +1,4 @@
+var mysql = require("../module/mysql.js");
 var User = require("./user.js");
 
 module.exports = {
