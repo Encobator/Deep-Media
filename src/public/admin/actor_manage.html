@@ -221,6 +221,7 @@
                               <th>手机号码</th>
                               <th>邮箱</th>
                               <th>自我介绍</th>
+                              <th>推荐人</th>
                               <th>角色</th>
                               <th>申请状态</th>
                               <th>更改申请状态</th>
@@ -240,6 +241,7 @@
                                   <td><%= actor["phone"] %></td>
                                   <td><%= actor["email"] %></td>
                                   <td><%= actor["intro"] %></td>
+                                  <td><%= actor["recommender"] %></td>
                                   <% if (actor["role"]==0) { %>
                                     <td>主角</td>
                                   <% } else if (actor["role"]==1) { %>
