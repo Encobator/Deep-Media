@@ -3,9 +3,9 @@ var request = require("request");
 var util = require("./util.js");
 var config = require("../data/config.json");
 
-var infoUri = "http://deepmedia.cubes.studio/info.html";
-var applyUri = "http://deepmedia.cubes.studio/apply.html";
-var projectUri = "http://deepmedia.cubes.studio/project.html";
+function generateUri(page) {
+    return config["base_uri"] + page + ".html";
+}
 
 function generateWechatRedirectURI(uri) {
     var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + config["wechat_appid"] + "&redirect_uri=" + encodeURIComponent(uri) + "&response_type=code&scope=snsapi_base#wechat_redirect";
@@ -22,7 +22,7 @@ module.exports = {
             {
                 "type": "view",
                 "name": "案例展示",
-                "url": "http://deepmedia.cubes.studio/branding.html"
+                "url": generateUri("branding")
             },
             {
                 "name": "深度视界",
@@ -30,7 +30,7 @@ module.exports = {
                     {
                         "type": "view",
                         "name": "最新动态",
-                        "url": "http://deepmedia.cubes.studio/news.html"
+                        "url": generateUri("news")
                     },
                     {
                         "type": "view",
@@ -40,12 +40,12 @@ module.exports = {
                     {
                         "type": "view",
                         "name": "关于我们",
-                        "url": "http://deepmedia.cubes.studio/about.html"
+                        "url": generateUri("about")
                     },
                     {
                         "type": "view",
                         "name": "加入我们",
-                        "url": "http://deepmedia.cubes.studio/join.html"
+                        "url": generateUri("join")
                     }
                 ]
             },
@@ -55,17 +55,17 @@ module.exports = {
                     {
                         "type": "view",
                         "name": "我的信息",
-                        "url": generateWechatRedirectURI(infoUri)
+                        "url": generateWechatRedirectURI(generateUri("info"))
                     },
                     {
                         "type": "view",
                         "name": "演员报名",
-                        "url": generateWechatRedirectURI(applyUri)
+                        "url": generateWechatRedirectURI(generateUri("apply"))
                     },
                     {
                         "type": "view",
                         "name": "查看项目",
-                        "url": generateWechatRedirectURI(projectUri)
+                        "url": generateWechatRedirectURI(generateUri("project"))
                     }
                 ]
             }
