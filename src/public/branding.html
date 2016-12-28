@@ -181,15 +181,13 @@
             <div class="btn_container">
                 <span id="filter-title">分类：</span>
                 <button class="btn filter" data-filter="all">全部</button>
-                <button class="btn filter" data-filter=".11">剧情短片和微电影</button>
-                <button class="btn filter" data-filter=".21">产品宣传片</button>
-                <button class="btn filter" data-filter=".24">广告宣传片</button>
-                <button class="btn filter" data-filter=".25">花絮集锦</button>
-                <button class="btn filter" data-filter=".26">品牌VI设计</button>
-                <button class="btn filter" data-filter=".27">企业画册设计</button>
-                <button class="btn filter" data-filter=".29">创意海报设计</button>
-                <button class="btn filter" data-filter=".30">网页设计</button>
-                <button class="btn filter" data-filter=".31">网页设计</button>
+                <button class="btn filter" data-filter=".26">剧情短片和微电影</button>
+                <button class="btn filter" data-filter=".25">产品宣传片</button>
+                <button class="btn filter" data-filter=".24">影视广告与宣传片</button>
+                <button class="btn filter" data-filter=".27">花絮集锦</button>
+                <button class="btn filter" data-filter=".29">品牌VI设计</button>
+                <button class="btn filter" data-filter=".30">企业画册设计</button>
+                <button class="btn filter" data-filter=".31">创意海报设计</button>
                 <button class="btn filter" data-filter=".32">网页设计</button>
             </div>
         </div>
@@ -200,21 +198,21 @@
                   <a class="item <%= events[i].catid %>" style="background-image:url(<%= events[i].thumb %>)" onClick="location.href='<%= events[i].url %>'" data-my-order="1">
                       <div class="overlay">
                           <div class="type">
-                              <% if (events[i].catid == 21) { %>
+                              <% if (events[i].catid == 26) { %>
                                  剧情短片和微电影
-                              <% } else if (events[i].catid == 24) { %>
-                                 产品宣传片
                               <% } else if (events[i].catid == 25) { %>
-                                 广告宣传片
-                              <% } else if (events[i].catid == 26) { %>
-                                 品牌VI设计
-                              <% } else if (events[i].catid == 27) { %>
-                                 企业画册设计
+                                 产品宣传片
+                              <% } else if (events[i].catid == 24) { %>
+                                 影视广告与宣传片
                               <% } else if (events[i].catid == 29) { %>
-                                 花絮集锦
+                                 品牌VI设计
                               <% } else if (events[i].catid == 30) { %>
-                                 创意海报设计
+                                 企业画册设计
+                              <% } else if (events[i].catid == 27) { %>
+                                 花絮集锦
                               <% } else if (events[i].catid == 31) { %>
+                                 创意海报设计
+                              <% } else if (events[i].catid == 32) { %>
                                  网页设计
                               <% } else { %>
                                  其他
