@@ -1,7 +1,7 @@
 {
     "name": "Deep Media",
     "port": 8192,
-    "base_uri": "http://wechat.deep-media.com/",
+    "base_uri": "http://mp.deep-media.com/",
     "default_page": "branding.html",
     "404_page": "404.html",
     "404_message": "404 Page Not Found",
