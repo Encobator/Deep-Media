@@ -19,9 +19,22 @@
     <link rel="stylesheet" href="css/bars-movie.css">
     <style>
 
+    .page-title {
+        padding: 10px 5px;
+        margin: 20px 10px;
+        border-bottom: 1px solid rgba(230, 230, 230, 1);
+    }
+
+    .page-title-main {
+        font-size: 18px;
+    }
+
+    .page-title-eng {
+        font-size: 12px;
+        color: rgba(150, 150, 150, 1);
+    }
     </style>
 </head>
-
 <body>
     <nav id="navbar">
         <div id="navbar-left">
@@ -39,9 +52,9 @@
     <main>
         <div class="page-title">
             <div class="page-title-main">您的项目</div>
-            <div class="page-title-eng">Join</div>
+            <div class="page-title-eng">Project</div>
         </div>
-        <div class="container">
+          <!--
             <p style="text-align:center">双击评分，让我们看到您的想法！</p>
             <div class="rating_container">
               <select id="rating">
@@ -51,6 +64,10 @@
                 <option value="4">干得不错！</option>
                 <option value="5">这效率简直出乎意料！</option>
               </select>
+            </div>
+          -->
+            <div class = "title_container">
+
             </div>
             <div id="progress">
                 <div data-vtdate="1 April 2016">
@@ -78,13 +95,6 @@
         $('#rating').barrating({
           theme: 'bars-movie'
         });
-
-        $('#navbar').slicknav({
-            label: '',
-            duration: 300
-            //prependTo:'#demo2'
-        });
-
         $.event.special.doubletap = {
            bindType: 'touchend',
            delegateType: 'touchend',
