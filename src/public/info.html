@@ -183,7 +183,6 @@
                         type: "get",
                         success: function (result) {
                             var data = JSON.parse(result);
-                            console.log(result);
                             if (data["error_log"] == 0) {
                                 window.location.href = data["content"]["uri"];
                             }
