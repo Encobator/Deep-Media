@@ -93,14 +93,15 @@ form desc {
     line-height: 24px;
     font-size: 12px;
 }
-/*
-form selection {
+
+form select {
     margin-top: 10px;
     display: block;
     height: 30px;
+    width: 20%;
 }
 
-form selection option {
+form select option {
     padding: 0;
     margin: 0;
     display: block;
@@ -111,11 +112,11 @@ form selection option {
     text-align: center;
 }
 
-form selection option.active {
+form select option.active {
     background-color: rgba(185, 32, 52, 1);
     color: rgba(255, 255, 255, 1);
 }
-*/
+
 form button {
     margin-top: 20px;
     margin-bottom: 10px;
