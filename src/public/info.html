@@ -89,9 +89,6 @@
             <div id="intro-outer">
                 <div id="intro"></div>
             </div>
-            <code id="console">
-                
-            </code>
         </main>
         <script>
             var InfoPage = {
@@ -172,14 +169,13 @@
                     });
                 },
                 render: function (info) {
-                    $("#console").html(info);
-                    $("#image").attr("style", "background-image: url(" + info["image"] + ")");
-                    $("#avatar img").src(info["avatar"]);
+                    $("#avatar img").attr("src", info["avatar"]);
                     $("#name").html(info["name"]);
                     $("#nickname").html(info["nickname"]);
                     $("#phone").html(info["phone"]);
                     $("#email").html(info["email"]);
                     $("#intro").html(info["intro"]);
+                    $("#image").attr("style", "background-image: url(" + info["image"] + ")");
                 },
                 redirectApply: function () {
                     $.ajax({
@@ -202,7 +198,7 @@
             }
             
             $(function () {
-                InfoPage.initiate();
+                // InfoPage.initiate();
             });
         </script>
     </body>
