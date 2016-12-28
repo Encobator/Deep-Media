@@ -211,78 +211,58 @@
         <main>
             <div id="main-title">群演报名</div>
             <div id="main-frame">
-                <section id="article-list-section">
-                    <h5 id="article-list-title">申请列表</h5>
-                    <div id="article-list-holder">
-                        <ul id="article-list">
-                            <% recruits.forEach(function (recruit) { %>
-                                <li class="article<%= (recruit["RUID"] == RUID) ? " active" : ""%>" id="<%= recruit["RUID"] %>">
-                                    <span class="article-title">
-                                        <%= recruit["title"] %>
-                                    </span>
-                                    <span class="article-info">
-                                        <span class="article-date"><%= recruit["time"]  %></span>
-                                    </span>
-                                    <!--<span class="article-comment-amount"><%= recruit["description"] %></span>-->
-                                </li>
-                            <% }) %>
-                        </ul>
-                    </div>
-                </section>
-                <section id="article-comment-section">
-                  <div class="filter_container">
-                    <table id="filter">
-                        <thead>
-                            <tr>
-                                <th>姓名</th>
-                                <th>性别</th>
-                                <th>手机号码</th>
-                                <th>微信号</th>
-                                <th>是否有出演经验</th>
-                                <th>申请用邮箱</th>
-                                <th>申请状态</th>
-                                <th>更改申请状态</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <% if (!(actors == undefined||actors.length == 0)) { %>
-                            <% actors.forEach(function (actor) { %>
-                                <tr id="<%= actor["AUID"] %>">
-                                    <td><%= actor["name"] %></td>
-                                    <% if (actor["gender"]==0) { %>
-                                      <td>女</td>
-                                    <% } else { %>
-                                      <td>男</td>
-                                    <% } %>
-                                    <td><%= actor["phone"] %></td>
-                                    <td><%= actor["wechat"] %></td>
-                                    <% if (actor["has_experience"]==0) { %>
-                                      <td>无</td>
-                                    <% } else { %>
-                                      <td>有</td>
-                                    <% } %>
-                                    <td><%= actor["email"] %></td>
+                <div class="filter_container">
+                  <table id="filter">
+                      <thead>
+                          <tr>
+                              <th>姓名</th>
+                              <th>性别</th>
+                              <th>手机号码</th>
+                              <th>微信号</th>
+                              <th>是否有出演经验</th>
+                              <th>申请用邮箱</th>
+                              <th>申请状态</th>
+                              <th>更改申请状态</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      <% if (!(actors == undefined||actors.length == 0)) { %>
+                          <% actors.forEach(function (actor) { %>
+                              <tr id="<%= actor["AUID"] %>">
+                                  <td><%= actor["name"] %></td>
+                                  <% if (actor["gender"]==0) { %>
+                                    <td>女</td>
+                                  <% } else { %>
+                                    <td>男</td>
+                                  <% } %>
+                                  <td><%= actor["phone"] %></td>
+                                  <td><%= actor["wechat"] %></td>
+                                  <% if (actor["has_experience"]==0) { %>
+                                    <td>无</td>
+                                  <% } else { %>
+                                    <td>有</td>
+                                  <% } %>
+                                  <td><%= actor["email"] %></td>
 
-                                    <!-- 0是未审核，1是招募，2是拒绝 -->
+                                  <!-- 0是未审核，1是招募，2是拒绝 -->
 
-                                    <% if (actor["status"]==0) { %>
-                                      <td>未审核</td>
-                                    <% } else if (actor["status"]==1) { %>
-                                      <td>已通过</td>
-                                    <% } else { %>
-                                      <td>未通过</td>
-                                    <% } %>
-                                    <td>
-                                        <button class="project-edit small yes" id="<%= actor["AUID"] %>">通过</button>
-                                        <button class="project-edit small no" id="<%= actor["AUID"] %>">不通过</button>
-                                    </td>
-                                </tr>
-                            <% }) %>
-                        <% } %>
-                        </tbody>
-                     </table>
-                  </div>
-                </section>
+                                  <% if (actor["status"]==0) { %>
+                                    <td>未审核</td>
+                                  <% } else if (actor["status"]==1) { %>
+                                    <td>已通过</td>
+                                  <% } else { %>
+                                    <td>未通过</td>
+                                  <% } %>
+                                  <td>
+                                      <button class="project-edit small yes" id="<%= actor["AUID"] %>">通过</button>
+                                      <button class="project-edit small no" id="<%= actor["AUID"] %>">不通过</button>
+                                  </td>
+                              </tr>
+                          <% }) %>
+                      <% } %>
+                      </tbody>
+                   </table>
+                </div>
             </div>
         </main>
     </body>
