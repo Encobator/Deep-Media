@@ -1,4 +1,8 @@
-$("selection option").click(function () {
+$(".selection").each(function () {
+    $(this).attr("data-amount", $(this).children().length);
+});
+
+$(".selection .option").click(function () {
     if (!$(this).hasClass("active")) {
         $(this).addClass("active").siblings().removeClass("active");
     }
@@ -16,11 +20,11 @@ $("input[type=file]").change(function () {
 });
 
 function getSelectionVal(selector) {
-    return $(selector + " option.active").attr("value");
+    return $(selector + " .option.active").attr("value");
 }
 
 function setSelectionVal(selector, value) {
-    $(selector + " option[value=" + value + "]").addClass("active").siblings().removeClass("active");
+    $(selector + " .option[value=" + value + "]").addClass("active").siblings().removeClass("active");
 }
 
 function getFormResult(selector) {
@@ -35,7 +39,7 @@ function getFormResult(selector) {
             result[item.attr("id")] = item.val();
         }
     }
-    var selections = $(selector + " selection");
+    var selections = $(selector + " .selection");
     for (var i = 0; i < selections.length; i++) {
         var item = selections.eq(i);
         result[item.attr("id")] = getSelectionVal("#" + item.attr("id"));

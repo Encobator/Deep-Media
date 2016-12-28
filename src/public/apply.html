@@ -36,10 +36,10 @@
                 </item>
                 <item>
                     <label>性别：</label>
-                    <select id="sex">
-                        <option value="1" class="active">男</div>
-                        <option value="0">女</div>
-                    </select>
+                    <div class="selection selection-2" id="sex">
+                        <div class="option active" value="1">男</div>
+                        <div class="option" value="0">女</div>
+                    </div>
                 </item>
                 <item>
                     <label>邮箱：</label>
@@ -51,11 +51,11 @@
                 </item>
                 <item>
                     <label>您的意向角色：</label>
-                    <select id="role">
-                        <option value="0" class="active">主角</div>
-                        <option value="1">配角</div>
-                        <option value="2">群演</div>
-                    </select>
+                    <div class="selection selection-3" id="role">
+                        <div class="option active" value="0">主角</div>
+                        <div class="option" value="1">配角</div>
+                        <div class="option" value="2">群演</div>
+                    </div>
                 </item>
                 <item>
                     <label>个人简介：</label>
@@ -231,7 +231,7 @@
             }
 
             $(function () {
-                ApplyPage.initiate();
+                // ApplyPage.initiate();
             });
         </script>
     </body>
