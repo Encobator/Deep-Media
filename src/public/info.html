@@ -77,28 +77,31 @@
             <div id="avatar">
                 <img src="img/logo-sm.png" />
             </div>
-            <div id="name">李子阳</div>
+            <div id="name"></div>
             <div id="nickname-outer">
-                @<span id="nickname">Liby99</span>
+                @<span id="nickname"></span>
             </div>
             <div id="info-outer">
-                <span id="sex">男</span> |
-                <span id="phone">18588465462</span> |
-                <span id="email">liby99@icloud.com</span>
+                <span id="sex"></span> |
+                <span id="phone"></span> |
+                <span id="email"></span>
             </div>
             <div id="intro-outer">
-                <div id="intro">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈</div>
+                <div id="intro"></div>
             </div>
         </main>
         <script>
-            var infoPage = {
+            var InfoPage = {
                 params: undefined,
                 accessToken: undefined,
                 openId: undefined,
                 initiate: function () {
                     var self = this;
+                    alert("Trying to initiate!");
                     this.initiateParams(function () {
+                        alert("Parameter initiated!");
                         this.initiateAccessToken(function () {
+                            alert("Access Token Get!");
                             self.initiateUserInfo();
                         });
                     });
