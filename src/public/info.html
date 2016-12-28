@@ -126,10 +126,7 @@
                             if (data["error_code"] == 0) {
                                 var content = data["content"];
                                 self.accessToken = content["access_token"];
-                                self.openId = content["open_id"];
-                                
-                                alert("Open_Id: " + self.openId);
-                                
+                                self.openId = content["openid"];
                                 callback();
                             }
                             else {
