@@ -16,5 +16,20 @@ module.exports = {
                 }
             }
         });
+    },
+    newReview: function (UUID, points, comment, callback) {
+        mysql.query("INSERT INTO `review` SET `RUID` = UUID(), `date_time` = NOW(), ?", {
+            "UUID": UUID,
+            "points": points,
+            "comment": comment
+        }, function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(false);
+            }
+            else {
+                callback(true);
+            }
+        });
     }
 }

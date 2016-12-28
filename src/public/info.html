@@ -77,35 +77,43 @@
             <div id="avatar">
                 <img src="img/logo-sm.png" />
             </div>
-            <div id="name">李子阳</div>
+            <div id="name"></div>
             <div id="nickname-outer">
-                @<span id="nickname">Liby99</span>
+                @<span id="nickname"></span>
             </div>
             <div id="info-outer">
-                <span id="sex">男</span> |
-                <span id="phone">18588465462</span> |
-                <span id="email">liby99@icloud.com</span>
+                <span id="sex"></span> |
+                <span id="phone"></span> |
+                <span id="email"></span>
             </div>
             <div id="intro-outer">
-                <div id="intro">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈</div>
+                <div id="intro"></div>
             </div>
         </main>
         <script>
-            var infoPage = {
+            var InfoPage = {
                 params: undefined,
                 accessToken: undefined,
                 openId: undefined,
                 initiate: function () {
                     var self = this;
-                    this.initiateParams();
-                    this.initiateAccessToken(function () {
-                        self.initiateUserInfo();
+                    this.initiateParams(function () {
+                        self.initiateAccessToken(function () {
+                            self.initiateUserInfo();
+                        });
                     });
                 },
-                initiateParams: function () {
+                initiateParams: function (callback) {
                     this.params = Utility.getQueryParams();
+                    if (this.params["code"]) {
+                        callback();
+                    }
+                    else {
+                        alert("Error: query param CODE not specified");
+                        window.location.href = "404.html";
+                    }
                 },
-                initiateAccessToken: function () {
+                initiateAccessToken: function (callback) {
                     var self = this;
                     $.ajax({
                         url: "/ajax/wechat_client?action=grant_credential",
@@ -119,6 +127,9 @@
                                 var content = data["content"];
                                 self.accessToken = content["access_token"];
                                 self.openId = content["open_id"];
+                                
+                                alert("Open_Id: " + self.openId);
+                                
                                 callback();
                             }
                             else {
@@ -138,7 +149,7 @@
                         url: "/ajax/wechat_client?action=get_user_info",
                         type: "post",
                         data: {
-                            openId: this.openId
+                            "open_id": this.openId
                         },
                         success: function (result) {
                             var data = JSON.parse(result);
@@ -146,6 +157,7 @@
                                 self.render(data["content"]);
                             }
                             else if (data["error_code"] == -1) {
+                                alert("您还没有填写任何信息呢。跳转至申请界面。");
                                 self.redirectApply();
                             }
                             else {
@@ -174,6 +186,7 @@
                         type: "get",
                         success: function (result) {
                             var data = JSON.parse(result);
+                            console.log(result);
                             if (data["error_log"] == 0) {
                                 window.location.href = data["content"]["uri"];
                             }
@@ -187,6 +200,10 @@
                     });
                 }
             }
+            
+            $(function () {
+                InfoPage.initiate();
+            });
         </script>
     </body>
 </html>

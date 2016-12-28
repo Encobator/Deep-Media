@@ -1,4 +1,5 @@
 var request = require("request");
+var config = require("../data/config.json");
 var Wechat = require("../api/wechat.js");
 var User = require("../api/user.js");
 var Actor = require("../api/actor.js");
@@ -7,7 +8,7 @@ module.exports = {
     grant_credential: function (req, res) {
         if (req.body["code"]) {
             var url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + config["wechat_appid"] + "&secret=" + config["wechat_appsecret"] + "&code=" + req.body["code"] + "&grant_type=authorization_code";
-            request(url, function (err, response, body) {
+            request(url, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var data = JSON.parse(body);
                     if (!data["errcode"]) {
@@ -62,7 +63,7 @@ module.exports = {
             })
         }
         else {
-            res.error(1, "Must Specify OPEN_ID");
+            res.error(1, "Must Specify open_id");
         }
     },
     update_user_info: function (req, res) {

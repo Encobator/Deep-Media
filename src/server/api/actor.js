@@ -29,14 +29,18 @@ module.exports = {
                     "image": image
                 }, function (err, result) {
                     if (err) {
+                        console.error("User ")
+                        console.error(err);
                         callback(false);
                     }
                     else {
+                        console.log("User " + UUID + " created his actor info");
                         callback(true);
                     }
                 });
             }
             else {
+                console.error("User " + UUID + " already have actor info");
                 callback(false);
             }
         });
@@ -54,12 +58,19 @@ module.exports = {
                     UUID
                 ], function (err, result) {
                     if (err) {
+                        console.error("User " + UUID + " actor info edit failed");
+                        console.error(err);
                         callback(false);
                     }
                     else {
+                        console.log("User " + UUID + " edited his actor info");
                         callback(true);
                     }
                 });
+            }
+            else {
+                console.error("User " + UUID + " don't have his actor info yet");
+                callback(false);
             }
         });
     },

@@ -90,9 +90,10 @@
                 initiate: function () {
                     var self = this;
                     this.initiateUI();
-                    this.initiateParams();
-                    this.initiateAccessToken(function () {
-                        self.initiateUserInfo();
+                    this.initiateParams(function () {
+                        self.initiateAccessToken(function () {
+                            self.initiateUserInfo();
+                        });
                     });
                 },
                 initiateUI: function () {
@@ -131,8 +132,15 @@
                         return false;
                     });
                 },
-                initiateParams: function () {
+                initiateParams: function (callback) {
                     this.params = Utility.getQueryParams();
+                    if (this.params["code"]) {
+                        callback();
+                    }
+                    else {
+                        alert("Error: query param CODE not specified");
+                        window.location.href = "404.html";
+                    }
                 },
                 initiateAccessToken: function (callback) {
                     var self = this;
@@ -167,7 +175,7 @@
                         url: "/ajax/wechat_client?action=get_user_info",
                         type: "post",
                         data: {
-                            openId: this.openId
+                            "open_id": this.openId
                         },
                         success: function (result) {
                             var data = JSON.parse(result);
@@ -223,7 +231,7 @@
             }
 
             $(function () {
-                // ApplyPage.initiate();
+                ApplyPage.initiate();
             });
         </script>
     </body>
