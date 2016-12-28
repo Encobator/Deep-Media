@@ -1,7 +1,7 @@
 {
     "name": "Deep Media",
-    "port": 9013,
-    "base_uri": "http://deepmedia.cubes.studio/",
+    "port": 8192,
+    "base_uri": "http://wechat.deep-media.com/",
     "default_page": "branding.html",
     "404_page": "404.html",
     "404_message": "404 Page Not Found",
@@ -14,9 +14,9 @@
         "/view"
     ],
     "mysql_host": "127.0.0.1",
-    "mysql_database": "DeepMedia",
-    "mysql_username": "root",
-    "mysql_password": "Shanghai1!",
+    "mysql_database": "deepmedia",
+    "mysql_username": "deepmedia",
+    "mysql_password": "deepmedia",
     "wechat_id": "deeplovemoive",
     "wechat_appid": "wx091a163b4380587b",
     "wechat_appsecret": "6cfc45dcba906aca5dac7f67a08cf485",
