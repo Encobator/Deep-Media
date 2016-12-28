@@ -94,30 +94,32 @@ form desc {
     font-size: 12px;
 }
 
-form select {
-    border: solid 1px rgba(185, 32, 52, 1);
+form .selection {
     margin-top: 10px;
     display: block;
-    height: 40px;
-    padding: 10px;
-    appearance:none;
-    -moz-appearance:none;
-    -webkit-appearance:none;
-    width: 20%;
+    height: 30px;
 }
 
-form select option {
+form .selection .option {
+    display: block;
     padding: 0;
     margin: 0;
-    display: block;
     float: left;
-    width: 50%;
     height: 30px;
     line-height: 30px;
     text-align: center;
+    color: rgba(66, 66, 66, 1);
 }
 
-form select option.active {
+form .selection.selection-2 .option {
+    width: 50%;
+}
+
+form .selection.selection-3 .option {
+    width: 33.3333%;
+}
+
+form .selection .option.active {
     background-color: rgba(185, 32, 52, 1);
     color: rgba(255, 255, 255, 1);
 }
