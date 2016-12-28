@@ -95,7 +95,6 @@
                         <li>
                             <a href="<%= event.url %>">
                                 <% if (event.thumb.substring(0,4)!="http") { %>
-                                    <span><%= event.thumb %></span>
                                     <div class="image-holder" style="background-image: url(http://www.deep-media.com/statics/css/images/logo-bicon.jpg)"></div>
                                 <% } else { %>
                                     <div class="image-holder" style="background-image: url('<%= event.thumb %>')"></div>
