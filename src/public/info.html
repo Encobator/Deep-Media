@@ -117,7 +117,7 @@
                         window.location.href = "404.html";
                     }
                 },
-                initiateAccessToken: function () {
+                initiateAccessToken: function (callback) {
                     var self = this;
                     $.ajax({
                         url: "/ajax/wechat_client?action=grant_credential",
