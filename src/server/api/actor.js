@@ -73,7 +73,7 @@ module.exports = {
                             phone,
                             role,
                             intro,
-                            image,
+                            "img/user/" + UUID + ".jpg",
                             UUID
                         ], function (err, result) {
                             if (err) {
