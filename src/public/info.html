@@ -159,6 +159,7 @@
                                 self.render(data["content"]);
                             }
                             else if (data["error_code"] == -1) {
+                                console.log("You don't have any info yet");
                                 self.redirectApply();
                             }
                             else {
@@ -187,6 +188,7 @@
                         type: "get",
                         success: function (result) {
                             var data = JSON.parse(result);
+                            console.log(result);
                             if (data["error_log"] == 0) {
                                 window.location.href = data["content"]["uri"];
                             }
