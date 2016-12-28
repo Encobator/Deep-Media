@@ -53,7 +53,7 @@ function setSchedule() {
     setRenderEngine(server);
     setRoute(server);
     setAjax(server);
-    //setSchedule();
+    setSchedule();
 
     server.use(function (err, req, res, next) {
         console.log("Server Error: " + err);
