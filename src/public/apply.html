@@ -73,7 +73,7 @@
         <script type="text/javascript">
             $('body').css('display', 'none');
             $('body').fadeIn(300);
-            
+
             var ApplyPage = {
                 params: undefined,
                 accessToken: undefined,
@@ -89,14 +89,14 @@
                 },
                 initiateUI: function () {
                     var self = this;
-                    
+
                     $("#image").change(function () {
                         if (!self.hasImage) {
                             $("#preview").removeAttr("hidden");
                             self.hasImage = true;
                         }
                     });
-                    
+
                     $("#user-info-form").submit(function () {
                         var id = $(this).attr("id");
                         var info = getFormResult("#" + id);
@@ -213,7 +213,7 @@
                     });
                 }
             }
-            
+
             $(function () {
                 // ApplyPage.initiate();
             });
