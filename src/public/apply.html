@@ -111,6 +111,7 @@
                     $("#user-info-form").submit(function () {
                         var id = $(this).attr("id");
                         var info = getFormResult("#" + id);
+                        alert(info["phone"]);
                         if (self.openId) {
                             info["open_id"] = self.openId;
                             $.ajax({
@@ -126,7 +127,7 @@
                                         alert("Error " + data["error_code"] + ": " + data["error_log"]);
                                     }
                                 }
-                            })
+                            });
                         }
                         else {
                             alert("No User ID");
@@ -201,11 +202,13 @@
                 render: function (info) {
                     $("#name").val(info["name"]);
                     setSelectionVal("#sex", info["sex"]);
+                    setSelectionVal("#role", info["role"]);
                     $("#email").val(info["email"]);
                     $("#phone").val(info["phone"]);
                     $("#intro").val(info["intro"]);
                     if (info["image"]) {
-                        $("#image-preview img").src(info["image"]);
+                        $("#image-preview img").attr("src", info["image"]);
+                        $("#preview").removeAttr("hidden");
                         this.hasImage = true;
                     }
                     else {
