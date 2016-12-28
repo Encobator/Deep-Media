@@ -1,4 +1,3 @@
-var mysql = require("../module/mysql.js");
 var User = require("../api/user.js");
 var Branding = require("../api/branding.js");
 
