@@ -63,7 +63,7 @@ module.exports = {
             })
         }
         else {
-            res.error(1, "Must Specify OPEN_ID");
+            res.error(1, "Must Specify open_id");
         }
     },
     update_user_info: function (req, res) {
