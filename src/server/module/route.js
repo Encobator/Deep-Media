@@ -6,8 +6,21 @@ var path = require("path");
 var config = require("../data/config.json");
 var debug = false;
 
+var options = {
+    root: path.resolve(__dirname + "/../../public/"),
+    dotfiles: 'deny',
+    headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+    }
+}
+
 exports.set = function (server) {
 
+    server.get("/MP_verify_DN1V66aTxHjWowox.txt", function (req, res) {
+        res.sendFile("MP_verify_DN1V66aTxHjWowox.txt", options);
+    });
+    
     /**
      * Regular File router
      */
@@ -44,16 +57,6 @@ function process(req, res) {
 
         //Check if the module exists
         if (err.code === "MODULE_NOT_FOUND") {
-
-            //First load the option
-            var options = {
-                root: path.resolve(__dirname + "/../../public/"),
-                dotfiles: 'deny',
-                headers: {
-                    'x-timestamp': Date.now(),
-                    'x-sent': true
-                }
-            }
 
             //Try send the static file
             res.sendFile(file + ".html", options, function (err) {
