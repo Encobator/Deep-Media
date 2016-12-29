@@ -1,10 +1,9 @@
-var file = require("../module/file.js");
 var mysql = require("../module/mysql.js");
 var User = require("./user.js");
 
 module.exports = {
     getInfo: function (UUID, callback) {
-        mysql.query("SELECT `name`, `sex`, `email`, `phone`, `role`, `intro`, `image` FROM `actor` WHERE ?", {
+        mysql.query("SELECT `name`, `sex`, `email`, `phone`, `role`,｀recommender`, `intro`, `image` FROM `actor` WHERE ?", {
             "UUID": UUID
         }, function (err, result) {
             if (err) {
@@ -21,35 +20,26 @@ module.exports = {
         })
     },
     newActor: function (UUID, name, sex, email, phone, role, intro, image, callback) {
-        var self = this;
         User.hasActorInfo(UUID, function (has) {
             if (!has) {
-                self.saveImage(UUID, image, function (success) {
-                    if (success) {
-                        mysql.query("INSERT INTO `actor` SET ?", {
-                            "UUID": UUID,
-                            "name": name,
-                            "sex": sex,
-                            "email": email,
-                            "phone": phone,
-                            "role": role,
-                            "intro": intro,
-                            "image": "img/user/" + UUID + ".jpg"
-                        }, function (err, result) {
-                            if (err) {
-                                console.error("User " + UUID + " creating info failed");
-                                console.error(err);
-                                callback(false);
-                            }
-                            else {
-                                console.log("User " + UUID + " created his actor info");
-                                callback(true);
-                            }
-                        });
+                mysql.query("INSERT INTO `actor` SET ?", {
+                    "UUID": UUID,
+                    "name": name,
+                    "sex": sex,
+                    "email": email,
+                    "phone": phone,
+                    "role": role,
+                    "intro": intro,
+                    "image": image
+                }, function (err, result) {
+                    if (err) {
+                        console.error("User ")
+                        console.error(err);
+                        callback(false);
                     }
                     else {
-                        console.log("User " + UUID + " attempting to save image failed");
-                        callback(false);
+                        console.log("User " + UUID + " created his actor info");
+                        callback(true);
                     }
                 });
             }
@@ -60,36 +50,26 @@ module.exports = {
         });
     },
     updateActor: function (UUID, name, sex, email, phone, role, intro, image, callback) {
-        var self = this;
         User.hasActorInfo(UUID, function (has) {
             if (has) {
-                self.removeImage(UUID);
-                self.saveImage(UUID, image, function (success) {
-                    if (success) {
-                        mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `intro` = ?, `image` = ? WHERE `UUID` = ?", [
-                            name,
-                            sex,
-                            email,
-                            phone,
-                            role,
-                            intro,
-                            "img/user/" + UUID + ".jpg",
-                            UUID
-                        ], function (err, result) {
-                            if (err) {
-                                console.error("User " + UUID + " actor info edit failed");
-                                console.error(err);
-                                callback(false);
-                            }
-                            else {
-                                console.log("User " + UUID + " edited his actor info");
-                                callback(true);
-                            }
-                        });
+                mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `intro` = ?, `image` = ? WHERE ?", [
+                    name,
+                    gender,
+                    email,
+                    phone,
+                    role,
+                    intro,
+                    image,
+                    UUID
+                ], function (err, result) {
+                    if (err) {
+                        console.error("User " + UUID + " actor info edit failed");
+                        console.error(err);
+                        callback(false);
                     }
                     else {
-                        console.log("User " + UUID + " attempting to save image failed");
-                        callback(false);
+                        console.log("User " + UUID + " edited his actor info");
+                        callback(true);
                     }
                 });
             }
@@ -201,14 +181,6 @@ module.exports = {
             else {
                 callback(true);
             }
-        });
-    },
-    removeImage: function (UUID) {
-        file.removeImage("user/" + UUID + ".jpg");
-    },
-    saveImage: function (UUID, image, callback) {
-        file.saveImage("user/" + UUID + ".jpg", data, function (success) {
-            callback(success);
         });
     }
 }

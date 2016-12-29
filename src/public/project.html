@@ -51,7 +51,7 @@
     </nav>
     <main>
         <div class="page-title">
-            <div class="page-title-main">您的项目</div>
+            <div class="page-title-main">您的项目 - <%= project_name %> </div>
             <div class="page-title-eng">Project</div>
         </div>
           <!--
@@ -66,22 +66,12 @@
               </select>
             </div>
           -->
-            <div class = "title_container">
-
-            </div>
             <div id="progress">
-                <div data-vtdate="1 April 2016">
-                      进入拍片阶段
-                </div>
-                <div data-vtdate="3 March 2016">
-                      剧本设计完成
-                </div>
-                <div data-vtdate="2 February 2016">
-                      初步探讨剧本
-                </div>
-                <div data-vtdate="1 February 2016">
-                      开始项目
-                </div>
+                <% for (var i=0; i<progress.size; i++){ %>
+                    <div id="<%= progress[i].PPUID %>" data-vtdate="<%= progress[i].date_time %>">
+                          <%= progress[i].description %>
+                    </div>
+                <% } %>
             </div>
             <div style="margin-bottom: 30px;"></div>
         </div>
