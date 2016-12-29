@@ -41,7 +41,7 @@ module.exports = {
         })
     },
     getUserInfoByOpenId: function (openId, callback) {
-        mysql.query("SELECT `UUID`, `nickname`, `` FROM `user` WHERE ?", {
+        mysql.query("SELECT `openId`, `UUID`, `nickname`, `avatar` FROM `user` WHERE ?", {
             "openId": openId
         }, function (err, result) {
             if (err) {
