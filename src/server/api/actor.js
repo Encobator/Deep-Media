@@ -1,3 +1,4 @@
+var file = require("../module/file.js");
 var mysql = require("../module/mysql.js");
 var User = require("./user.js");
 
@@ -20,26 +21,34 @@ module.exports = {
         })
     },
     newActor: function (UUID, name, sex, email, phone, role, intro, image, callback) {
+        var self = this;
         User.hasActorInfo(UUID, function (has) {
             if (!has) {
-                mysql.query("INSERT INTO `actor` SET ?", {
-                    "UUID": UUID,
-                    "name": name,
-                    "sex": sex,
-                    "email": email,
-                    "phone": phone,
-                    "role": role,
-                    "intro": intro,
-                    "image": image
-                }, function (err, result) {
-                    if (err) {
-                        console.error("User ")
-                        console.error(err);
-                        callback(false);
+                self.saveImage(UUID, image, function (success, filename) {
+                    if (success) {
+                        mysql.query("INSERT INTO `actor` SET ?", {
+                            "UUID": UUID,
+                            "name": name,
+                            "sex": sex,
+                            "email": email,
+                            "phone": phone,
+                            "role": role,
+                            "intro": intro,
+                            "image": filename
+                        }, function (err, result) {
+                            if (err) {
+                                console.error("User ")
+                                console.error(err);
+                                callback(false);
+                            }
+                            else {
+                                console.log("User " + UUID + " created his actor info");
+                                callback(true);
+                            }
+                        });
                     }
                     else {
-                        console.log("User " + UUID + " created his actor info");
-                        callback(true);
+                        callback(false);
                     }
                 });
             }
@@ -50,8 +59,13 @@ module.exports = {
         });
     },
     updateActor: function (UUID, name, sex, email, phone, role, intro, image, callback) {
+        var self = this;
         User.hasActorInfo(UUID, function (has) {
             if (has) {
+                self.removeImage(UUID);
+                self.saveImage(UUID, image, function (success, filename) {
+                    
+                });
                 mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `intro` = ?, `image` = ? WHERE ?", [
                     name,
                     gender,
