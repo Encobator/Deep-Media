@@ -123,6 +123,7 @@
                 width: calc(100% - 220px);
                 height: 100%;
                 overflow-y: scroll;
+                overflow-x: hidden;
             }
 
             #article-comment-list {
@@ -192,6 +193,42 @@
             #show-deleted-btn:active {
                 background-color: rgba(235, 235, 235, 1);
             }
+            
+            #new-progress-form-outer {
+                padding: 0;
+                margin: 0;
+                margin-left: 30px;
+                border-bottom: 1px solid rgba(230, 230, 230, 1);
+            }
+            
+            #update-progress {
+                transition: all 0.2s;
+                line-height: 40px;
+                text-align: center;
+                color: rgba(185, 32, 52, 1);
+                cursor: pointer;
+            }
+            
+            #update-progress:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+            
+            #update-progress:active {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+            
+            #new-progress-form {
+                display: none;
+                padding: 20px;
+            }
+            
+            #new-progress-form.active {
+                display: block;
+            }
+            
+            #progress-submit {
+                margin-top: 20px;
+            }
         </style>
     </head>
     <body>
@@ -199,7 +236,7 @@
             <% include view/sidebar.html %>
         </nav>
         <main>
-            <div id="main-title">项目进度</div>
+            <div id="main-title">项目进度管理</div>
             <div id="main-frame">
                 <section id="article-list-section">
                     <h5 id="article-list-title">项目列表</h5>
@@ -248,26 +285,32 @@
                             <% }) %>
                         <% } %>
                     </ul>
-                    <hr />
-                    <form>
-                        <h3>新建进度</h3>
-                        <label>进度标题</label>
-                        <ul>
-                            <li>
-                                <input type="" />
-                                影视项目
-                            </li>
-                            <li>
-                                <input type="" />
-                                设计项目
-                            </li>
-                            <li>
-                                <input type="" />
-                                其他
-                            </li>
-                        </ul>
-                        <textarea></textarea>
-                    </form>
+                    <div id="new-progress-form-outer">
+                        <div id="update-progress">
+                            + 更新进度
+                        </div>
+                        <form id="new-progress-form">
+                            <h2>新建进度</h2>
+                            <label>进度标题：</label>
+                            <div>
+                                <input type="radio" name="select-radio" val="select" select />选择：
+                                <select id="select-title">
+                                    <option val="阿斯顿发送地方">阿斯顿发送地方</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="radio" name="select-radio" val="customize" />自定义：
+                                <input type="text" id="customize-title" />
+                            </div>
+                            <label>进度备注：</label>
+                            <textarea id="progress-comment"></textarea>
+                            <!--
+                            <label>附件：</label>
+                            <input type="" />
+                             -->
+                            <button id="progress-submit" type="submit">提交</button>
+                        </form>
+                    </div>
                 </section>
             </div>
         </main>
@@ -284,12 +327,23 @@
                 this.initiateClick();
                 this.initiateShowDelete();
                 this.initiateDelete();
+                this.initiateFormSubmit();
             },
             initiateClick: function () {
                 $("#article-list .article").click(function () {
                     var id = $(this).attr("id");
                     window.location.href = "progress_manage.html?a=" + id;
-                })
+                });
+                
+                $("#update-progress").click(function () {
+                    var $form = $("#new-progress-form");
+                    if ($form.hasClass("active")) {
+                        $form.removeClass("active");
+                    }
+                    else {
+                        $form.addClass("active");
+                    }
+                });
             },
             initiateShowDelete: function () {
                 var self = this;
@@ -351,6 +405,33 @@
                         }
                     }
                 })
+            },
+            initiateFormSubmit: function () {
+                var self = this;
+                $("#new-progress-form").submit(function () {
+                    var progress = self.getProgressForm();
+                    if (self.checkProgress(progress)) {
+                        self.submitProgress(progress);
+                    }
+                });
+            },
+            getProgressForm: function () {
+                var progress = {};
+                
+            },
+            checkProgress: function (progress) {
+                if (!progress.title) {
+                    alert("请输入进度的标题");
+                    return false;
+                }
+                if (!progress.comment) {
+                    alert("请输入进度的备注");
+                    return false;
+                }
+                return true;
+            },
+            submitProgress: function (progress) {
+                
             }
         }
     </script>

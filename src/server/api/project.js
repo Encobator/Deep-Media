@@ -92,29 +92,6 @@ module.exports = {
             }
         });
     },
-    showProject: function (PUID, callback) {
-
-    },
-    hideProject: function (PUID, callback) {
-
-    },
-    hasClient: function (PUID, callback) {
-        this.clientAmount(PUID, function (amount) {
-            return amount > 0;
-        });
-    },
-    clientAmount: function (PUID, callback) {
-        mysql.query("SELECT COUNT(`id`) AS `amount` FROM `client` WHERE `PUID` = ?", [
-            PUID
-        ], function (err, result) {
-            if (err) {
-                callback(-1);
-            }
-            else {
-                callback(result[0]["amount"]);
-            }
-        })
-    },
     getProjectClient: function (PUID, callback) {
         mysql.query("SELECT `user`.`UUID`, `user`.`avatar`, `user`.`nickname` FROM `client` INNER JOIN `user` ON `user`.`UUID` = `client`.`UUID` WHERE `client`.`PUID` = ?", [
             PUID
@@ -128,7 +105,7 @@ module.exports = {
         });
     },
     hasClient: function (PUID, UUID, callback) {
-        mysql.query("SELECT COUNT(`id`) FROM `client` WHERE `PUID` = ? AND `UUID` = ?", [
+        mysql.query("SELECT COUNT(`id`) AS `amount` FROM `client` WHERE `PUID` = ? AND `UUID` = ?", [
             PUID,
             UUID
         ], function (err, result) {
@@ -136,7 +113,7 @@ module.exports = {
                 callback(false);
             }
             else {
-                callback(result.length > 0);
+                callback(result[0]["amount"] > 0);
             }
         })
     },

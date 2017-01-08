@@ -73,6 +73,109 @@ module.exports = {
             }
         });
     },
+    get_project_client: function (req, res) {
+        User.loggedIn(req, function (logged) {
+            if (logged) {
+                if (req.body["PUID"]) {
+                    Project.getProjectClient(req.body["PUID"], function (clients) {
+                        if (clients) {
+                            res.success(clients)
+                        }
+                        else {
+                            res.error(2, "Database Error");
+                        }
+                    })
+                }
+                else {
+                    res.error(1, "Must specify PUID and UUID");
+                }
+            }
+            else {
+                res.error(1000, "please Login First");
+            }
+        });
+    },
+    add_project_client: function (req, res) {
+        User.loggedIn(req, function (logged) {
+            if (logged) {
+                console.log(JSON.stringify(req.body));
+                if (req.body["PUID"] && req.body["UUID"]) {
+                    Project.hasClient(req.body["PUID"], req.body["UUID"], function (has) {
+                        if (!has) {
+                            Project.addProjectClient(req.body["PUID"], req.body["UUID"], function (success) {
+                                if (success) {
+                                    res.success({});
+                                }
+                                else {
+                                    res.error(3, "Add User Error");
+                                }
+                            })
+                        }
+                        else {
+                            res.error(2, "This project has already have this user as client");
+                        }
+                    });
+                }
+                else {
+                    res.error(1, "Must specify PUID and UUID");
+                }
+            }
+            else {
+                res.error(1000, "please Login First");
+            }
+        })
+    },
+    delete_project_client: function (req, res) {
+        User.loggedIn(req, function (logged) {
+            if (logged) {
+                if (req.body["PUID"] && req.body["UUID"]) {
+                    Project.hasClient(req.body["PUID"], req.body["UUID"], function (has) {
+                        if (has) {
+                            Project.deleteProjectClient(req.body["PUID"], req.body["UUID"], function (success) {
+                                if (success) {
+                                    res.success({});
+                                }
+                                else {
+                                    res.error(3, "Delete Project Admin Failed");
+                                }
+                            });
+                        }
+                        else {
+                            res.error(2, "This user is not a client of this project");
+                        }
+                    });
+                }
+                else {
+                    res.error(1, "Must specify PUID and UUID");
+                }
+            }
+            else {
+                res.error(1000, "Please Login First");
+            }
+        })
+    },
+    search_user: function (req, res) {
+        User.loggedIn(req, function (logged) {
+            if (logged) {
+                if (req.body["nickname"]) {
+                    User.searchUser(req.body["nickname"], function (result) {
+                        if (result) {
+                            res.success(result);
+                        }
+                        else {
+                            res.error(2, "Database Error");
+                        }
+                    });
+                }
+                else {
+                    res.error(1, "Must Specify Nickname");
+                }
+            }
+            else {
+                res.error(1000, "Please login first");
+            }
+        });
+    },
     submit_recruit: function (req, res) {
         User.loggedIn(req, function (logged) {
             if (logged) {

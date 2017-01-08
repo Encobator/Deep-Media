@@ -137,7 +137,7 @@ form {
     padding: 0 20px;
 }
 
-input {
+input[type=text], input[type=password] {
     transition: all 0.2s;
     display: block;
     line-height: 30px;
@@ -156,6 +156,15 @@ input:focus {
     border: 1px solid rgba(185, 32, 52, 1);
 }
 
+input[type=radio] {
+    margin-right: 10px;
+}
+
+input.inline {
+    display: inline-block;
+    width: auto;
+}
+
 button {
     line-height: 30px;
     border-radius: 15px;
@@ -172,11 +181,11 @@ button.small {
 }
 
 button:hover {
-    background-color: rgba(245, 139, 156, 1);
+    background-color: rgba(205, 52, 72, 1);
 }
 
 button:active {
-    background-color: rgba(235, 129, 146, 1);
+    background-color: rgba(215, 67, 87, 1);
 }
 
 label {
@@ -187,4 +196,30 @@ label {
 
 blockquote {
     font-size: 12px !important;
+}
+
+select {
+    margin: 20px 0;
+    display: block;
+}
+
+textarea {
+    transition: all 0.1s;
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 2px;
+    min-height: 160px;
+    border: 1px solid rgba(230, 230, 230, 1);
+    resize: none;
+}
+
+textarea:hover, textarea:focus {
+    border: 1px solid rgba(185, 32, 52, 1);
+}
+
+desc {
+    display: block;
+    padding-left: 20px;
+    color: rgba(150, 150, 150, 1);
+    margin-bottom: 10px;
 }
