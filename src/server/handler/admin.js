@@ -289,5 +289,27 @@ module.exports = {
         else {
             res.error(1, "The Password Does Not Satisfy the Requirement");
         }
+    },
+    add_progress: function (req, res) {
+        User.loggedIn(req, function (logged) {
+            if (logged) {
+                if (req.body["PUID"] && req.body["title"], req.body["content"]) {
+                    Project.addProgress(req.body["PUID"], req.body["title"], req.body["content"], function (success) {
+                        if (success) {
+                            res.success({});
+                        }
+                        else {
+                            res.error(2, "Add Progress Failed");
+                        }
+                    })
+                }
+                else {
+                    res.error(1, "Must specify PUID, title and content");
+                }
+            }
+            else {
+                res.error(1000, "You must login first");
+            }
+        })
     }
 }

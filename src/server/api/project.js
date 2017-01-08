@@ -143,8 +143,19 @@ module.exports = {
             }
         })
     },
-    addProgress: function (project, title, description, callback) {
-        mysql.query("INSERT INTO `progress` SET `PUID` = UUID(), `date_time` = NOW(), ")
+    addProgress: function (PUID, title, content, callback) {
+        mysql.query("INSERT INTO `progress` SET `PPUID` = UUID(), `date_time` = NOW(), ?", {
+            "PUID": PUID,
+            "title": title,
+            "content": content
+        }, function (err, result) {
+            if (err) {
+                callback(false);
+            }
+            else {
+                callback(true);
+            }
+        })
     },
     deleteProgress: function (PUID, callback) {
         mysql.query("DELETE FROM `progress` WHERE `PUID` = ?", [

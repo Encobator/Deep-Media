@@ -20,13 +20,13 @@
                 height: calc(100% - 60px);
             }
 
-            #article-list-section {
+            #project-list-section {
                 position: fixed;
                 width: 219px;
                 height: calc(100% - 100px);
             }
 
-            #article-list-title {
+            #project-list-title {
                 margin: 0;
                 padding: 0;
                 line-height: 39px;
@@ -35,13 +35,13 @@
                 text-align: center;
             }
 
-            #article-list-holder {
+            #project-list-holder {
                 height: calc(100% - 40px);
                 overflow-x: hidden;
                 overflow-y: scroll;
             }
 
-            #article-list {
+            #project-list {
                 list-style: none;
                 padding: 0;
                 margin: 0;
@@ -49,7 +49,7 @@
                 border-right: 1px solid rgba(230, 230, 230, 1);
             }
 
-            #article-list li {
+            #project-list li {
                 transition: all 0.1s;
                 padding: 15px 10px;
                 width: calc(100% - 20px);
@@ -59,51 +59,51 @@
                 cursor: pointer;
             }
 
-            #article-list li:hover {
+            #project-list li:hover {
                 background-color: rgba(245, 245, 245, 1);
                 border-left: 2px solid rgba(185, 32, 52, 0.4);
             }
 
-            #article-list li:active {
+            #project-list li:active {
                 background-color: rgba(240, 240, 240, 1);
                 border-left: 2px solid rgba(185, 32, 52, 0.7);
             }
 
-            #article-list li.active {
+            #project-list li.active {
                 width: calc(100% - 19px);
                 border-left: 2.5px solid rgba(185, 32, 52, 1);
                 background-color: rgba(255, 255, 255, 1);
             }
 
-            #article-list li .article-title {
+            #project-list li .project-title {
                 display: block;
                 max-width: 160px;
                 white-space: nowrap;
                 overflow: hidden;
             }
 
-            #article-list li.active .article-title {
+            #project-list li.active .project-title {
                 font-weight: bold;
             }
 
-            #article-list li .article-info {
+            #project-list li .project-info {
                 font-size: 11px;
                 color: rgba(150, 150, 150, 1);
             }
 
-            #article-list li .article-info .article-date {
+            #project-list li .project-info .project-date {
                 color: rgba(150, 150, 150, 1);
                 font-size: 11px;
                 margin-right: 5px;
             }
 
-            #article-list li .article-info i {
+            #project-list li .project-info i {
                 margin-left: 5px;
                 font-size: 10px;
                 color: rgba(150, 150, 150, 1);
             }
 
-            #article-list li .article-comment-amount {
+            #project-list li .progress-amount {
                 margin-top: -8px;
                 margin-right: 5px;
                 float: right;
@@ -117,7 +117,7 @@
                 font-size: 10px;
             }
 
-            #article-comment-section {
+            #progress-section {
                 position: relative;
                 margin-left: 220px;
                 width: calc(100% - 220px);
@@ -126,53 +126,76 @@
                 overflow-x: hidden;
             }
 
-            #article-comment-list {
+            #progress-list {
                 list-style: none;
-                padding: 0;
+                padding: 20px;
                 margin: 0;
                 margin-left: 30px;
             }
 
-            #article-comment-list .article-comment {
-                padding: 10px 20px;
-                line-height: 30px;
-                border-bottom: 1px solid rgba(230, 230, 230, 1);
+            #progress-list .progress {
+                margin-top: 10px;
+                padding: 0 20px 20px;
+                border-left: 1px dashed rgba(185, 32, 52, 1);
+            }
+            
+            #progress-list .progress + .progress {
+                margin-top: 0;
+            }
+            
+            #progress-list .progress::before {
+                content: '';
+                display: block;
+                position: absolute;
+                margin-left: -26.5px;
+                margin-top: 4px;
+                width: 8px;
+                height: 8px;
+                border: 2px solid rgba(185, 32, 52, 1);
+                background-color: rgba(185, 32, 52, 1);
+                border-radius: 50%;
+            }
+            
+            #progress-list .progress + .progress::before {
+                background-color: rgba(255, 255, 255, 1);
             }
 
-            #article-comment-list .article-comment.deleted {
+            #progress-list .progress.deleted {
                 display: none;
             }
 
-            #article-comment-list .article-comment.deleted.show {
+            #progress-list .progress.deleted.show {
                 display: block !important;
             }
 
-            #article-comment-list .article-comment.empty, #article-comment-list .article-comment.error {
+            #progress-list .progress.empty, #progress-list .progress.error {
                 text-align: center;
             }
 
-            #article-comment-list .article-comment .article-comment-title i {
+            #progress-list .progress .progress-title i {
                 color: rgba(185, 32, 52, 1);
                 margin-right: 5px;
             }
 
-            #article-comment-list .article-comment .article-comment-username {
+            #progress-list .progress .progress-username {
                 font-weight: bold;
+                font-size: 15px;
             }
 
-            #article-comment-list .article-comment .dash {
+            #progress-list .progress .dash {
                 margin-left: 10px;
             }
 
-            #article-comment-list .article-comment .article-comment-email, #article-comment-list .article-comment .delete-comment {
+            #progress-list .progress .progress-email, #progress-list .progress .delete-comment {
                 margin-left: 10px;
             }
 
-            #article-comment-list .article-comment .article-comment-date-time {
-                float: right;
+            #progress-list .progress .progress-date-time {
+                margin-left: 20px;
+                color: rgba(150, 150, 150, 1);
             }
 
-            #article-comment-list .article-comment .article-comment-content {
+            #progress-list .progress .progress-content {
                 color: rgba(120, 120, 120, 1);
                 padding: 5px 10px;
                 line-height: 20px;
@@ -198,6 +221,7 @@
                 padding: 0;
                 margin: 0;
                 margin-left: 30px;
+                border-top: 1px solid rgba(230, 230, 230, 1);
                 border-bottom: 1px solid rgba(230, 230, 230, 1);
             }
             
@@ -229,6 +253,26 @@
             #progress-submit {
                 margin-top: 20px;
             }
+            
+            .progress-section {
+                margin-top: 20px;
+                border: 1px solid rgba(230, 230, 230, 1);
+                border-radius: 5px;
+                padding: 40px 20px;
+            }
+            
+            .progress-section header {
+                display: block;
+                line-height: 50px;
+                width: calc(100% + 40px);
+                margin-top: -40px;
+                margin-left: -20px;
+                margin-bottom: 20px;
+                font-size: 18px;
+                padding-left: 20px;
+                border-bottom: 1px solid rgba(230, 230, 230, 1);
+                background-color: rgba(250, 250, 250, 1);
+            }
         </style>
     </head>
     <body>
@@ -238,48 +282,48 @@
         <main>
             <div id="main-title">项目进度管理</div>
             <div id="main-frame">
-                <section id="article-list-section">
-                    <h5 id="article-list-title">项目列表</h5>
-                    <div id="article-list-holder">
-                        <ul id="article-list">
+                <section id="project-list-section">
+                    <h5 id="project-list-title">项目列表</h5>
+                    <div id="project-list-holder">
+                        <ul id="project-list">
                             <% projects.forEach(function (project) { %>
-                                <li class="article<%= (project["PUID"] == PUID) ? " active" : ""%>" id="<%= project["PUID"] %>">
-                                    <span class="article-title">
+                                <li class="project<%= (project["PUID"] == PUID) ? " active" : ""%>" id="<%= project["PUID"] %>">
+                                    <span class="project-title">
                                         <%= project["title"] %>
                                     </span>
-                                    <span class="article-info">
-                                        <span class="article-date"><%= project["start_date_time"]  %></span>
+                                    <span class="project-info">
+                                        <span class="project-date"><%= project["start_date_time"]  %></span>
                                         <% if (project["status"] == 0) { %>
                                             | <i class="fa fa-pencil"></i>
                                         <% } else if (project["status"] == 2) { %>
                                             | <i class="fa fa-archive"></i>
                                         <% } %>
                                     </span>
-                                    <span class="article-comment-amount"><%= project["comment"] %></span>
+                                    <span class="progress-amount"><%= project["comment"] %></span>
                                 </li>
                             <% }) %>
                         </ul>
                     </div>
                 </section>
-                <section id="article-comment-section">
-                    <ul id="article-comment-list">
+                <section id="progress-section">
+                    <ul id="progress-list">
                         <% if (progresses == undefined) { %>
-                            <li class="article-comment error">Error</li>
+                            <li class="progress error">发生未知错误</li>
                         <% } else if (progresses.length == 0) { %>
-                            <li class="article-comment empty">Empty</li>
+                            <li class="progress empty">当前仍没有进度</li>
                         <% } else { %>
                             <% progresses.forEach(function (progress) { %>
-                                <li class="article-comment<%= (progress["deleted"] == 1 ? " deleted" : "") %>" id="<%= progress["PPUID"] %>">
-                                    <div class="article-comment-title">
-                                        <span class="article-comment-username">
+                                <li class="progress<%= (progress["deleted"] == 1 ? " deleted" : "") %>" id="<%= progress["PPUID"] %>">
+                                    <div class="progress-title">
+                                        <span class="progress-username">
                                             <%= progress["title"] %>
                                         </span>
-                                        <span class="article-comment-date-time">
+                                        <span class="progress-date-time">
                                             <%= progress["date_time"] %>
                                         </span>
                                     </div>
-                                    <div class="article-comment-content">
-                                        <%= progress["description"] %>
+                                    <div class="progress-content">
+                                        <%= progress["content"] %>
                                     </div>
                                 </li>
                             <% }) %>
@@ -293,21 +337,22 @@
                             <h2>新建进度</h2>
                             <label>进度标题：</label>
                             <div>
-                                <input type="radio" name="select-radio" val="select" select />选择：
+                                <input type="radio" name="select-radio" val="select" id="select-radio" />选择：
                                 <select id="select-title">
-                                    <option val="阿斯顿发送地方">阿斯顿发送地方</option>
+                                    <option val="项目受理中">项目受理中</option>
+                                    <option val="方案撰写中">方案撰写中</option>
+                                    <option val="前期准备中">前期准备中</option>
+                                    <option val="演员招募中">演员招募中</option>
+                                    <option val="拍摄中">拍摄中</option>
+                                    <option val="后期处理中">后期处理中</option>
+                                    <option val="最终审核中">最终审核中</option>
                                 </select>
-                            </div>
-                            <div>
-                                <input type="radio" name="select-radio" val="customize" />自定义：
-                                <input type="text" id="customize-title" />
+                                <br />
+                                <input type="radio" name="select-radio" val="customize" id="customize-radio" />自定义：
+                                <input type="text" id="customize-title" class="inline" />
                             </div>
                             <label>进度备注：</label>
                             <textarea id="progress-comment"></textarea>
-                            <!--
-                            <label>附件：</label>
-                            <input type="" />
-                             -->
                             <button id="progress-submit" type="submit">提交</button>
                         </form>
                     </div>
@@ -318,19 +363,17 @@
     <script src="../js/admin/basic.js"></script>
     <script>
         $(function () {
-            ArticleList.initiate();
+            ProjectList.initiate();
         });
 
-        var ArticleList = {
+        var ProjectList = {
             showDeleted: false,
             initiate: function () {
                 this.initiateClick();
-                this.initiateShowDelete();
-                this.initiateDelete();
                 this.initiateFormSubmit();
             },
             initiateClick: function () {
-                $("#article-list .article").click(function () {
+                $("#project-list .project").click(function () {
                     var id = $(this).attr("id");
                     window.location.href = "progress_manage.html?a=" + id;
                 });
@@ -351,60 +394,13 @@
                     self.showDeleted = !self.showDeleted;
                     if (self.showDeleted) {
                         $(this).text("Hide Deleted");
-                        $(".article-comment.deleted").addClass("show");
+                        $(".progress.deleted").addClass("show");
                     }
                     else {
                         $(this).text("Show Deleted");
-                        $(".article-comment.deleted").removeClass("show");
+                        $(".progress.deleted").removeClass("show");
                     }
                 });
-            },
-            initiateDelete: function () {
-                $(".delete-comment").click(function () {
-                    var CUID = $(this).parent().parent().attr("id");
-                    if ($(this).parent().parent().hasClass("deleted")) {
-                        if (confirm("Do you want to undelete this comment?")) {
-                            $.ajax({
-                                url: "/ajax/admin?action=undelete_comment",
-                                type: "post",
-                                data: { "CUID": CUID },
-                                success: function (result) {
-                                    var data = JSON.parse(result);
-                                    if (data["error_code"] == 0) {
-                                        window.location.reload();
-                                    }
-                                    else {
-                                        alert(data["error_log"]);
-                                    }
-                                },
-                                error: function () {
-                                    alert("server connection error");
-                                }
-                            });
-                        }
-                    }
-                    else {
-                        if (confirm("Do you want to delete this comment?")) {
-                            $.ajax({
-                                url: "/ajax/admin?action=delete_comment",
-                                type: "post",
-                                data: { "CUID": CUID },
-                                success: function (result) {
-                                    var data = JSON.parse(result);
-                                    if (data["error_code"] == 0) {
-                                        window.location.reload();
-                                    }
-                                    else {
-                                        alert(data["error_log"]);
-                                    }
-                                },
-                                error: function () {
-                                    alert("server connection error");
-                                }
-                            });
-                        }
-                    }
-                })
             },
             initiateFormSubmit: function () {
                 var self = this;
@@ -413,25 +409,49 @@
                     if (self.checkProgress(progress)) {
                         self.submitProgress(progress);
                     }
+                    return false;
                 });
             },
             getProgressForm: function () {
                 var progress = {};
-                
+                progress.title = $("#select-title").val();
+                progress.content = $("#progress-comment").val();
+                return progress;
             },
             checkProgress: function (progress) {
                 if (!progress.title) {
-                    alert("请输入进度的标题");
+                    alert("请输入项目进度的标题");
                     return false;
                 }
-                if (!progress.comment) {
-                    alert("请输入进度的备注");
+                if (!progress.content) {
+                    alert("请输入项目进度的备注");
                     return false;
                 }
                 return true;
             },
             submitProgress: function (progress) {
-                
+                var PUID = $(".project.active").attr("id");
+                $.ajax({
+                    url: "/ajax/admin?action=add_progress",
+                    type: "post",
+                    data: {
+                        "PUID": PUID,
+                        "title": progress.title,
+                        "content": progress.content
+                    },
+                    success: function (result) {
+                        var data = JSON.parse(result);
+                        if (data["error_code"] == 0) {
+                            window.location.reload();
+                        }
+                        else {
+                            alert(data["error_log"]);
+                        }
+                    },
+                    error: function () {
+                        alert("Server Connection Error");
+                    }
+                })
             }
         }
     </script>

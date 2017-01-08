@@ -198,11 +198,6 @@ blockquote {
     font-size: 12px !important;
 }
 
-select {
-    margin: 20px 0;
-    display: block;
-}
-
 textarea {
     transition: all 0.1s;
     width: calc(100% - 20px);
