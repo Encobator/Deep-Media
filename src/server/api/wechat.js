@@ -161,4 +161,4 @@ module.exports = {
     }
 }
 
-// module.exports.initiate();
+module.exports.initiate();
