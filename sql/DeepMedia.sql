@@ -66,7 +66,7 @@ CREATE TABLE `application` (
   `submit_date_time` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,6 +76,31 @@ CREATE TABLE `application` (
 LOCK TABLES `application` WRITE;
 /*!40000 ALTER TABLE `application` DISABLE KEYS */;
 /*!40000 ALTER TABLE `application` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `client`
+--
+
+DROP TABLE IF EXISTS `client`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `client` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `PUID` char(36) NOT NULL,
+  `UUID` char(36) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `client`
+--
+
+LOCK TABLES `client` WRITE;
+/*!40000 ALTER TABLE `client` DISABLE KEYS */;
+/*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -96,7 +121,7 @@ CREATE TABLE `progress` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `PPUID_UNIQUE` (`PPUID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +152,7 @@ CREATE TABLE `project` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `PUID_UNIQUE` (`PUID`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +182,7 @@ CREATE TABLE `recruit` (
   `cover` longtext,
   `status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +211,7 @@ CREATE TABLE `review` (
   `date_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,7 +220,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'UUID()','4f8350fa-c6ab-11e6-82d7-c5120b02e780',5,'oh yeah man',NULL),(2,'4050d5ac-c6cf-11e6-bfe9-950e846e9bbd','4f8350fa-c6ab-11e6-82d7-c5120b02e780',5,'fuck','2016-12-21 00:13:32');
+INSERT INTO `review` VALUES (1,'b4b5d5bc-ccf3-11e6-819d-28dcd4936339','4f8350fa-c6ab-11e6-82d7-c5120b02e780',5,'oh yeah man',NULL),(2,'4050d5ac-c6cf-11e6-bfe9-950e846e9bbd','4f8350fa-c6ab-11e6-82d7-c5120b02e780',5,'fuck','2016-12-21 00:13:32');
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +248,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `UUID_UNIQUE` (`UUID`),
   UNIQUE KEY `openId_UNIQUE` (`openId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +257,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'4f8350fa-c6ab-11e6-82d7-c5120b02e780','0','trump','http://static.hdslb.com/images/member/noface.gif','admin','3iv8vz1oTfMPgwJIUDrf7lUB5rf9G+I8Ixxjn1jfojp4gPtDs=',NULL,NULL,1,'ceeaed85-2f77-bd78-8200-0f21fb470cd3','2016-12-21 18:35:47');
+INSERT INTO `user` VALUES (1,'4f8350fa-c6ab-11e6-82d7-c5120b02e780','0','trump','http://static.hdslb.com/images/member/noface.gif','admin','3iv8vz1oTfMPgwJIUDrf7lUB5rf9G+I8Ixxjn1jfojp4gPtDs=',NULL,NULL,1,'d90d0881-be96-69c6-d07c-b03e03784399','2017-01-08 20:12:14');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -245,4 +270,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-27  0:12:55
+-- Dump completed on 2017-01-08 20:15:30
