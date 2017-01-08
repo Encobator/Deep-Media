@@ -6,6 +6,18 @@ var TimeSpan = require("../module/timespan.js");
 
 module.exports = {
     DEFAULT_PASSWORD: "12345678",
+    searchUser: function (nickname, callback) {
+        mysql.query("SELECT `UUID`, `nickname`, `avatar` FROM `user` WHERE `nickname` LIKE ?", [
+            nickname
+        ], function (err, result) {
+            if (err) {
+                callback(undefined);
+            }
+            else {
+                callback(result);
+            }
+        })
+    },
     getUUID: function (openId, callback) {
         mysql.query("SELECT `UUID` FROM `user` WHERE ?", {
             "openId": openId,

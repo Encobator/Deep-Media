@@ -115,26 +115,56 @@ module.exports = {
             }
         })
     },
-    getRecruits: function (callback) {
-        mysql.query("SELECT * FROM `recruit` ", function (err, result) {
+    getProjectClient: function (PUID, callback) {
+        mysql.query("SELECT `user`.`UUID`, `user`.`avatar`, `user`.`nickname` FROM `client` INNER JOIN `user` ON `user`.`UUID` = `client`.`UUID` WHERE `client`.`PUID` = ?", [
+            PUID
+        ], function (err, result) {
             if (err) {
-                callback(undefined);
+                callback(false);
             }
             else {
-                if (result.length > 0) {
-                    callback(result);
-                }
-                else {
-                    callback(null);
-                }
+                callback(result);
             }
         });
     },
-    hasRecruit: function (PUID, callback) {
-
+    hasClient: function (PUID, UUID, callback) {
+        mysql.query("SELECT COUNT(`id`) FROM `client` WHERE `PUID` = ? AND `UUID` = ?", [
+            PUID,
+            UUID
+        ], function (err, result) {
+            if (err) {
+                callback(false);
+            }
+            else {
+                callback(result.length > 0);
+            }
+        })
     },
-    addRecruit: function (PUID, title, description, address, time, salary, callback) {
-
+    addProjectClient: function (PUID, UUID, callback) {
+        mysql.query("INSERT INTO `client` SET ?", {
+            "PUID": PUID,
+            "UUID": UUID
+        }, function (err, result) {
+            if (err) {
+                callback(false);
+            }
+            else {
+                callback(true);
+            }
+        })
+    },
+    deleteProjectClient: function (PUID, UUID, callback) {
+        mysql.query("DELETE FROM `client` WHERE `PUID` = ? AND `UUID` = ?", [
+            PUID,
+            UUID
+        ], function (err, result) {
+            if (err) {
+                callback(false);
+            }
+            else {
+                callback(true);
+            }
+        })
     },
     addProgress: function (project, title, description, callback) {
         mysql.query("INSERT INTO `progress` SET `PUID` = UUID(), `date_time` = NOW(), ")
