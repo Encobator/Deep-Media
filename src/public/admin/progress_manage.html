@@ -4,14 +4,22 @@
         <title>Deep Vision - Admin Dashboard</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../css/lib/font-awesome.css" />
+        <link rel="stylesheet" href="../css/lib/bootstrap.lim.css" />
+        <link rel="stylesheet" href="../css/lib/summernote_liby.css" />
         <link rel="stylesheet" href="../css/admin/basic.css" />
         <script src="../js/lib/jquery.js"></script>
+        <script src="../js/lib/bootstrap.js"></script>
+        <script src="../js/lib/summernote.js"></script>
         <script src="../js/util.js"></script>
         <script>const PAGE = "manage-progress"</script>
         <style>
             main {
                 position: fixed;
                 width: calc(100% - 220px);
+            }
+            
+            .title {
+                
             }
 
             #main-frame {
@@ -133,17 +141,17 @@
                 margin-left: 30px;
             }
 
-            #progress-list .progress {
+            #progress-list .progress-item {
                 margin-top: 10px;
                 padding: 0 20px 20px;
                 border-left: 1px dashed rgba(185, 32, 52, 1);
             }
             
-            #progress-list .progress + .progress {
+            #progress-list .progress-item + .progress-item {
                 margin-top: 0;
             }
             
-            #progress-list .progress::before {
+            #progress-list .progress-item::before {
                 content: '';
                 display: block;
                 position: absolute;
@@ -156,46 +164,46 @@
                 border-radius: 50%;
             }
             
-            #progress-list .progress + .progress::before {
+            #progress-list .progress-item + .progress-item::before {
                 background-color: rgba(255, 255, 255, 1);
             }
 
-            #progress-list .progress.deleted {
+            #progress-list .progress-item.deleted {
                 display: none;
             }
 
-            #progress-list .progress.deleted.show {
+            #progress-list .progress-item.deleted.show {
                 display: block !important;
             }
 
-            #progress-list .progress.empty, #progress-list .progress.error {
+            #progress-list .progress-item.empty, #progress-list .progress-item.error {
                 text-align: center;
             }
 
-            #progress-list .progress .progress-title i {
+            #progress-list .progress-item .progress-title i {
                 color: rgba(185, 32, 52, 1);
                 margin-right: 5px;
             }
 
-            #progress-list .progress .progress-username {
+            #progress-list .progress-item .progress-username {
                 font-weight: bold;
                 font-size: 15px;
             }
 
-            #progress-list .progress .dash {
+            #progress-list .progress-item .dash {
                 margin-left: 10px;
             }
 
-            #progress-list .progress .progress-email, #progress-list .progress .delete-comment {
+            #progress-list .progress-item .progress-email, #progress-list .progress-item .delete-comment {
                 margin-left: 10px;
             }
 
-            #progress-list .progress .progress-date-time {
+            #progress-list .progress-item .progress-date-time {
                 margin-left: 20px;
                 color: rgba(150, 150, 150, 1);
             }
 
-            #progress-list .progress .progress-content {
+            #progress-list .progress-item .progress-content {
                 color: rgba(120, 120, 120, 1);
                 padding: 5px 10px;
                 line-height: 20px;
@@ -306,35 +314,12 @@
                     </div>
                 </section>
                 <section id="progress-section">
-                    <ul id="progress-list">
-                        <% if (progresses == undefined) { %>
-                            <li class="progress error">发生未知错误</li>
-                        <% } else if (progresses.length == 0) { %>
-                            <li class="progress empty">当前仍没有进度</li>
-                        <% } else { %>
-                            <% progresses.forEach(function (progress) { %>
-                                <li class="progress<%= (progress["deleted"] == 1 ? " deleted" : "") %>" id="<%= progress["PPUID"] %>">
-                                    <div class="progress-title">
-                                        <span class="progress-username">
-                                            <%= progress["title"] %>
-                                        </span>
-                                        <span class="progress-date-time">
-                                            <%= progress["date_time"] %>
-                                        </span>
-                                    </div>
-                                    <div class="progress-content">
-                                        <%= progress["content"] %>
-                                    </div>
-                                </li>
-                            <% }) %>
-                        <% } %>
-                    </ul>
                     <div id="new-progress-form-outer">
                         <div id="update-progress">
                             + 更新进度
                         </div>
                         <form id="new-progress-form">
-                            <h2>新建进度</h2>
+                            <div class="title">新建进度</div>
                             <label>进度标题：</label>
                             <div>
                                 <input type="radio" name="select-customize-radio" value="select" checked="checked" />选择：
@@ -352,10 +337,35 @@
                                 <input type="text" id="customize-title" class="inline" />
                             </div>
                             <label>进度备注：</label>
-                            <textarea id="progress-comment"></textarea>
+                            <div class="bootstrap">
+                                <div id="progress-comment"></div>
+                            </div>
                             <button id="progress-submit" type="submit">提交</button>
                         </form>
                     </div>
+                    <ul id="progress-list">
+                        <% if (progresses == undefined) { %>
+                            <li class="progress-item error">发生未知错误</li>
+                        <% } else if (progresses.length == 0) { %>
+                            <li class="progress-item empty">当前仍没有进度</li>
+                        <% } else { %>
+                            <% progresses.forEach(function (progress) { %>
+                                <li class="progress-item<%= (progress["deleted"] == 1 ? " deleted" : "") %>" id="<%= progress["PPUID"] %>">
+                                    <div class="progress-title">
+                                        <span class="progress-username">
+                                            <%= progress["title"] %>
+                                        </span>
+                                        <span class="progress-date-time">
+                                            <%= progress["date_time"] %>
+                                        </span>
+                                    </div>
+                                    <div class="progress-content">
+                                        <%- progress["content"] %>
+                                    </div>
+                                </li>
+                            <% }) %>
+                        <% } %>
+                    </ul>
                 </section>
             </div>
         </main>
@@ -371,6 +381,7 @@
             initiate: function () {
                 this.initiateClick();
                 this.initiateFormSubmit();
+                this.initiateSummernote();
             },
             initiateClick: function () {
                 $("#project-list .project").click(function () {
@@ -412,10 +423,13 @@
                     return false;
                 });
             },
+            initiateSummernote: function () {
+                $("#progress-comment").summernote();
+            },
             getProgressForm: function () {
                 var progress = {};
                 progress.title = $("#" + $("input[name=select-customize-radio]:checked").val() + "-title").val();
-                progress.content = $("#progress-comment").val();
+                progress.content = $("#progress-comment").summernote("code");
                 return progress;
             },
             checkProgress: function (progress) {
