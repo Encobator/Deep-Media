@@ -337,7 +337,7 @@
                             <h2>新建进度</h2>
                             <label>进度标题：</label>
                             <div>
-                                <input type="radio" name="select-radio" val="select" id="select-radio" />选择：
+                                <input type="radio" name="select-customize-radio" value="select" checked="checked" />选择：
                                 <select id="select-title">
                                     <option val="项目受理中">项目受理中</option>
                                     <option val="方案撰写中">方案撰写中</option>
@@ -348,7 +348,7 @@
                                     <option val="最终审核中">最终审核中</option>
                                 </select>
                                 <br />
-                                <input type="radio" name="select-radio" val="customize" id="customize-radio" />自定义：
+                                <input type="radio" name="select-customize-radio" value="customize" />自定义：
                                 <input type="text" id="customize-title" class="inline" />
                             </div>
                             <label>进度备注：</label>
@@ -414,7 +414,7 @@
             },
             getProgressForm: function () {
                 var progress = {};
-                progress.title = $("#select-title").val();
+                progress.title = $("#" + $("input[name=select-customize-radio]:checked").val() + "-title").val();
                 progress.content = $("#progress-comment").val();
                 return progress;
             },
@@ -454,5 +454,7 @@
                 })
             }
         }
+        
+        $("input[type=radio]")
     </script>
 </html>
