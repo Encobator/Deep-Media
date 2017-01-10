@@ -28,7 +28,7 @@
                 <button>群发信息</button>
             </div>
             <div id="main-frame">
-                <table>
+                <table id="actors">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -51,7 +51,7 @@
                         <% } else { %>
                             <% actors.forEach(function (actor, i) { %>
                                 <tr>
-                                    <td><%= i %></td>
+                                    <td><%= i + 1 %></td>
                                     <td><img src="<%= actor["avatar"] %>"/></td>
                                     <td><%= actor["nickname"] %></td>
                                     <td><%= actor["name"] %></td>
@@ -78,7 +78,7 @@
         $(function () {
             // ArticleList.initiate();
             // ApplicationList.initiate();
-            // $('#filter').DataTable();
+            $('#actors').DataTable();
         });
         
         function loadUser(UUID) {
