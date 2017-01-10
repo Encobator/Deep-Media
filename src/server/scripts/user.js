@@ -12,6 +12,7 @@ function addAllUsers(ids) {
         
         //Base case
         if (i >= ids.length) {
+            console.log("Total " + ids.length + " users add done");
             return;
         }
         
@@ -33,6 +34,7 @@ function addAllUsers(ids) {
     }
     
     addUser(0);
+    
 }
 
 function getPartialUser(nextId, amount) {
