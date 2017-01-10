@@ -216,6 +216,10 @@ module.exports = {
         });
     },
     saveImage: function (UUID, image, callback) {
+        if (!image) {
+            callback(true);
+        }
+        
         file.saveImage("/user/" + UUID + ".jpg", image, function (success) {
             callback(success);
         });
