@@ -76,9 +76,11 @@ module.exports = {
                                 if (has) {
                                     Actor.updateActor(UUID, req.body["name"], req.body["sex"], req.body["email"], req.body["phone"], req.body["role"], req.body["intro"], req.body["image"], function (success) {
                                         if (success) {
+                                            console.log("yeah^2")
                                             res.success({});
                                         }
                                         else {
+                                            console.log("5")
                                             res.error(4, "Database error when inserting actor info");
                                         }
                                     });
@@ -86,9 +88,11 @@ module.exports = {
                                 else {
                                     Actor.newActor(UUID, req.body["name"], req.body["sex"], req.body["email"], req.body["phone"], req.body["role"], req.body["intro"], req.body["image"], function (success) {
                                         if (success) {
+                                            console.log("yeah")
                                             res.success({});
                                         }
                                         else {
+                                            console.log("4")
                                             res.error(4, "Database error when inserting actor info");
                                         }
                                     });
@@ -96,16 +100,19 @@ module.exports = {
                             })
                         }
                         else {
+                            console.log("3")
                             res.error(3, "Database error on UUID");
                         }
                     });
                 }
                 else {
+                    console.log("2")
                     res.error(2, "User does not exist")
                 }
             });
         }
         else {
+            console.log("1")
             res.error(1, "Must Specify OPEN_ID");
         }
     },

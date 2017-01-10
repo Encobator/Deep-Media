@@ -5,22 +5,21 @@
         <link rel="stylesheet" href="../css/lib/font-awesome.css" />
         <link rel="stylesheet" href="../css/admin/basic.css" />
         <script src="../js/lib/jquery.js"></script>
-        <script>const PAGE = "account"</script>
+        <script>const PAGE = "admin-manage"</script>
     </head>
     <body>
         <nav>
             <% include view/sidebar.html %>
         </nav>
         <main>
-            <div id="main-title">我的账户</div>
+            <div id="main-title">管理账户</div>
             <div id="main-frame">
                 <form id="change-password-form">
-                    <p>修改账户密码</p>
-                    <input type="password" id="original-password" placeholder="请输入原来的密码" required />
-                    <input type="password" id="new-password" placeholder="请输入新的密码" required />
-                    <input type="password" id="retype-new-password" placeholder="请重新输入新的密码" required />
+                    <p>新建管理员账户</p>
+                    <input type="text" id="username" placeholder="请输入新用户的用户名" required />
+                    <input type="password" id="password" placeholder="请输入新用户的密码" required />
                     <button type="reset">重置</button>
-                    <button type="submit">修改密码</button>
+                    <button type="submit">创建</button>
                 </form>
             </div>
         </main>
@@ -31,7 +30,7 @@
             AccountManage.initiate();
         });
 
-        var AccountManage = {
+        var AdminManage = {
             initiate: function () {
                 this.initiateChangePasswordForm();
             },

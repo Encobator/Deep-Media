@@ -62,7 +62,7 @@
                 <item>
                     <label>推荐人：</label>
                     <input type="text" id="recommender" placeholder="如果没有，请跳过此项" />
-                </item>a
+                </item>
                 <item>
                     <label>个人简介：</label>
                     <textarea id="intro" placeholder="您的简介" maxlength="300"></textarea>
@@ -115,7 +115,6 @@
                     $("#user-info-form").submit(function () {
                         var id = $(this).attr("id");
                         var info = getFormResult("#" + id);
-                        alert(info["phone"]);
                         if (self.openId) {
                             info["open_id"] = self.openId;
                             $.ajax({

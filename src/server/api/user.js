@@ -148,28 +148,21 @@ module.exports = {
             }
         })
     },
-    newAdmin: function (UUID, username, callback) {
+    newAdmin: function (username, password, callback) {
         var self = this;
-        this.existsUUID(UUID, function (exists) {
-            if (exists) {
-                self.existsUsername(username, function (usernameExists) {
-                    if (!usernameExists) {
-                        var encoded = crypto.genEncrypted(self.DEFAULT_PASSWORD);
-                        mysql.query("UPDATE `user` SET `is_admin` = 1, `username` = ?, `password` = ? WHERE `UUID` = ?", [
-                            username,
-                            encoded,
-                            UUID
-                        ], function (err, result) {
-                            if (err) {
-                                callback(false);
-                            }
-                            else {
-                                callback(true);
-                            }
-                        });
+        self.existsUsername(username, function (usernameExists) {
+            if (!usernameExists) {
+                var encoded = crypto.genEncrypted(password);
+                mysql.query("INSERT INTO `user` SET `is_admin` = 1, `username` = ?, `password` = ? WHERE `UUID` = ?", [
+                    username,
+                    encoded,
+                    UUID
+                ], function (err, result) {
+                    if (err) {
+                        callback(false);
                     }
                     else {
-                        callback(false);
+                        callback(true);
                     }
                 });
             }
