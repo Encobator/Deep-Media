@@ -1,4 +1,5 @@
 var mysql = require("../module/mysql.js");
+var Wechat = require("./wechat.js");
 
 module.exports = {
     PAGE_PROJECT_AMOUNT: 10,
