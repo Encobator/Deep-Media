@@ -69,7 +69,7 @@ module.exports = {
                     if (success) {
                         mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `recommender` = ?, `intro` = ?, `image` = ? WHERE ?", [
                             name,
-                            gender,
+                            sex,
                             email,
                             phone,
                             role,
