@@ -30,6 +30,7 @@ CREATE TABLE `actor` (
   `email` char(50) DEFAULT NULL,
   `phone` bigint(11) DEFAULT NULL,
   `role` tinytext,
+  `recommender` varchar(45) DEFAULT NULL,
   `intro` mediumtext,
   `image` mediumtext,
   `status` tinyint(1) DEFAULT NULL,
@@ -45,7 +46,7 @@ CREATE TABLE `actor` (
 
 LOCK TABLES `actor` WRITE;
 /*!40000 ALTER TABLE `actor` DISABLE KEYS */;
-INSERT INTO `actor` VALUES (1,'sdfdd',' 贺禹豪',1,'415813432@qq.com',13631601283,NULL,'',NULL,2);
+INSERT INTO `actor` VALUES (1,'sdfdd',' 贺禹豪',1,'415813432@qq.com',13631601283,NULL,NULL,'',NULL,2);
 /*!40000 ALTER TABLE `actor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,4 +273,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-09 19:34:57
+-- Dump completed on 2017-01-09 19:42:21

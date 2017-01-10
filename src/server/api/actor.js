@@ -20,7 +20,7 @@ module.exports = {
             }
         })
     },
-    newActor: function (UUID, name, sex, email, phone, role, intro, image, callback) {
+    newActor: function (UUID, name, sex, email, phone, role, recommender, intro, image, callback) {
         var self = this;
         User.hasActorInfo(UUID, function (has) {
             if (!has) {
@@ -33,6 +33,7 @@ module.exports = {
                             "email": email,
                             "phone": phone,
                             "role": role,
+                            "recommender": recommender,
                             "intro": intro,
                             "image": "/img/user/" + UUID + ".jpg"
                         }, function (err, result) {
@@ -58,19 +59,20 @@ module.exports = {
             }
         });
     },
-    updateActor: function (UUID, name, sex, email, phone, role, intro, image, callback) {
+    updateActor: function (UUID, name, sex, email, phone, role, recommender, intro, image, callback) {
         var self = this;
         User.hasActorInfo(UUID, function (has) {
             if (has) {
                 self.removeImage(UUID);
                 self.saveImage(UUID, image, function (success, filename) {
                     if (success) {
-                        mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `intro` = ?, `image` = ? WHERE ?", [
+                        mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `recommender` = ?, `intro` = ?, `image` = ? WHERE ?", [
                             name,
                             gender,
                             email,
                             phone,
                             role,
+                            recommender,
                             intro,
                             "/img/user/" + UUID + ".jpg",
                             UUID
