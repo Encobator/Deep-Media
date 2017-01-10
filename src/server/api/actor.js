@@ -40,6 +40,7 @@ module.exports = {
                             if (err) {
                                 console.error("User ")
                                 console.error(err);
+                                self.removeImage(UUID);
                                 callback(false);
                             }
                             else {
