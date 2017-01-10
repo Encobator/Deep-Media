@@ -4,7 +4,7 @@ var User = require("./user.js");
 
 module.exports = {
     getInfo: function (UUID, callback) {
-        mysql.query("SELECT `name`, `sex`, `email`, `phone`, `role`,｀recommender`, `intro`, `image` FROM `actor` WHERE ?", {
+        mysql.query("SELECT `name`, `sex`, `email`, `phone`, `role`, `recommender`, `intro`, `image` FROM `actor` WHERE ?", {
             "UUID": UUID
         }, function (err, result) {
             if (err) {
