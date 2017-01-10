@@ -74,7 +74,7 @@ module.exports = {
                         if (UUID) {
                             User.hasActorInfo(UUID, function (has) {
                                 if (has) {
-                                    Actor.updateActor(UUID, req.body["name"], req.body["sex"], req.body["email"], req.body["phone"], req.body["role"], req.body["intro"], req.body["image"], function (success) {
+                                    Actor.updateActor(UUID, req.body["name"], req.body["sex"], req.body["email"], req.body["phone"], req.body["role"], req.body["recommender"], req.body["intro"], req.body["image"], function (success) {
                                         if (success) {
                                             console.log("yeah^2")
                                             res.success({});
@@ -86,7 +86,7 @@ module.exports = {
                                     });
                                 }
                                 else {
-                                    Actor.newActor(UUID, req.body["name"], req.body["sex"], req.body["email"], req.body["phone"], req.body["role"], req.body["intro"], req.body["image"], function (success) {
+                                    Actor.newActor(UUID, req.body["name"], req.body["sex"], req.body["email"], req.body["phone"], req.body["role"], req.body["recommender"], req.body["intro"], req.body["image"], function (success) {
                                         if (success) {
                                             console.log("yeah")
                                             res.success({});
