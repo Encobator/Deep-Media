@@ -13,195 +13,7 @@
         <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
 
         <style>
-            main {
-                position: fixed;
-                width: calc(100% - 220px);
-            }
-            .filter_container {
-                margin: 0 auto;
-                width: 95%;
-            }
-            #main-frame {
-                position: fixed;
-                width: calc(100% - 260px);
-                height: calc(100% - 60px);
-            }
-
-            #article-list-section {
-                position: fixed;
-                width: 219px;
-                height: calc(100% - 100px);
-            }
-
-            #article-list-title {
-                margin: 0;
-                padding: 0;
-                line-height: 39px;
-                border-right: 1px solid rgba(230, 230, 230, 1);
-                border-bottom: 1px solid rgba(230, 230, 230, 1);
-                text-align: center;
-            }
-
-            #article-list-holder {
-                height: calc(100% - 40px);
-                overflow-x: hidden;
-                overflow-y: scroll;
-            }
-
-            #article-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                min-height: 100%;
-                border-right: 1px solid rgba(230, 230, 230, 1);
-            }
-
-            #article-list li {
-                transition: all 0.1s;
-                padding: 15px 10px;
-                width: calc(100% - 20px);
-                background-color: rgba(255, 255, 255, 1);
-                border-bottom: 1px solid rgba(230, 230, 230, 1);
-                border-left: 0 solid rgba(185, 32, 52, 1);
-                cursor: pointer;
-            }
-
-            #article-list li:hover {
-                background-color: rgba(245, 245, 245, 1);
-                border-left: 2px solid rgba(185, 32, 52, 0.4);
-            }
-
-            #article-list li:active {
-                background-color: rgba(240, 240, 240, 1);
-                border-left: 2px solid rgba(185, 32, 52, 0.7);
-            }
-
-            #article-list li.active {
-                width: calc(100% - 19px);
-                border-left: 2.5px solid rgba(185, 32, 52, 1);
-                background-color: rgba(255, 255, 255, 1);
-            }
-
-            #article-list li .article-title {
-                display: block;
-                max-width: 160px;
-                white-space: nowrap;
-                overflow: hidden;
-            }
-
-            #article-list li.active .article-title {
-                font-weight: bold;
-            }
-
-            #article-list li .article-info {
-                font-size: 11px;
-                color: rgba(150, 150, 150, 1);
-            }
-
-            #article-list li .article-info .article-date {
-                color: rgba(150, 150, 150, 1);
-                font-size: 11px;
-                margin-right: 5px;
-            }
-
-            #article-list li .article-info i {
-                margin-left: 5px;
-                font-size: 10px;
-                color: rgba(150, 150, 150, 1);
-            }
-
-            #article-list li .article-comment-amount {
-                margin-top: -8px;
-                margin-right: 5px;
-                float: right;
-                line-height: 16px;
-                min-width: 6px;
-                padding: 0 5px;
-                text-align: center;
-                border-radius: 10px;
-                background-color: rgba(185, 32, 52, 1);
-                color: rgba(255, 255, 255, 1);
-                font-size: 10px;
-            }
-
-            #article-comment-section {
-                position: relative;
-                margin-left: 220px;
-                width: calc(100% - 220px);
-                height: 100%;
-                overflow-y: scroll;
-            }
-
-            #article-comment-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                margin-left: 30px;
-            }
-
-            #article-comment-list .article-comment {
-                padding: 10px 20px;
-                line-height: 30px;
-                border-bottom: 1px solid rgba(230, 230, 230, 1);
-            }
-
-            #article-comment-list .article-comment.deleted {
-                display: none;
-            }
-
-            #article-comment-list .article-comment.deleted.show {
-                display: block !important;
-            }
-
-            #article-comment-list .article-comment.empty, #article-comment-list .article-comment.error {
-                text-align: center;
-            }
-
-            #article-comment-list .article-comment .article-comment-title i {
-                color: rgba(185, 32, 52, 1);
-                margin-right: 5px;
-            }
-
-            #article-comment-list .article-comment .article-comment-username {
-                font-weight: bold;
-            }
-
-            #article-comment-list .article-comment .dash {
-                margin-left: 10px;
-            }
-
-            #article-comment-list .article-comment .article-comment-email, #article-comment-list .article-comment .delete-comment {
-                margin-left: 10px;
-            }
-
-            #article-comment-list .article-comment .article-comment-date-time {
-                float: right;
-            }
-
-            #article-comment-list .article-comment .article-comment-content {
-                color: rgba(120, 120, 120, 1);
-                padding: 5px 10px;
-                line-height: 20px;
-            }
-
-            #show-deleted-btn {
-                margin-left: 30px;
-                line-height: 40px;
-                text-align: center;
-                cursor: pointer;
-                border-bottom: 1px solid rgba(230, 230, 230, 1);
-            }
-
-            #show-deleted-btn:hover {
-                background-color: rgba(245, 245, 245, 1);
-            }
-
-            #show-deleted-btn:active {
-                background-color: rgba(235, 235, 235, 1);
-            }
-            .no {
-                background-color: black;
-            }
+            
         </style>
     </head>
     <body>
@@ -209,112 +21,66 @@
             <% include view/sidebar.html %>
         </nav>
         <main>
-            <div id="main-title">群演报名</div>
+            <div id="main-title">
+                群演报名
+                <button>群发信息</button>
+            </div>
             <div id="main-frame">
-                <div class="filter_container">
-                  <table id="filter">
-                      <thead>
-                          <tr>
-                              <th>生活照</th>
-                              <th>姓名</th>
-                              <th>性别</th>
-                              <th>手机号码</th>
-                              <th>邮箱</th>
-                              <th>自我介绍</th>
-                              <th>推荐人</th>
-                              <th>角色</th>
-                              <th>申请状态</th>
-                              <th>更改申请状态</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                      <% if (!(actors == undefined||actors.length == 0)) { %>
-                          <% actors.forEach(function (actor) { %>
-                              <tr id="<%= actor["AUID"] %>">
-                                  <td><img src="<%= actor["image"] %>">"</td>
-                                  <td><%= actor["name"] %></td>
-                                  <% if (actor["sex"]==0) { %>
-                                    <td>女</td>
-                                  <% } else { %>
-                                    <td>男</td>
-                                  <% } %>
-                                  <td><%= actor["phone"] %></td>
-                                  <td><%= actor["email"] %></td>
-                                  <td><%= actor["intro"] %></td>
-                                  <td><%= actor["recommender"] %></td>
-                                  <% if (actor["role"]==0) { %>
-                                    <td>主角</td>
-                                  <% } else if (actor["role"]==1) { %>
-                                    <td>配角</td>
-                                  <% } else { %>
-                                    <td>群演</td>
-                                  <% } %>
-
-                                  <!-- 0是未审核，1是招募，2是拒绝 -->
-
-                                  <% if (actor["status"]==0) { %>
-                                    <td>未审核</td>
-                                  <% } else if (actor["status"]==1) { %>
-                                    <td>已通过</td>
-                                  <% } else { %>
-                                    <td>未通过</td>
-                                  <% } %>
-                                  <td>
-                                      <!-- 通过则进入演员数据库 -->
-                                      <button class="project-edit small yes" id="<%= actor["AUID"] %>">通过</button>
-                                      <button class="project-edit small no" id="<%= actor["AUID"] %>">不通过</button>
-                                  </td>
-                              </tr>
-                          <% }) %>
-                      <% } %>
-                      </tbody>
-                   </table>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>星标</th>
+                            <th>头像</th>
+                            <th>昵称</th>
+                            <th>真实姓名</th>
+                            <th>性别</th>
+                            <th>邮箱</th>
+                            <th>手机</th>
+                            <th>角色</th>
+                            <th>查看</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (actors.length == 0) { %>
+                            <tr>
+                                <td>当前没有演员报名</td>
+                            </tr>
+                        <% } else { %>
+                            <% actors.forEach(function (actor, i) { %>
+                                <tr>
+                                    <td><%= i %></td>
+                                    <td><img src="<%= actor["avatar"] %>"/></td>
+                                    <td><%= actor["nickname"] %></td>
+                                    <td><%= actor["name"] %></td>
+                                    <td><%= (actor["sex"] == 0) ? "男" : "女" %></td>
+                                    <td><%= actor["email"] %></td>
+                                    <td><%= actor["phone"] %></td>
+                                    <td><%= (actor["role"] == 0) ? "主角" : (actor["role"] == 1) ? "配角" : "群演" %></td>
+                                    <td>
+                                        <button onclick="loadUser('<%= actor["UUID"] %>')">详情</button>
+                                    </td>
+                                    <td>
+                                        <button onclick="loadSend"
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        <% } %>
+                    </tbody>
+                </table>
             </div>
         </main>
     </body>
     <script src="../js/admin/basic.js"></script>
     <script>
         $(function () {
-            ArticleList.initiate();
-            ApplicationList.initiate();
-            $('#filter').DataTable();
+            // ArticleList.initiate();
+            // ApplicationList.initiate();
+            // $('#filter').DataTable();
         });
-
-        var ArticleList = {
-            initiate: function () {
-                this.initiateClick();
-            },
-            initiateClick: function () {
-                $("#article-list .article").click(function () {
-                    var id = $(this).attr("id");
-                    window.location.href = "actor_manage.html?a=" + id;
-                })
-            }
-        }
-        var ApplicationList = {
-            initiate: function () {
-                this.initiateApprove();
-                this.initiateReject();
-            },
-            initiateApprove: function () {
-                $(".yes").click(function () {
-                    var AUID = $(this).attr("id");
-                    if(AUID!=""){
-                        alert("修改成功!");
-                    }
-                    window.location.href = "success.html?a=" + AUID;
-                })
-            },
-            initiateReject: function () {
-                $(".no").click(function () {
-                    var AUID = $(this).parent().parent().attr("id");
-                    if(AUID!=""){
-                        alert("修改成功!");
-                    }
-                    window.location.href = "reject.html?a=" + AUID;
-                })
-            }
+        
+        function loadUser(UUID) {
+            
         }
     </script>
 </html>

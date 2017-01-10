@@ -3,6 +3,16 @@ var mysql = require("../module/mysql.js");
 var User = require("./user.js");
 
 module.exports = {
+    getAllActors: function (callback) {
+        mysql.query("SELECT `user`.`UUID`, `user`.`nickname`, `user`.`avatar`, `actor`.`name`, `actor`.`sex`, `actor`.`email`, `actor`.`phone`, `actor`.`role` FROM `actor` INNER JOIN `user` ON `actor`.`UUID` = `user`.`UUID`", {}, function (err, result) {
+            if (err) {
+                callback(null);
+            }
+            else {
+                callback(result);
+            }
+        })
+    },
     getInfo: function (UUID, callback) {
         mysql.query("SELECT `name`, `sex`, `email`, `phone`, `role`, `recommender`, `intro`, `image` FROM `actor` WHERE ?", {
             "UUID": UUID

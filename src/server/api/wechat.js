@@ -20,6 +20,9 @@ module.exports = {
     accessToken: undefined,
     logTime: undefined,
     expiresIn: undefined,
+    appliedTagId: undefined,
+    actorTagId: undefined,
+    clientTagId: undefined,
     menu: {
         "button": [
             {
@@ -78,6 +81,7 @@ module.exports = {
         var self = this;
         this.refreshAccessToken(function () {
             self.initiateMenu();
+            self.initiateTags();
             // self.initiatePastUsers();
         });
     },
@@ -145,10 +149,76 @@ module.exports = {
                 callback(data);
             }
             else {
-                throw new Error("Error: " + (new Date()).toString() + " - Error when requesting wechat user " + openId + ".");
                 console.log(error);
+                throw new Error("Error: " + (new Date()).toString() + " - Error when requesting wechat user " + openId + ".");
             }
         });
+    },
+    initiateTags: function () {
+        var self = this;
+        this.getUserTags(function (tags) {
+            for (var i = 0; i < tags.length; i++) {
+                switch (tags[i]["name"]) {
+                    case "客户": self.clientTagId = tags[i]["value"]; break;
+                    case "报名": self.appliedTagId = tags[i]["value"]; break;
+                    case "演员": self.actorTagId = tags[i]["value"]; break;
+                }
+            }
+            console.log("Successfully get user tag ids " + JSON.stringify(tags));
+        });
+    },
+    getUserTags: function (callback) {
+        var url = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token=" + this.accessToken;
+        request(url, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var data = JSON.parse(body);
+                callback(data["tags"]);
+            }
+            else {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    var data = JSON.parse(body);
+                    console.log("Error " + data["errcode"] + ": " + data["errmsg"]);
+                }
+            }
+        });
+    },
+    updateUserTagToApplied: function (openId, callback) {
+        this.updateUserTag(openId, this.appliedTagId, callback);
+    },
+    updateUserTagToActor: function (openId, callback) {
+        this.updateUserTag(openId, this.actorTagId, callback);
+    },
+    updateUserTagToClient: function (openId, callback) {
+        this.updateUserTag(openId, this.clientTagId, callback);
+    },
+    updateUserTag: function (openId, tagId, callback) {
+        var url = "https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=" + this.accessToken;
+        request.post({
+            url: url,
+            form: {
+                openid_list: [
+                    openId
+                ],
+                tagid: tagId
+            }
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var data = JSON.parse(body);
+                if (data["errcode"] == 0) {
+                    callback(true);
+                }
+                else {
+                    console.log("Error " + data["errcode"] + ": " + data["errmsg"]);
+                    callback(false);
+                }
+            }
+            else {
+                console.log(error);
+            }
+        })
     },
     requestToken: function (callback) {
         var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + config["wechat_appid"] + "&secret=" + config["wechat_appsecret"];
