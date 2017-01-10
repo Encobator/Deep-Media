@@ -75,7 +75,7 @@ module.exports = {
         var self = this;
         this.refreshAccessToken(function () {
             self.initiateMenu();
-            self.initiatePastUsers();
+            // self.initiatePastUsers();
         });
     },
     refreshAccessToken: function (callback) {

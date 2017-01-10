@@ -272,6 +272,9 @@ module.exports = {
             expires: new Date(Date.now() + 1000 * 60 * 60 * 24)
         });
     },
+    clearSession: function (res) {
+        res.clearCookie("session");
+    },
     updateSession: function (username, callback) {
         mysql.query("UPDATE `user` SET `session_start` = NOW() WHERE ?", {
             "username": username
