@@ -16,7 +16,7 @@ module.exports = {
             else {
                 callback(result);
             }
-        })
+        });
     },
     getUUID: function (openId, callback) {
         mysql.query("SELECT `UUID` FROM `user` WHERE ?", {
@@ -307,7 +307,7 @@ module.exports = {
                     }
                 }
             }
-        })
+        });
     },
     changePassword: function (session, password, callback) {
         var encrypted = crypto.genEncrypted(password);
@@ -347,7 +347,7 @@ module.exports = {
                     callback(1);
                 }
             }
-        })
+        });
     },
     getProjects: function (UUID, callback) {
         mysql.query("SELECT `PUID` FROM `project` WHERE ?", {

@@ -144,6 +144,7 @@ module.exports = {
         })
     },
     addProgress: function (PUID, title, content, callback) {
+        var self = this;
         mysql.query("INSERT INTO `progress` SET `PPUID` = UUID(), `date_time` = NOW(), ?", {
             "PUID": PUID,
             "title": title,
@@ -153,9 +154,18 @@ module.exports = {
                 callback(false);
             }
             else {
-                callback(true);
+                mysql.query("SELECT `PPUID` FROM `progress` WHERE `id` = LAST_INSERT_ID()", {}, function (err, result) {
+                    if (err || result.length == 0) {
+                        callback(false);
+                    }
+                    else {
+                        self.notifyClient(result[0]["PPUID"], function (success) {
+                            callback(success);
+                        });
+                    }
+                });
             }
-        })
+        }, false);
     },
     deleteProgress: function (PUID, callback) {
         mysql.query("DELETE FROM `progress` WHERE `PUID` = ?", [
@@ -182,6 +192,41 @@ module.exports = {
         })
     },
     notifyClient: function (progressUID, callback) {
-
+        mysql.query("SELECT `progress`.`title` AS `status`, `progress`.`PUID`, `project`.`title` FROM `progress` INNER JOIN `project` ON `project`.`PUID` = `progress`.`PUID` WHERE `PPUID` = ?", [
+            progressUID
+        ], function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(false);
+            }
+            else {
+                if (result.length == 0) {
+                    console.log("No such progress");
+                    callback(false);
+                }
+                else {
+                    var progress = result[0];
+                    mysql.query("SELECT `user`.`openId`, `user`.`nickname` FROM `client` INNER JOIN `user` ON `user`.`UUID` = `client`.`UUID` WHERE `client`.`PUID` = ?", [
+                        progress["PUID"]
+                    ], function (err, result) {
+                        if (err) {
+                            console.log(err);
+                            callback(false);
+                        }
+                        else {
+                            for (var i = 0; i < result.length; i++) {
+                                Wechat.sendProgressTemplateMessage(
+                                    result[i]["openId"],
+                                    result[i]["nickname"],
+                                    progress["PUID"],
+                                    progress["title"],
+                                    progress["status"]
+                                );
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 }

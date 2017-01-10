@@ -13,6 +13,9 @@ function generateWechatRedirectURI(uri) {
 }
 
 module.exports = {
+    templateUrl: "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=",
+    progressTemplateId: "D0YxV7VYxaNT0EslCqr1EneCRBO1qcTwHN76lWcEVyo",
+    applyTemplateId: "-TXRfVA3ur-ZnCLr3f7nj-bVEf2MBlnDSy-r_NcTVyI",
     hasAccessToken: false,
     accessToken: undefined,
     logTime: undefined,
@@ -161,6 +164,54 @@ module.exports = {
     },
     initiatePastUsers: function () {
         require("../scripts/user.js");
+    },
+    generateTemplateUrl: function () {
+        return this.templateUrl + this.accessToken;
+    },
+    sendProgressTemplateMessage: function (openId, nickname, PUID, projectName, status) {
+        var data = {
+            first: {
+                value: "尊敬的" + nickname + "，您的项目状态已更新：",
+                color: "#000000"
+            },
+            keyword1: {
+                value: projectName,
+                color: "#000000"
+            },
+            keyword2: {
+                value: status,
+                color: "#000000"
+            },
+            remark: {
+                value: "请点击此处查看项目状态详情",
+                color: "#000000"
+            }
+        }
+        this.sendTemplateMessage(openId, this.applyTemplateId, "http://mp.deep-media.com/progress.html?p=" + PUID, data);
+    },
+    sendTemplateMessage: function (openId, templateId, url, data) {
+        request.post({
+            url: this.generateTemplateUrl(),
+            form: JSON.stringify({
+                touser: openId,
+                template_id: templateId,
+                url: url,
+                topcolor: "#000000",
+                data: data
+            })
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var ret = JSON.parse(body);
+                if (ret["errcode"] && ret["errcode"] != 0) {
+                    console.log("Error When sending template " + templateId + " to user " + openId + ": " + JSON.stringify(data));
+                    console.log("Error " + ret["errcode"] + ": " + ret["errmsg"]);
+                }
+            }
+            else {
+                console.log("Error When sending template " + templateId + " to user " + openId + ": " + JSON.stringify(data));
+                console.log(error);
+            }
+        });
     }
 }
 
