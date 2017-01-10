@@ -203,11 +203,11 @@ module.exports = {
         });
     },
     saveImage: function (UUID, image, callback) {
-        file.saveImage("user/" + UUID + ".jpg", image, function (success) {
+        file.saveImage("/user/" + UUID + ".jpg", image, function (success) {
             callback(success);
         });
     },
     removeImage: function (UUID) {
-        file.removeImage("user/" + UUID + ".jpg");
+        file.removeImage("/user/" + UUID + ".jpg");
     }
 }
