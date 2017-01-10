@@ -82,6 +82,7 @@ module.exports = {
                                         else {
                                             console.log("5")
                                             res.error(4, "Database error when inserting actor info");
+                                            self.removeImage(UUID);
                                         }
                                     });
                                 }
@@ -94,6 +95,7 @@ module.exports = {
                                         else {
                                             console.log("4")
                                             res.error(4, "Database error when inserting actor info");
+                                            self.removeImage(UUID);
                                         }
                                     });
                                 }
