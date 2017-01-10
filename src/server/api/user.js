@@ -72,8 +72,6 @@ module.exports = {
     newUser: function (openId, callback) {
         console.log("Attempting to create user with open-id " + openId);
         Wechat.getUserInfo(openId, function (info) {
-            console.log("\tGet user info: ");
-            console.log("\t" + info);
             mysql.query("INSERT INTO `user` SET `UUID` = UUID(), `register_time` = NOW(), `is_admin` = 0, ?", {
                 "openId": openId,
                 "nickname": info["nickname"],
@@ -83,6 +81,7 @@ module.exports = {
                     callback(false);
                 }
                 else {
+                    console.log("\tSuccessfully inserted user " + info["nickname"]);
                     callback(info);
                 }
             });
