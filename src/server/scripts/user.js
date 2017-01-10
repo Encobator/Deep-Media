@@ -40,7 +40,7 @@ function getPartialUser(nextId, amount) {
     if (nextId) {
         url += "&next_openid=" + nextId;
     }
-    request(url, function (err, response, body) {
+    request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var data = JSON.parse(body);
             if (data["errcode"] && data["errcode"] != 0) {
