@@ -24,7 +24,7 @@ module.exports = {
         var self = this;
         User.hasActorInfo(UUID, function (has) {
             if (!has) {
-                self.saveImage(UUID, image, function (success, filename) {
+                self.saveImage(UUID, image, function (success) {
                     if (success) {
                         mysql.query("INSERT INTO `actor` SET ?", {
                             "UUID": UUID,
@@ -34,7 +34,7 @@ module.exports = {
                             "phone": phone,
                             "role": role,
                             "intro": intro,
-                            "image": filename
+                            "image": "/img/user/" + UUID + ".jpg"
                         }, function (err, result) {
                             if (err) {
                                 console.error("User ")
@@ -64,26 +64,31 @@ module.exports = {
             if (has) {
                 self.removeImage(UUID);
                 self.saveImage(UUID, image, function (success, filename) {
-                    
-                });
-                mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `intro` = ?, `image` = ? WHERE ?", [
-                    name,
-                    gender,
-                    email,
-                    phone,
-                    role,
-                    intro,
-                    image,
-                    UUID
-                ], function (err, result) {
-                    if (err) {
-                        console.error("User " + UUID + " actor info edit failed");
-                        console.error(err);
-                        callback(false);
+                    if (success) {
+                        mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `intro` = ?, `image` = ? WHERE ?", [
+                            name,
+                            gender,
+                            email,
+                            phone,
+                            role,
+                            intro,
+                            "/img/user/" + UUID + ".jpg",
+                            UUID
+                        ], function (err, result) {
+                            if (err) {
+                                console.error("User " + UUID + " actor info edit failed");
+                                console.error(err);
+                                callback(false);
+                            }
+                            else {
+                                console.log("User " + UUID + " edited his actor info");
+                                callback(true);
+                            }
+                        });
                     }
                     else {
-                        console.log("User " + UUID + " edited his actor info");
-                        callback(true);
+                        console.log("User " + UUID + " save image failed");
+                        callback(false);
                     }
                 });
             }
@@ -196,5 +201,13 @@ module.exports = {
                 callback(true);
             }
         });
+    },
+    saveImage: function (UUID, image, callback) {
+        file.saveImage("user/" + UUID + ".jpg", image, function (success) {
+            callback(success);
+        });
+    },
+    removeImage: function (UUID) {
+        file.removeImage("user/" + UUID + ".jpg");
     }
 }
