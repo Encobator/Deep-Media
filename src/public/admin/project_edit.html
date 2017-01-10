@@ -110,7 +110,7 @@
     <script>
         $(document).ready(function () {
             ProjectEdit.initiate();
-        })
+        });
 
         var ProjectEdit = {
             project: undefined,
@@ -142,7 +142,7 @@
                     var title = $("#article-title").val();
                     var status = parseInt($("#article-status").val());
                     var dateTime = $("#article-date-time").val();
-                    var content = $("#article-content").val();
+                    var discription = $("#article-content").summernote("code");
 
                     if (title == "") {
                         alert("请输入项目名称");
@@ -162,7 +162,7 @@
                         data: {
                             "PUID": ((self.project != undefined) ? self.project : ""),
                             "title": title,
-                            "content": content,
+                            "description": description,
                             "status": status,
                             "date_time": dateTime
                         },

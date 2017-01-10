@@ -186,8 +186,36 @@ module.exports = {
                 value: "请点击此处查看项目状态详情",
                 color: "#000000"
             }
-        }
-        this.sendTemplateMessage(openId, this.applyTemplateId, "http://mp.deep-media.com/progress.html?p=" + PUID, data);
+        };
+        this.sendTemplateMessage(openId, this.progressTemplateId, "http://mp.deep-media.com/progress.html?p=" + PUID, data);
+    },
+    sendApplyTemplateMessage: function (openId, nickname, UUID, date) {
+        var data = {
+            first: {
+                value: "尊敬的" + nickname + "，您的报名已成功提交",
+                color: "#000000"
+            },
+            keyword1: {
+                value: "待通知",
+                color: "#000000"
+            },
+            keyword2: {
+                value: "演员报名",
+                color: "#000000"
+            },
+            keyword3: {
+                value: (Date.parse(date)).toString(),
+                color: "#000000"
+            },
+            remark: {
+                value: "请点击此处查看报名信息详情",
+                color: "#000000"
+            }
+        };
+        this.sendTemplateMessage(openId, this.applyTemplateId, this.menu.button[2].sub_button[1].url, data);
+    },
+    sendNewMovieTemplateMessage: function (openId, nickname, UUID, date) {
+        
     },
     sendTemplateMessage: function (openId, templateId, url, data) {
         request.post({

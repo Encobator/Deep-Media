@@ -47,6 +47,9 @@
                                 <td>
                                     <button class="project-edit small">编辑</button>
                                 </td>
+                                <td>
+                                    <button class="project-progress small">进度管理</button>
+                                </td>
                             </tr>
                         <% }) %>
                     </table>
@@ -64,11 +67,18 @@
             initiate: function () {
                 //this.initiateStatus();
                 this.initiateEdit();
+                this.initiateProgress();
             },
             initiateEdit: function () {
                 $(".project-edit").click(function () {
                     var PUID = $(this).parent().parent().attr("id");
                     window.location.href = "project_edit.html?a=" + PUID;
+                })
+            },
+            initiateProgress: function () {
+                $(".project-edit").click(function () {
+                    var PUID = $(this).parent().parent().attr("id");
+                    window.location.href = "progress_manage.html?a=" + PUID;
                 })
             }
         }
