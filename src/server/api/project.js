@@ -224,6 +224,7 @@ module.exports = {
                                     progress["status"]
                                 );
                             }
+                            callback(true);
                         }
                     });
                 }
