@@ -185,6 +185,18 @@ module.exports = {
             }
         });
     },
+    userApplied: function (openId, callback) {
+        
+    },
+    userIsClient: function (openId, callback) {
+        
+    },
+    userIsActor: function (openId, callback) {
+        
+    },
+    getUserTag: function (openId, callback) {
+        
+    },
     updateUserTagToApplied: function (openId, callback) {
         this.updateUserTag(openId, this.appliedTagId, callback);
     },
