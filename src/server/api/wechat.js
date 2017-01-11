@@ -164,7 +164,7 @@ module.exports = {
                     case "演员": self.actorTagId = tags[i]["value"]; break;
                 }
             }
-            console.log("Successfully get user tag ids " + JSON.stringify(tags));
+            console.log("Successfully get user tag ids");
         });
     },
     getUserTags: function (callback) {

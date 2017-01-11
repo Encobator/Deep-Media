@@ -87,7 +87,6 @@ var xmlTemplate = ['<xml>',
 var compileXml = ejs.compile(xmlTemplate);
 
 function formatMessage(result) {
-    result = result.xml;
     var message = {};
     if (typeof result === 'object') {
         for (var key in result) {
@@ -219,6 +218,7 @@ module.exports = {
         }).on("end", function () {
             parseXml(req.rawbody, {trim: true}, function (err, result) {
                 if (!err) {
+                    result = result.xml;
                     req.body = formatMessage(result);
                 }
                 next();
