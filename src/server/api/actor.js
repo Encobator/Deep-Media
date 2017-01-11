@@ -77,7 +77,7 @@ module.exports = {
             if (has) {
                 self.saveImage(UUID, image, function (success, filename) {
                     if (success) {
-                        mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `recommender` = ?, `intro` = ? WHERE ?", [
+                        mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `recommender` = ?, `intro` = ? WHERE `UUID` = ?", [
                             name,
                             sex,
                             email,
