@@ -11,7 +11,7 @@ module.exports = {
             else {
                 callback(result);
             }
-        })
+        });
     },
     getInfo: function (UUID, callback) {
         mysql.query("SELECT `name`, `sex`, `email`, `phone`, `role`, `recommender`, `intro`, `image` FROM `actor` WHERE ?", {
@@ -28,7 +28,7 @@ module.exports = {
                     callback(null);
                 }
             }
-        })
+        });
     },
     newActor: function (UUID, name, sex, email, phone, role, recommender, intro, image, callback) {
         var self = this;
@@ -123,7 +123,7 @@ module.exports = {
                     }
                 });
             }
-        })
+        });
     },
     applied: function (UUID, RUID, callback) {
         mysql.query("SELECT * FROM `application` WHERE `UUID` = ? AND `RUID` = ?", [
@@ -214,13 +214,11 @@ module.exports = {
         });
     },
     saveImage: function (UUID, image, callback) {
-        if (!image) {
+        if (!image || image == "") {
             callback(true);
         }
         
-        file.saveImage("/user/" + UUID + ".jpg", image, function (success) {
-            callback(success);
-        });
+        file.saveImage("/user/" + UUID + ".jpg", image, callback);
     },
     removeImage: function (UUID) {
         file.removeImage("/user/" + UUID + ".jpg");

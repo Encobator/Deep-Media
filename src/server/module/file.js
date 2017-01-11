@@ -30,7 +30,7 @@ module.exports = {
 
 function decodeBase64Image(data) {
     var matches = data.match(regex);
-    if (matches && matches.length !== 3) {
+    if (!matches || matches.length !== 3) {
         throw new Error('Invalid input string');
     }
     return new Buffer(matches[2], 'base64');
