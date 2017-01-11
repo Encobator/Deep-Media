@@ -9,7 +9,7 @@ module.exports = {
                 callback(null);
             }
             else {
-                console.log(JSON.parse(result));
+                console.log(JSON.stringify(result));
                 callback(result);
             }
         });
