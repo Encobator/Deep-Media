@@ -74,10 +74,9 @@ module.exports = {
         var self = this;
         User.hasActorInfo(UUID, function (has) {
             if (has) {
-                self.removeImage(UUID);
                 self.saveImage(UUID, image, function (success, filename) {
                     if (success) {
-                        mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `recommender` = ?, `intro` = ?, `image` = ? WHERE ?", [
+                        mysql.query("UPDATE `actor` SET `name` = ?, `sex` = ?, `email` = ?, `phone` = ?, `role` = ?, `recommender` = ?, `intro` = ? WHERE ?", [
                             name,
                             sex,
                             email,
@@ -85,7 +84,6 @@ module.exports = {
                             role,
                             recommender,
                             intro,
-                            "/img/user/" + UUID + ".jpg",
                             UUID
                         ], function (err, result) {
                             if (err) {
