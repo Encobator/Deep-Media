@@ -4,11 +4,12 @@ var User = require("./user.js");
 
 module.exports = {
     getAllActors: function (callback) {
-        mysql.query("SELECT `user`.`UUID`, `user`.`nickname`, `user`.`avatar`, `actor`.`name`, `actor`.`sex`, `actor`.`email`, `actor`.`phone`, `actor`.`role` FROM `actor` INNER JOIN `user` ON `actor`.`UUID` = `user`.`UUID`", {}, function (err, result) {
+        mysql.query("SELECT `user`.`UUID`, `user`.`nickname`, `user`.`avatar`, `actor`.`name`, `actor`.`sex`, `actor`.`email`, `actor`.`phone`, `actor`.`role` FROM `actor` INNER JOIN `user` ON `user`.`UUID` = `actor`.`UUID`", {}, function (err, result) {
             if (err) {
                 callback(null);
             }
             else {
+                console.log(JSON.parse(result));
                 callback(result);
             }
         });
