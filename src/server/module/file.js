@@ -19,13 +19,7 @@ module.exports = {
             });
         }
         catch (ex) {
-            if (ex.code == "Not Base64") {
-                callback(true);
-            }
-            else {
-                console.log(ex);
-                callback(false);
-            }
+            callback(false);
         }
     },
     removeImage: function (name) {
@@ -35,10 +29,7 @@ module.exports = {
 
 function decodeBase64Image(data) {
     var matches = data.match(regex);
-    if (!matches) {
-        return new Error("Not Base64");
-    }
-    if (matches.length !== 3) {
+    if (!matches || matches.length !== 3) {
         throw new Error('Invalid input string');
     }
     return new Buffer(matches[2], 'base64');
