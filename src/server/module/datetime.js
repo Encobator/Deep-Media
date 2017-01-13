@@ -1,12 +1,12 @@
 /**
- * 
+ *
  */
 
 var util = require("./util.js");
 var TimeSpan = require("./timespan.js");
 
 /**
- * 
+ *
  */
 module.exports = function () {
     
@@ -14,7 +14,7 @@ module.exports = function () {
      * Export the date to string like: 2016-03-14
      */
     Date.prototype.toDateString = function () {
-        return this.getFullYear() + "-" + util.pad(this.getMonth() + 1) + "-" + util.pad(this.getDate());
+        return this.getFullYear() + "年" + util.pad(this.getMonth() + 1) + "月" + util.pad(this.getDate()) + "日";
     }
     
     /**
