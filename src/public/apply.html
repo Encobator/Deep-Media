@@ -144,8 +144,7 @@
                         callback();
                     }
                     else {
-                        alert("Error: query param CODE not specified");
-                        window.location.href = "404.html";
+                        this.redirectApply();
                     }
                 },
                 initiateAccessToken: function (callback) {
@@ -222,6 +221,24 @@
                 redirectInfo: function () {
                     $.ajax({
                         url: "/ajax/wechat_client?action=get_user_info_uri",
+                        type: "get",
+                        success: function (result) {
+                            var data = JSON.parse(result);
+                            if (data["error_log"] == 0) {
+                                window.location.href = data["content"]["uri"];
+                            }
+                            else {
+                                alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                            }
+                        },
+                        error: function () {
+                            alert("服务器连接错误");
+                        }
+                    });
+                },
+                redirectApply: function () {
+                    $.ajax({
+                        url: "/ajax/wechat_client?action=get_apply_uri",
                         type: "get",
                         success: function (result) {
                             var data = JSON.parse(result);
