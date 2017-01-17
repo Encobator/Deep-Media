@@ -178,7 +178,7 @@
             $("#actor-intro").html(actor["intro"]);
             $("#actor-nickname").html(actor["nickname"]);
             // $("#actor-avatar").src(actor["avatar"]);
-            $("#actor-image").src(actor["image"]);
+            $("#actor-image").attr("src", actor["image"]);
         }
         
         function loadUser(UUID) {
