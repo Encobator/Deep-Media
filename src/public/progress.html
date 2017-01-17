@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <title>深度传媒</title>
+        <link rel="stylesheet" href="css/lib/font-awesome.css" />
+        <script type="text/javascript" src="js/lib/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery.mixitup.js"></script>
+        <link rel="stylesheet" href="css/slicknav.css" />
+        <link rel="stylesheet" href="css/navbar.css" />
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/form.css" />
+
+        <script src="js/vertical-timeline.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/vertical-timeline.css">
+        <script src="js/jquery.barrating.min.js"></script>
+        <link rel="stylesheet" href="css/bars-movie.css">
+        <style>
+
+        .page-title {
+            padding: 10px 5px;
+            margin: 20px 10px;
+            border-bottom: 1px solid rgba(230, 230, 230, 1);
+        }
+
+        .page-title-main {
+            font-size: 18px;
+        }
+
+        .page-title-eng {
+            font-size: 12px;
+            color: rgba(150, 150, 150, 1);
+        }
+        
+        .project {
+            display: flex;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 1);
+            border-bottom: 1px solid rgba(220, 220, 220, 1);
+        }
+        
+        .project-info {
+            width: 70%;
+            overflow: hidden;
+        }
+        
+        .project-title {
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        
+        .project-description {
+            margin-top: 5px;
+            font-size: 11px;
+            line-height: 20px;
+            height: 40px;
+            overflow: hidden;
+            color: rgba(150, 150, 150, 1);
+        }
+        
+        .project-date-time {
+            margin-top: 10px;
+            color: rgba(150, 150, 150, 1);
+        }
+        
+        #progress-list {
+            list-style: none;
+            padding: 20px;
+            margin: 0;
+            margin-left: 30px;
+        }
+
+        .progress {
+            margin-top: 10px;
+            padding: 0 20px 20px;
+            border-left: 1px dashed rgba(185, 32, 52, 1);
+        }
+        
+        .progress + .progress {
+            margin-top: 0;
+        }
+        
+        .progress::before {
+            content: '';
+            display: block;
+            position: absolute;
+            margin-left: -26.5px;
+            margin-top: 4px;
+            width: 8px;
+            height: 8px;
+            border: 2px solid rgba(185, 32, 52, 1);
+            background-color: rgba(185, 32, 52, 1);
+            border-radius: 50%;
+        }
+        
+        .progress + .progress::before {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .progress.deleted.show {
+            display: block !important;
+        }
+
+        .progress.empty, .progress.error {
+            text-align: center;
+        }
+
+        .progress .progress-title i {
+            color: rgba(185, 32, 52, 1);
+            margin-right: 5px;
+        }
+
+        .progress .progress-username {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .progress .dash {
+            margin-left: 10px;
+        }
+
+        .progress .progress-email, .progress .delete-comment {
+            margin-left: 10px;
+        }
+
+        .progress .progress-date-time {
+            margin-left: 20px;
+            color: rgba(150, 150, 150, 1);
+        }
+
+        .progress .progress-content {
+            color: rgba(120, 120, 120, 1);
+            padding: 5px 10px;
+            line-height: 20px;
+        }
+        
+        .progress {
+            
+        }
+        </style>
+    </head>
+    <body>
+        <nav id="navbar">
+            <div id="navbar-left">
+                <a href="branding.html">案例展示</a>
+                <a href="news.html">最新动态</a>
+            </div>
+            <div id="navbar-middle">
+                <img src="img/logo-sm.png" />
+            </div>
+            <div id="navbar-right">
+                <a href="about.html">关于我们</a>
+                <a href="join.html" class="active">加入我们</a>
+            </div>
+        </nav>
+        <main>
+            <section id="project-info-section">
+                <div id="project">
+                    <div id="project-info">
+                        <div id="project-title"></div>
+                        <div id="project-description"></div>
+                        <div id="project-date-time"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="progress-section">
+                <ul id="progress">
+                    <!-- -->
+                </ul>
+            </section>
+        </main>
+        <script type="text/javascript">
+            var ProjectPage = {
+                params: undefined,
+                initiate: function () {
+                    var self = this;
+                    this.initiateParams(function () {
+                        self.initiateProject();
+                    });
+                },
+                initiateParams: function (callback) {
+                    this.params = Utility.getQueryParams();
+                    if (this.params["p"]) {
+                        callback();
+                    }
+                    else {
+                        this.redirectProject();
+                    }
+                },
+                initiateProject: function () {
+                    var self = this;
+                    $.ajax({
+                        url: "/ajax/wechat_client?action=get_project",
+                        type: "post",
+                        data: {
+                            "PUID": this.params.p
+                        },
+                        success: function (result) {
+                            var data = JSON.parse(result);
+                            if (data["error_code"] == 0) {
+                                self.renderProject(data["content"]["project"]);
+                                self.renderProgress(data["content"]["progress"]);
+                            }
+                            else {
+                                alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                                window.location.href = "404.html";
+                            }
+                        },
+                        error: function () {
+                            alert("服务器连接错误，请稍后再试");
+                            window.location.href = "404.html";
+                        }
+                    })
+                },
+                renderProject: function (project) {
+                    $("#project-title").html(project["title"]);
+                    $("#project-description").html(project["description"]);
+                    $("#project-date-time").html(project["start_date_time"]);
+                },
+                renderProgress: function (progresses) {
+                    var html = "";
+                    for (var i = 0; i < progresses.length; i++) {
+                        html += "<li class=\"progress\">"
+                                + "<div class=\"progress-head\">"
+                                    + "<div class=\"progress-title\">" + progresses[i]["title"] + "</div>"
+                                    + "<div class=\"progress-date-time\">" + progresses[i]["date_time"] + "</div>"
+                                + "</div>"
+                                + "<div class=\"progress-content\">" + progresses[i]["content"] + "</div>"
+                            + "</li>";
+                    }
+                    $("#progress").html(html);
+                },
+                redirectProject: function () {
+                    $.ajax({
+                        url: "/ajax/wechat_client?action=get_project_uri",
+                        type: "get",
+                        success: function (result) {
+                            var data = JSON.parse(result);
+                            if (data["error_log"] == 0) {
+                                window.location.href = data["content"]["uri"];
+                            }
+                            else {
+                                alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                            }
+                        },
+                        error: function () {
+                            alert("服务器连接错误");
+                        }
+                    });
+                }
+            }
+            
+            $(function () {
+                ProjectPage.initiate();
+            });
+        </script>
+    </body>
+</html>
