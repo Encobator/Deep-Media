@@ -29,16 +29,25 @@
             color: rgba(150, 150, 150, 1);
         }
         
-        .project {
-            display: flex;
-            padding: 20px;
+        #project-info-section {
             background-color: rgba(255, 255, 255, 1);
             border-bottom: 1px solid rgba(220, 220, 220, 1);
+            padding: 20px;
         }
         
-        .project-info {
-            width: 70%;
-            overflow: hidden;
+        #project-title {
+            line-height: 30px;
+            font-size: 16px;
+        }
+        
+        #project-description {
+            font-size: 11px;
+            color: rgba(150, 150, 150, 1);
+        }
+        
+        #project-date-time {
+            margin-top: 20px;
+            color: rgba(120, 120, 120, 1);
         }
         
         .project-title {
@@ -61,11 +70,11 @@
             color: rgba(150, 150, 150, 1);
         }
         
-        #progress-list {
+        #progress {
             list-style: none;
             padding: 20px;
             margin: 0;
-            margin-left: 30px;
+            overflow: hidden;
         }
 
         .progress {
@@ -132,8 +141,8 @@
             line-height: 20px;
         }
         
-        .progress {
-            
+        .progress .progress-content img {
+            width: 100%;
         }
         </style>
     </head>
@@ -220,8 +229,8 @@
                     for (var i = 0; i < progresses.length; i++) {
                         html += "<li class=\"progress\">"
                                 + "<div class=\"progress-head\">"
-                                    + "<div class=\"progress-title\">" + progresses[i]["title"] + "</div>"
-                                    + "<div class=\"progress-date-time\">" + progresses[i]["date_time"] + "</div>"
+                                    + "<span class=\"progress-title\">" + progresses[i]["title"] + "</span>"
+                                    + "<span class=\"progress-date-time\">" + progresses[i]["date_time"] + "</span>"
                                 + "</div>"
                                 + "<div class=\"progress-content\">" + progresses[i]["content"] + "</div>"
                             + "</li>";

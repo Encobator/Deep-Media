@@ -174,10 +174,14 @@ module.exports = {
             Project.getProjectInfo(req.body["PUID"], function (project) {
                 Project.getProgress(req.body["PUID"], function (progress) {
                     if (project && progress) {
+                        project["start_date_time"] = project["start_date_time"].toDateString();
+                        for (var i = 0; i < progress.length; i++) {
+                            progress[i]["date_time"] = progress[i]["date_time"].toDateString();
+                        }
                         res.success({
                             "project": project,
                             "progress": progress
-                        })
+                        });
                     }
                     else {
                         res.error(2, "Database Error");
