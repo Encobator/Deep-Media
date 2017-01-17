@@ -311,5 +311,44 @@ module.exports = {
                 res.error(1000, "You must login first");
             }
         })
-    }
+    },
+    get_actor_info: function (req, res) {
+        User.loggedIn(req, function (logged) {
+            if (logged) {
+                if (req.body["UUID"]) {
+                    User.getUserInfoByUUID(req.body["UUID"], function (info) {
+                        if (info) {
+                            User.hasActorInfo(info["UUID"], function (has) {
+                                if (has) {
+                                    Actor.getInfo(info["UUID"], function (actor) {
+                                        if (actor) {
+                                            for (var i in actor) {
+                                                info[i] = actor[i];
+                                            }
+                                            res.success(info);
+                                        }
+                                        else {
+                                            res.error(4, "Database error on actor info");
+                                        }
+                                    })
+                                }
+                                else {
+                                    res.error(-1, "No Actor Information");
+                                }
+                            })
+                        }
+                        else {
+                            res.error(3, "Database error on UUID");
+                        }
+                    });
+                }
+                else {
+                    res.error(1, "Must specify UUID");
+                }
+            }
+            else {
+                res.error(1000, "You must login first");
+            }
+        });
+    },
 }

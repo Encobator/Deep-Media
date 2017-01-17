@@ -23,7 +23,6 @@
         <main>
             <div id="main-title">
                 群演报名
-                <button>群发信息</button>
             </div>
             <div id="main-frame">
                 <table id="actors">
@@ -60,9 +59,6 @@
                                     <td>
                                         <button onclick="loadUser('<%= actor["UUID"] %>')">详情</button>
                                     </td>
-                                    <td>
-                                        <button onclick="loadSend"
-                                    </td>
                                 </tr>
                             <% }); %>
                         <% } %>
@@ -70,17 +66,142 @@
                 </table>
             </div>
         </main>
+        <style>
+            .panel {
+                
+            }
+            
+            .panel-mask {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.3);
+                z-index: 127;
+            }
+            
+            .panel-main {
+                position: fixed;
+                left: 50%;
+                margin-left: -384px;
+                width: 768px;
+                margin-top: 100px;
+                background-color: rgba(255, 255, 255, 1);
+                border-radius: 4px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                z-index: 128;
+            }
+            
+            .panel-head {
+                margin: 0 20px;
+                padding: 5px 0;
+                border-bottom: 1px solid rgba(230, 230, 230, 1);
+            }
+            
+            .panel-title {
+                display: inline-block;
+                font-size: 14px;
+                line-height: 40px;
+            }
+            
+            .panel-close {
+                float: right;
+                cursor: pointer;
+            }
+            
+            .panel-close i {
+                line-height: 40px;
+            }
+            
+            .panel-body {
+                padding: 20px;
+            }
+        </style>
+        <div class="panel" id="user-info-panel" hidden="hidden">
+            <div class="panel-mask" onclick="Panel.close('user-info')"></div>
+            <div class="panel-main">
+                <div class="panel-head">
+                    <div class="panel-title">用户信息</div>
+                    <div class="panel-close" onclick="Panel.close('user-info')">
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div><span>微信昵称：</span><span id="actor-nickname"></span></div>
+                    <div><span>姓名：</span><span id="actor-name"></span></div>
+                    <div><span>性别：</span><span id="actor-sex"></span></div>
+                    <div><span>邮箱：</span><span id="actor-email"></span></div>
+                    <div><span>手机：</span><span id="actor-phone"></span></div>
+                    <div><span>希望出演角色：</span><span id="actor-role"></span></div>
+                    <div><span>推荐人：</span><span id="actor-recommender"></span></div>
+                    <div><span>个人简介：</span><span id="actor-intro"></span></div>
+                    <img id="actor-image" src="" />
+                </div>
+            </div>
+        </div>
     </body>
     <script src="../js/admin/basic.js"></script>
     <script>
-        $(function () {
-            // ArticleList.initiate();
-            // ApplicationList.initiate();
-            $('#actors').DataTable();
-        });
+        Panel = {
+            open: function (id) {
+                $("#" + id + "-panel").fadeIn("fast");
+            },
+            close: function (id) {
+                $("#" + id + "-panel").fadeOut("fast");
+            }
+        }
+        
+        function getSex(sex) {
+            switch (sex) {
+                case "0": return "女";
+                case "1": return "男";
+                default: return "未知";
+            }
+        }
+        
+        function getRole(role) {
+            switch (role) {
+                case "0": return "主角";
+                case "1": return "配角";
+                case "2": return "群演"
+            }
+        }
+        
+        function renderActorPanel(actor) {
+            $("#actor-name").html(actor["name"]);
+            $("#actor-sex").html(getSex(actor["sex"]));
+            $("#actor-email").html(actor["email"]);
+            $("#actor-phone").html(actor["phone"]);
+            $("#actor-role").html(getRole(actor["role"]));
+            $("#actor-recommender").html(actor["recommender"]);
+            $("#actor-intro").html(actor["intro"]);
+            $("#actor-nickname").html(actor["nickname"]);
+            $("#actor-avatar").src(actor["avatar"]);
+            $("#actor-image").src(actor["image"]);
+        }
         
         function loadUser(UUID) {
-            
+            $.ajax({
+                url: "/ajax/admin?action=get_actor_info",
+                type: "post",
+                data: {
+                    "UUID": UUID
+                },
+                success: function (result) {
+                    var data = JSON.parse(result);
+                    if (data["error_code"] == 0) {
+                        renderActorPanel(data["content"]);
+                        Panel.open("user-info");
+                    }
+                    else {
+                        alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                    }
+                },
+                error: function () {
+                    alert("服务器连接错误");
+                }
+            });
         }
     </script>
 </html>
