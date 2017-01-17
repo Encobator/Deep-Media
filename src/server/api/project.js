@@ -105,6 +105,7 @@ module.exports = {
                 function process(i) {
                     if (i >= result.length) {
                         callback(result);
+                        return;
                     }
                     mysql.query("SELECT `title` FROM `progress` WHERE `PUID` = ? ORDER BY `date_time` DESC LIMIT 1", [
                         result[i]["PUID"]
