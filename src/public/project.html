@@ -25,21 +25,57 @@
             color: rgba(150, 150, 150, 1);
         }
         
+        #projects {
+            padding: 10px;
+        }
+        
         .project {
             background-color: rgba(255, 255, 255, 1);
             width: calc(100% - 30px);
             padding: 15px;
-            border-bottom: 1px solid rgba(230, 230, 230, 1);
-            display: flex;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(230, 230, 230, 0.5);
         }
         
-        .project-img {
-            width: 80px;
-            height: 60px;
+        .project a {
+            display: flex;
+            width: 100%;
         }
         
         .project-info {
-            
+            width: 70%;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        
+        .project-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .project-description {
+            margin-top: 5px;
+            font-size: 11px;
+            color: rgba(150, 150, 150, 1);
+        }
+        
+        .project-date-time {
+            margin-top: 20px;
+            color: rgba(150, 150, 150, 1);
+        }
+        
+        .project-status {
+            width: 30%;
+            text-align: center;
+        }
+        
+        .project-status .status {
+            display: inline-block;
+            line-height: 30px;
+            padding: 0 15px;
+            border-radius: 3px;
+            border: 1px solid rgba(185, 32, 52, 1);
+            color: rgba(185, 32, 52, 1);
         }
     </style>
 </head>
@@ -73,7 +109,7 @@
             params: undefined,
             accessToken: undefined,
             openId: undefined,
-            UUID: "3a4f1056-d6e7-11e6-a123-00163e18ffbf",
+            UUID: undefined,
             initiate: function () {
                 var self = this;
                 this.initiateParams(function () {
@@ -156,7 +192,12 @@
                     success: function (result) {
                         var data = JSON.parse(result);
                         if (data["error_code"] == 0) {
-                            self.render(data["content"])
+                            if (data["content"].length == 1) {
+                                window.location.href = "progress.html?p=" + data["content"]["PUID"];
+                            }
+                            else {
+                                self.render(data["content"]);
+                            }
                         }
                         else {
                             alert("Error " + data["error_code"] + ": " + data["error_log"]);
@@ -170,14 +211,14 @@
                 })
             },
             render: function (projects) {
-                var html = 0;
+                var html = "";
                 for (var i = 0; i < projects.length; i++) {
                     html += "<li class=\"project\">"
                         + "<a href=\"progress.html?p=" + projects[i]["PUID"] + "\">"
                             + "<div class=\"project-info\">"
                                 + "<div class=\"project-title\">" + projects[i]["title"] + "</div>"
                                 + "<div class=\"project-description\">" + projects[i]["description"] + "</div>"
-                                + "<div class=\"project-date-time\">" + projects[i]["date_time"] + "</div>"
+                                + "<div class=\"project-date-time\">" + projects[i]["start_date_time"] + "</div>"
                             + "</div>"
                             + "<div class=\"project-status\">" + projects[i]["status"] + "</div>"
                         + "</a>"
