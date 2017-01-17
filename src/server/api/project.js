@@ -78,6 +78,7 @@ module.exports = {
         });
     },
     updateProject: function (PUID, title, status, startDateTime, description, callback) {
+        console.log(description);
         mysql.query("UPDATE `project` SET `title` = ?, `status` = ?, `description` = ?, `start_date_time` = ? WHERE `PUID` = ?", [
             title,
             status,

@@ -36,7 +36,7 @@ module.exports = {
         User.loggedIn(req, function (logged) {
             if (logged) {
                 if (req.body["PUID"] == "") {
-                    Project.newProject(req.body["title"], req.body["status"], req.body["content"], req.body["date_time"], function (success) {
+                    Project.newProject(req.body["title"], req.body["status"], req.body["description"], req.body["date_time"], function (success) {
                         if (success) {
                             res.success({});
                         }
@@ -49,7 +49,7 @@ module.exports = {
                     Project.projectExists(req.body["PUID"], function (exists) {
                         if (exists != undefined) {
                             if (exists) {
-                                Project.updateProject(req.body["PUID"], req.body["title"], req.body["status"], req.body["date_time"], req.body["content"], function (success) {
+                                Project.updateProject(req.body["PUID"], req.body["title"], req.body["status"], req.body["date_time"], req.body["description"], function (success) {
                                     if (success) {
                                         res.success({});
                                     }
