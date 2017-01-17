@@ -117,6 +117,9 @@ module.exports = {
                             if (progressTitle.length > 0) {
                                 result[i]["status"] = progressTitle[0]["title"];
                             }
+                            else {
+                                result[i]["status"] = "未开始";
+                            }
                             process(i + 1);
                         }
                     });
