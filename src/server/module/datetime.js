@@ -14,7 +14,7 @@ module.exports = function () {
      * Export the date to string like: 2016-03-14
      */
     Date.prototype.toDateString = function () {
-        return this.getFullYear() + "年" + util.pad(this.getMonth() + 1) + "月" + util.pad(this.getDate()) + "日";
+        return this.getFullYear() + "年" + (this.getMonth() + 1) + "月" + this.getDate() + "日";
     }
     
     /**
