@@ -93,6 +93,37 @@ module.exports = {
             }
         });
     },
+    getClientProject: function (UUID, callback) {
+        mysql.query("SELECT `project`.`PUID`, `project`.`title`, `project`.`description`, `project`.`start_date_time` FROM `client` INNER JOIN `project` ON `project`.`PUID` = `client`.`PUID` WHERE `client`.`UUID` = ?", [
+            UUID
+        ], function (err, result) {
+            if (err) {
+                console.log(err);
+                callback(undefined);
+            }
+            else {
+                function process(i) {
+                    if (i >= result.length) {
+                        callback(result);
+                    }
+                    mysql.query("SELECT `title` FROM `progress` ORDER BY `date_time` DESC LIMIT 1 WHERE `PUID` = ?", [
+                        result[i]["PUID"]
+                    ], function (err, progressTitle) {
+                        if (err) {
+                            callback(undefined);
+                        }
+                        else {
+                            if (progressTitle.length > 0) {
+                                result[i]["status"] = progressTitle[0]["title"];
+                            }
+                            process(i + 1);
+                        }
+                    });
+                }
+                process(0);
+            }
+        })
+    },
     getProjectClient: function (PUID, callback) {
         mysql.query("SELECT `user`.`UUID`, `user`.`avatar`, `user`.`nickname` FROM `client` INNER JOIN `user` ON `user`.`UUID` = `client`.`UUID` WHERE `client`.`PUID` = ?", [
             PUID

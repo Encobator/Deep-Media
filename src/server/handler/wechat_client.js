@@ -3,6 +3,7 @@ var config = require("../data/config.json");
 var Wechat = require("../api/wechat.js");
 var User = require("../api/user.js");
 var Actor = require("../api/actor.js");
+var Project = require("../api/project.js");
 
 module.exports = {
     grant_credential: function (req, res) {
@@ -25,6 +26,23 @@ module.exports = {
         }
         else {
             res.error(1, "Must Specify CODE");
+        }
+    },
+    get_uuid: function (req, res) {
+        if (req.body["open_id"]) {
+            User.getUUID(req.body["open_id"], function (UUID) {
+                if (UUID) {
+                    res.success({
+                        "UUID": UUID
+                    })
+                }
+                else {
+                    res.error(2, "This open_id does not exists");
+                }
+            });
+        }
+        else {
+            res.error(1, "Must Specify openid");
         }
     },
     get_user_info: function (req, res) {
@@ -124,6 +142,51 @@ module.exports = {
     get_apply_uri: function (req, res) {
         res.success({
             "uri": Wechat.menu.button[2].sub_button[1].url
-        })
+        });
+    },
+    get_project_uri: function (req, res) {
+        res.success({
+            "uri": Wechat.menu.button[2].sub_button[2].url
+        });
+    },
+    get_client_project: function (req, res) {
+        if (req.body["UUID"]) {
+            Project.getClientProject(req.body["UUID"], function (projects) {
+                if (projects) {
+                    if (projects.length > 0) {
+                        res.success(projects);
+                    }
+                    else {
+                        res.error(3, "您当前没有任何正在进行的项目");
+                    }
+                }
+                else {
+                    res.error(2, "Database Error");
+                }
+            })
+        }
+        else {
+            res.error(1, "Must specify UUID");
+        }
+    },
+    get_project: function (req, res) {
+        if (req.body["PUID"]) {
+            Project.getProjectInfo(req.body["PUID"], function (project) {
+                Project.getProgress(req.body["PUID"], function (progress) {
+                    if (project && progress) {
+                        res.success({
+                            "project": project,
+                            "progress": progress
+                        })
+                    }
+                    else {
+                        res.error(2, "Database Error");
+                    }
+                });
+            })
+        }
+        else {
+            res.error(1, "Must specify PUID");
+        }
     }
 }

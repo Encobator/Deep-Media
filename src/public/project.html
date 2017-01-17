@@ -12,27 +12,40 @@
     <link rel="stylesheet" href="css/navbar.css" />
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/form.css" />
-
     <script src="js/vertical-timeline.js"></script>
     <link rel="stylesheet" type="text/css" href="css/vertical-timeline.css">
     <script src="js/jquery.barrating.min.js"></script>
     <link rel="stylesheet" href="css/bars-movie.css">
     <style>
-
-    .page-title {
-        padding: 10px 5px;
-        margin: 20px 10px;
-        border-bottom: 1px solid rgba(230, 230, 230, 1);
-    }
-
-    .page-title-main {
-        font-size: 18px;
-    }
-
-    .page-title-eng {
-        font-size: 12px;
-        color: rgba(150, 150, 150, 1);
-    }
+        .page-title {
+            padding: 10px 5px;
+            margin: 20px 10px;
+            border-bottom: 1px solid rgba(230, 230, 230, 1);
+        }
+        .page-title-main {
+            font-size: 18px;
+        }
+        .page-title-eng {
+            font-size: 12px;
+            color: rgba(150, 150, 150, 1);
+        }
+        
+        .project {
+            background-color: rgba(255, 255, 255, 1);
+            width: calc(100% - 30px);
+            padding: 15px;
+            border-bottom: 1px solid rgba(230, 230, 230, 1);
+            display: flex;
+        }
+        
+        .project-img {
+            width: 80px;
+            height: 60px;
+        }
+        
+        .project-info {
+            
+        }
     </style>
 </head>
 <body>
@@ -51,79 +64,155 @@
     </nav>
     <main>
         <div class="page-title">
-            <div class="page-title-main">您的项目 - <%= project_name %> </div>
+            <div class="page-title-main">您的项目</div>
             <div class="page-title-eng">Project</div>
         </div>
-          <!--
-            <p style="text-align:center">双击评分，让我们看到您的想法！</p>
-            <div class="rating_container">
-              <select id="rating">
-                <option value="1">给我更努力一些！</option>
-                <option value="2">这进度，勉勉强强</option>
-                <option value="3" selected>嗯，再接再厉</option>
-                <option value="4">干得不错！</option>
-                <option value="5">这效率简直出乎意料！</option>
-              </select>
-            </div>
-          -->
-            <div id="progress">
-                <% for (var i=0; i<progress.size; i++){ %>
-                    <div id="<%= progress[i].PPUID %>" data-vtdate="<%= progress[i].date_time %>">
-                          <%= progress[i].description %>
-                    </div>
-                <% } %>
-            </div>
-            <div style="margin-bottom: 30px;"></div>
+        <div>
+            <ul id="projects">
+                <!-- -->
+            </ul>
         </div>
     </main>
-
     <script type="text/javascript">
-
-        $('body').css('display', 'none');
-        $('body').fadeIn(300);
-
-        $('#rating').barrating({
-            theme: 'bars-movie'
+        var ProjectPage = {
+            params: undefined,
+            accessToken: undefined,
+            openId: undefined,
+            UUID: "3a4f1056-d6e7-11e6-a123-00163e18ffbf",
+            initiate: function () {
+                var self = this;
+                this.initiateParams(function () {
+                    self.initiateAccessToken(function () {
+                        self.initiateUUID(function () {
+                            self.initiateProject();
+                        });
+                    });
+                });
+            },
+            initiateParams: function (callback) {
+                this.params = Utility.getQueryParams();
+                if (this.params["code"]) {
+                    callback();
+                }
+                else {
+                    this.redirectProject();
+                }
+            },
+            initiateAccessToken: function (callback) {
+                var self = this;
+                $.ajax({
+                    url: "/ajax/wechat_client?action=grant_credential",
+                    type: "post",
+                    data: {
+                        code: this.params["code"]
+                    },
+                    success: function (result) {
+                        var data = JSON.parse(result);
+                        if (data["error_code"] == 0) {
+                            var content = data["content"];
+                            self.accessToken = content["access_token"];
+                            self.openId = content["openid"];
+                            callback();
+                        }
+                        else {
+                            alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                            window.location.href = "404.html";
+                        }
+                    },
+                    error: function () {
+                        alert("服务器连接错误，请稍后再试");
+                        window.location.href = "404.html";
+                    }
+                });
+            },
+            initiateUUID: function (callback) {
+                var self = this;
+                $.ajax({
+                    url: "/ajax/wechat_client?action=get_uuid",
+                    type: "post",
+                    data: {
+                        "open_id": this.openId
+                    },
+                    success: function (result) {
+                        var data = JSON.parse(result);
+                        if (data["error_code"] == 0) {
+                            self.UUID = data["content"]["UUID"];
+                            callback();
+                        }
+                        else {
+                            alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                            window.location.href = "404.html";
+                        }
+                    },
+                    error: function () {
+                        alert("服务器连接错误，请稍后再试");
+                        window.location.href = "404.html";
+                    }
+                });
+            },
+            initiateProject: function () {
+                var self = this;
+                $.ajax({
+                    url: "/ajax/wechat_client?action=get_client_project",
+                    type: "post",
+                    data: {
+                        "UUID": this.UUID
+                    },
+                    success: function (result) {
+                        var data = JSON.parse(result);
+                        if (data["error_code"] == 0) {
+                            self.render(data["content"])
+                        }
+                        else {
+                            alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                            window.location.href = "404.html";
+                        }
+                    },
+                    error: function () {
+                        alert("服务器连接错误，请稍后再试");
+                        window.location.href = "404.html";
+                    }
+                })
+            },
+            render: function (projects) {
+                var html = 0;
+                for (var i = 0; i < projects.length; i++) {
+                    html += "<li class=\"project\">"
+                        + "<a href=\"progress.html?p=" + projects[i]["PUID"] + "\">"
+                            + "<div class=\"project-info\">"
+                                + "<div class=\"project-title\">" + projects[i]["title"] + "</div>"
+                                + "<div class=\"project-description\">" + projects[i]["description"] + "</div>"
+                                + "<div class=\"project-date-time\">" + projects[i]["date_time"] + "</div>"
+                            + "</div>"
+                            + "<div class=\"project-status\">" + projects[i]["status"] + "</div>"
+                        + "</a>"
+                    + "</li>";
+                }
+                $("#projects").html(html);
+            },
+            redirectProject: function () {
+                $.ajax({
+                    url: "/ajax/wechat_client?action=get_project_uri",
+                    type: "get",
+                    success: function (result) {
+                        var data = JSON.parse(result);
+                        if (data["error_log"] == 0) {
+                            window.location.href = data["content"]["uri"];
+                        }
+                        else {
+                            alert("Error " + data["error_code"] + ": " + data["error_log"]);
+                        }
+                    },
+                    error: function () {
+                        alert("服务器连接错误");
+                    }
+                });
+            }
+        }
+        
+        $(function () {
+            ProjectPage.initiate();
         });
-        $.event.special.doubletap = {
-           bindType: 'touchend',
-           delegateType: 'touchend',
-
-           handle: function(event) {
-             var handleObj   = event.handleObj,
-                 targetData  = jQuery.data(event.target),
-                 now         = new Date().getTime(),
-                 delta       = targetData.lastTouch ? now - targetData.lastTouch : 0,
-                 delay       = delay == null ? 300 : delay;
-
-             if (delta < delay && delta > 30) {
-               targetData.lastTouch = null;
-               event.type = handleObj.origType;
-               ['clientX', 'clientY', 'pageX', 'pageY'].forEach(function(property) {
-                 event[property] = event.originalEvent.changedTouches[0][property];
-               })
-
-               // let jQuery handle the triggering of "doubletap" event handlers
-               handleObj.handler.apply(this, arguments);
-             } else {
-               targetData.lastTouch = now;
-             }
-           }
-         };
-
-        $('.br-widget a').dblclick(function(){
-            alert("感谢您的评价！");
-        });
-        $('.br-widget a').on("doubletap", function(){
-            alert("感谢您的评价！");
-        });
-
-        $('#progress').verticalTimeline({
-            startSide: 'right',
-            alternate: false
-        });
-
     </script>
-
 </body>
 </html>
