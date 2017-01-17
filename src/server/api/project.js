@@ -108,7 +108,7 @@ module.exports = {
                         callback(result);
                         return;
                     }
-                    result[i]["start_date_time"] = new Date(Date.parse(result[i]["start_date_time"])).toDateString();
+                    result[i]["start_date_time"] = result[i]["start_date_time"].toDateString();
                     mysql.query("SELECT `title` FROM `progress` WHERE `PUID` = ? ORDER BY `date_time` DESC LIMIT 1", [
                         result[i]["PUID"]
                     ], function (err, progressTitle) {
