@@ -192,12 +192,12 @@
                     success: function (result) {
                         var data = JSON.parse(result);
                         if (data["error_code"] == 0) {
-                            if (data["content"].length == 1) {
-                                window.location.href = "progress.html?p=" + data["content"]["PUID"];
-                            }
-                            else {
+                            // if (data["content"].length == 1) {
+                            //     window.location.href = "progress.html?p=" + data["content"]["PUID"];
+                            // }
+                            // else {
                                 self.render(data["content"]);
-                            }
+                            // }
                         }
                         else {
                             alert("Error " + data["error_code"] + ": " + data["error_log"]);
