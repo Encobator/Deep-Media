@@ -146,8 +146,8 @@
                             callback();
                         }
                         else {
-                            alert("Error " + data["error_code"] + ": " + data["error_log"]);
-                            window.location.href = "404.html";
+                            console.log("Error " + data["error_code"] + ": " + data["error_log"]);
+                            self.redirectProject();
                         }
                     },
                     error: function () {
